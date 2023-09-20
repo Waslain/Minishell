@@ -4,7 +4,7 @@ EXEC	= minishell
 
 INCLUDES		= ./includes/
 
-SRCS = ./main.c
+SRCS = ./main.c ./utils.c ./ft_split.c ./exec.c ./libft.c ./newpipe.c
 
 OBJS = ${SRCS:.c=.o}
 
@@ -13,10 +13,10 @@ all : $(EXEC)
 
 
 $(EXEC) : $(OBJS)
-	$(CC) $(CFLAGS) -pthread $^ -o $(EXEC) -I $(INCLUDES) -g
+	$(CC) $(CFLAGS) -g3 $^ -o $(EXEC) -I $(INCLUDES) -g -lreadline
 
 .c.o:
-	$(CC) $(CFLAGS) -pthread -c $^ -o $@ -I $(INCLUDES) -g
+	$(CC) $(CFLAGS) -g3 -c $^ -o $@ -I $(INCLUDES) -g
 
 clean :
 	rm -rf $(OBJS)
