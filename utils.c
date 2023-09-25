@@ -20,15 +20,6 @@ void	freeall(char **cmd, char **paths, char *bin)
 	free(bin);
 }
 
-t_data	get_args(int argc, char **argv)
-{
-	t_data	tmp;
-
-	tmp.argc = argc;
-	tmp.argv = argv;
-	return (tmp);
-}
-
 t_data	get_envp(char **envp)
 {
 	t_data	tmp;
