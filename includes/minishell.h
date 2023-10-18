@@ -8,7 +8,11 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <unistd.h>
+# include <signal.h>
+# include <stdlib.h>
 
 extern int	g_error;
 
@@ -38,34 +42,55 @@ int			is_delimiter(char *lex);
 
 /*					EXEC FUNCTIONS						*/
 void		print_error(char *str);
+//exec/exec_no_pipe.c
+void		exec_no_pipe(t_data *data, char **lex);
+//Builtin/builtin.c
+int			is_builtin(char *str);
+int			exec_builtin(t_data *data, char *cmd);
+//Builtin/echo.c
+void		builtin_echo(t_data *data);
+//Builtin/pwd.c
+int			builtin_pwd(void);
+//Builtin/env.c
+void		builtin_env(t_data *data);
+//Builtin/exit.c
+void		builtin_exit();
 
 //exec.c
-char	*get_bin(char *cmd, char **paths);
-char	*get_line(t_data *data);
-char	**get_paths(t_data *data);
+char		*get_bin(char *cmd, char **paths);
+char		*get_line(t_data *data);
+char		**get_paths(t_data *data);
 
 //libft.c
-size_t	ft_strlen(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strnstr(const char *str, const char *to_find, size_t len);
-char	*ft_strdup(const char *src);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t		ft_strlen(const char *str);
+char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strnstr(const char *str, const char *to_find, size_t len);
+char		*ft_strdup(const char *src);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
 
 //libft1.c
-void	*ft_calloc(size_t nmemb, size_t size);
-int		ft_strcmp(char *s1, char *s2);
+void		*ft_calloc(size_t nmemb, size_t size);
+int			ft_strcmp(char *s1, char *s2);
+size_t		ft_strlcpy(char *dest, const char *src, size_t size);
 
 //newpipe.c
-void	newpipe(t_data *data);
-void	close_pipe(t_data *data);
+void		newpipe(t_data *data);
+void		close_pipe(t_data *data);
 
 //ft_split.c
-char	**ft_split(char const *str, char charset);
+char		**ft_split(char const *str, char charset);
 
 //utils.c
-void	ft_free(char **tab);
-void	freeall(char **cmd, char **paths, char *bin);
-t_data	get_envp(char **envp);
-void	ft_error(const char *str);
+void		ft_free(char **tab);
+void		freeall(char **cmd, char **paths, char *bin);
+t_data		get_envp(char **envp);
+void		ft_error(const char *str);
+
+//signals.c
+void		init_signal(void);
+void		init_signal2(void);
+
+//main.c
+void		execsimplecommand(t_data *data);
 
 #endif

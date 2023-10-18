@@ -31,21 +31,55 @@ void	execsimplecommand(t_data *data)
 	freeall(paths, cmd, bin);
 }
 
-void	minishell(t_data *data)
+int	check_cmd(char *cmd)
+{
+	if (cmd == NULL)
+	{
+		write(1, "exit\n", 5);
+		return (2);
+	}
+	if (ft_strcmp(cmd, "\0") == 0)
+		return (1);
+	add_history(cmd);
+	return (0);
+}
+
+int	minishell(t_data *data)
 {
 	char	*ret;
 	char	**lex;
 
 	ret = readline(BCYN"Minishell $> "CRESET);
+	// printf("read line -> %s\n", ret);
+	if (check_cmd(ret) == 2)
+		return (free(ret), 2);
+	else if (check_cmd(ret) == 1)
+		return (free(ret), 1);
 	data->cmd = ret;
 	data->nb_pipe = nofpipes(ret);
 	data->nb_cmd = data->nb_pipe + 1;
-	// if (data->nb_cmd == 1)
-	// 	execsimplecommand(data);
 	lex = lexer(data->cmd);
-	print_lexer(lex);
+	if (data->nb_cmd == 1)
+		exec_no_pipe(data, lex);
+	// else
+	// 	exec_pipe();
+	// print_lexer(lex);
 	free_lexer(lex);
 	free(ret);
+	return (0);
+}
+
+int	minishell_loop(t_data *data)
+{
+	init_signal();
+	while (1)
+	{
+		if (minishell(data) == 2)
+			return(1);
+		// minishell(data);
+	}
+	rl_clear_history();
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -55,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	data = get_envp(envp);
 	if (argc == 1)
-		minishell(&data);
+		minishell_loop(&data);
 	else
 	{
 		printf("Minishell doesn't take arguments");

@@ -4,7 +4,7 @@ EXEC	= minishell
 
 INCLUDES		= ./includes/
 
-SRCS = ./main.c ./utils.c ./ft_split.c ./exec.c \
+SRCS = ./main.c ./utils.c ./ft_split.c ./exec.c ./signals.c \
 		./lexer/check_char.c \
 		./lexer/check_lexer.c \
 		./lexer/count_token.c \
@@ -13,6 +13,12 @@ SRCS = ./main.c ./utils.c ./ft_split.c ./exec.c \
 		./lexer/is_delimiter.c \
 		./lexer/lexer.c \
 		./exec/exec_error.c \
+		./exec/exec_no_pipe.c \
+		./exec/builtin/builtin.c \
+		./exec/builtin/echo.c \
+		./exec/builtin/pwd.c \
+		./exec/builtin/env.c \
+		./exec/builtin/exit.c \
 		./libft/libft.c \
 		./libft/libft1.c \
 
