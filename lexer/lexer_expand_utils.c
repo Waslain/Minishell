@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   lexer_expand_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,58 +12,70 @@
 
 #include "minishell.h"
 
-void	free_lexer(char **lex)
-{
-	int	i;
-
-	if (lex == NULL)
-		return ;
-	i = 0;
-	while (lex[i] != NULL)
-	{
-		free(lex[i]);
-		i++;
-	}
-	free(lex);
-}
-
-void	print_lexer(char **lex)
+int	skip_to_dollars(char *lex)
 {
 	int	i;
 
 	i = 0;
-	while (lex[i] != NULL)
+	while (lex[i])
 	{
-		printf("lex[%d]=[%s]\n", i, lex[i]);
+		if (lex[i] != '$')
+			i++;
+		else
+			break ;
+	}
+	return (i);
+}
+
+char	*ft_strjoinn(char const *s1, char const *s2, int n)
+{
+	char	*result;
+	int		i;
+	int		y;
+
+	i = 0;
+	y = 0;
+	result = malloc(sizeof(char) * ft_strlen(s1) + n + 2);
+	while (s1[i])
+	{
+		result[i] = s1[i];
 		i++;
 	}
+	while (s2[y] && y <= n)
+	{
+		result[i] = s2[y];
+		i++;
+		y++;
+	}
+	result[i] = '\0';
+	return (result);
 }
 
-char	**get_empty_lexer(void)
+char	*ft_strndup(const char *src, int x)
 {
-	char	**empty_lex;
+	char	*ptr;
+	int		n;
 
-	empty_lex = ft_calloc(1, sizeof(char *));
-	if (empty_lex == NULL)
-		return (NULL);
-	empty_lex[0] = NULL;
-	return (empty_lex);
+	ptr = malloc(sizeof(*ptr) * (x + 2));
+	n = 0;
+	while (src[n] && n <= x)
+	{
+		ptr[n] = src[n];
+		n++;
+	}
+	ptr[n] = '\0';
+	return (ptr);
 }
 
-char	**lexer(char *str)
+void	free_for_expand(char *find, char *findval)
 {
-	char	**lex;
-	int		nb_token;
+	free(find);
+	free(findval);
+}
 
-	nb_token = count_token(str);
-	if (nb_token < 0)
-		return (get_empty_lexer());
-	lex = ft_calloc(nb_token + 1, sizeof(char *));
-	if (lex == NULL)
-		return (get_empty_lexer());
-	if (split_lexer(lex, str) == 0)
-		return (free_lexer(lex), get_empty_lexer());
-	if (check_lexer(lex) == 0)
-		return (free_lexer(lex), get_empty_lexer());
-	return (lex);
+void	free_for_expand_all(char *tmp, char *find, char *findval)
+{
+	free(find);
+	free(findval);
+	free(tmp);
 }

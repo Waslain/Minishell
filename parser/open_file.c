@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_delimiter.c                                     :+:      :+:    :+:   */
+/*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,24 @@
 
 #include "minishell.h"
 
-int	is_delimiter(char *lex)
+void	check_fd_open(int fd)
 {
-	if (ft_strcmp(lex, "<") == 0)
-		return (1);
-	else if (ft_strcmp(lex, ">") == 0)
-		return (1);
-	else if (ft_strcmp(lex, "<<") == 0)
-		return (1);
-	else if (ft_strcmp(lex, ">>") == 0)
-		return (1);
-	else
-		return (0);
+	if (fd > 2)
+		close(fd);
+}
+
+void	open_infile(t_cmd_tab *cmd_tab, t_lexer *lexer)
+{
+	check_fd_open(cmd_tab->in_fd);
+	cmd_tab->in_fd = open(lexer->str, O_RDONLY);
+	if (cmd_tab->in_fd == -1)
+		ft_error("Minishell: openning infile failed");
+}
+
+void	open_outfile(t_cmd_tab *cmd_tab, t_lexer *lexer)
+{
+	check_fd_open(cmd_tab->out_fd);
+	cmd_tab->out_fd = open(lexer->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (cmd_tab->out_fd == -1)
+		ft_error("Minishell: openning outfile failed");
 }

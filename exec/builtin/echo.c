@@ -1,28 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
+/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	check_options(char **cmd, int i)
 {
-	int	x;
-
-	x = 2;
 	if (!cmd[i] || cmd[i][0] != '-' || cmd[i][1] != 'n')
 		return (0);
-	/*while (cmd[i] && cmd[i][x])
-	{
-		if (cmd[i][x] != 'n')
-			return (0);
-		x++;
-	}*/
 	return (1);
 }
 
-void	builtin_echo(t_data *data)
+void	builtin_echo(char **str)
 {
 	char	**cmd;
-	int	i;
-	int	x;
+	int		i;
+	int		x;
 
-	cmd = ft_split(data->cmd, ' ');
+	cmd = str;
 	i = 1;
 	if (check_options(cmd, i) == 1)
 		i++;
@@ -38,6 +41,8 @@ void	builtin_echo(t_data *data)
 			write(1, " ", 1);
 		i++;
 	}
-	if (!check_options(cmd, 1) == 1)
+	if (check_options(cmd, 1) != 1)
 		write(1, "\n", 1);
+	// printf("builtin_echo\n");
+	// ft_free(cmd);
 }

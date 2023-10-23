@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
+/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	is_builtin(char *str)
@@ -14,10 +26,10 @@ int	is_builtin(char *str)
 		return (0);
 }
 
-int	exec_builtin(t_data *data, char *cmd)
+int	exec_builtin(t_data *data, char *cmd, char **str)
 {
 	if (ft_strcmp(cmd, "echo") == 0)
-		builtin_echo(data);
+		builtin_echo(str);
 	else if (ft_strcmp(cmd, "pwd") == 0)
 		builtin_pwd();
 	else if (ft_strcmp(cmd, "env") == 0)

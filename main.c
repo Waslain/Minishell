@@ -1,6 +1,16 @@
-#include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
+/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	g_error;
+#include "minishell.h"
 
 int	nofpipes(char *cmd)
 {
@@ -18,19 +28,6 @@ int	nofpipes(char *cmd)
 	return (x);
 }
 
-void	execsimplecommand(t_data *data)
-{
-	char	**paths;
-	char	**cmd;
-	char	*bin;
-
-	cmd = ft_split(data->cmd, ' ');
-	paths = get_paths(data);
-	bin = get_bin(cmd[0], paths);
-	execve(bin, cmd, data->envp);
-	freeall(paths, cmd, bin);
-}
-
 int	check_cmd(char *cmd)
 {
 	if (cmd == NULL)
@@ -44,13 +41,15 @@ int	check_cmd(char *cmd)
 	return (0);
 }
 
+// printf("read line -> %s\n", ret);
+// print_lexer(lex);
+
 int	minishell(t_data *data)
 {
 	char	*ret;
 	char	**lex;
 
 	ret = readline(BCYN"Minishell $> "CRESET);
-	// printf("read line -> %s\n", ret);
 	if (check_cmd(ret) == 2)
 		return (free(ret), 2);
 	else if (check_cmd(ret) == 1)
@@ -58,12 +57,11 @@ int	minishell(t_data *data)
 	data->cmd = ret;
 	data->nb_pipe = nofpipes(ret);
 	data->nb_cmd = data->nb_pipe + 1;
-	lex = lexer(data->cmd);
+	lex = clear_lex(data, data->cmd);
 	if (data->nb_cmd == 1)
 		exec_no_pipe(data, lex);
-	// else
-	// 	exec_pipe();
-	// print_lexer(lex);
+	else
+		exec_pipe(data, lex, data->nb_pipe);
 	free_lexer(lex);
 	free(ret);
 	return (0);
@@ -75,24 +73,26 @@ int	minishell_loop(t_data *data)
 	while (1)
 	{
 		if (minishell(data) == 2)
-			return(1);
-		// minishell(data);
+			return (ft_free(data->envp), free(data), 1);
 	}
 	rl_clear_history();
+	ft_free(data->envp);
+	free(data);
 	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	data;
+	t_data	*data;
 
 	(void)argv;
-	data = get_envp(envp);
+	data = malloc(sizeof(t_data));
+	data = get_envp(data, envp);
 	if (argc == 1)
-		minishell_loop(&data);
+		minishell_loop(data);
 	else
 	{
 		printf("Minishell doesn't take arguments");
-		return (-1);
+		return (ft_free(data->envp), free(data), -1);
 	}
 }

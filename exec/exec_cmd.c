@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_delimiter.c                                     :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,16 +12,28 @@
 
 #include "minishell.h"
 
-int	is_delimiter(char *lex)
+void	execsimplecommand(t_data *data)
 {
-	if (ft_strcmp(lex, "<") == 0)
-		return (1);
-	else if (ft_strcmp(lex, ">") == 0)
-		return (1);
-	else if (ft_strcmp(lex, "<<") == 0)
-		return (1);
-	else if (ft_strcmp(lex, ">>") == 0)
-		return (1);
-	else
-		return (0);
+	char	**paths;
+	char	**cmd;
+	char	*bin;
+
+	cmd = ft_split(data->cmd, ' ');
+	paths = get_paths(data);
+	bin = get_bin(cmd[0], paths);
+	execve(bin, cmd, data->envp);
+	freeall(paths, cmd, bin);
+}
+
+void	execcommand(char *str, t_data *data)
+{
+	char	**paths;
+	char	**cmd;
+	char	*bin;
+
+	cmd = ft_split(str, ' ');
+	paths = get_paths(data);
+	bin = get_bin(cmd[0], paths);
+	execve(bin, cmd, data->envp);
+	freeall(paths, cmd, bin);
 }

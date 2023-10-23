@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_lexer.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
+/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static void	print_delimiter_error(char *delimiter)
 {
-	print_error("minishell: syntax error near unexpected token `");
+	print_error("minishell: syntax error near unexpected token '");
 	print_error(delimiter);
 	print_error("'\n");
-	g_error = 2;
+	exit(0);
 }
 
 static int	check_pipe(char **lex)
