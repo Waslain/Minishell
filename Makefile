@@ -32,6 +32,9 @@ $(NAME)	: $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS)
 	@echo "Executable created"
 
+leak	: $(NAME)
+	valgrind --leak-check=full --track-origins=yes ./$(NAME)
+
 clean	:
 	@rm -rf $(OBJS_PATH) $(OBJS) $(DEPS)
 	@echo "Objects deleted"
