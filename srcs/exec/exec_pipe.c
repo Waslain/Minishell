@@ -24,60 +24,6 @@ void	print_all_cmd_tab(t_cmd_tab *cmd_tab)
 	}
 }
 
-void	child_process(t_cmd_tab *cmd_tab, t_data *data)
-{
-	pid_t	pid;
-	int		fd[2];
-	// char	**cmd;
-
-	// cmd = ft_split(data->cmd, ' ');
-	if (pipe(fd) == -1)
-		ft_error("pipe failed");
-	pid = fork();
-	if (pid == -1)
-		ft_error("fork failed");
-	if (pid == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-		if (cmd_tab->out_fd != -1)
-		{
-			dup2(cmd_tab->out_fd, STDOUT_FILENO);
-			close(cmd_tab->out_fd);
-		}
-		// if (is_builtin(cmd[0]))
-		// {
-		// 	exec_builtin(data, cmd[0], cmd);
-		// 	return ;
-		// }
-		// ft_free(cmd);
-		execcommand(cmd_tab->cmd, data);
-	}
-	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		// waitpid(pid, NULL, 0);
-	}
-}
-
-void	execution(t_cmd_tab  *cmd_tab, t_data *data, int nop)
-{
-	dup2(cmd_tab->in_fd, STDIN_FILENO);
-	close(cmd_tab->in_fd);
-	while (nop > 0)
-	{
-		child_process(cmd_tab, data);
-		cmd_tab = cmd_tab->next;
-		nop--;
-	}
-	dup2(cmd_tab->out_fd, STDOUT_FILENO);
-	close(cmd_tab->out_fd);
-	execcommand(cmd_tab->cmd, data);
-}
-
 // void	print_lexlst(t_lexer *lexer)
 // {
 // 	int	i;
@@ -120,12 +66,14 @@ void	exec_pipe(t_data *data, char **lex, int nop)
 	// print_lexlst(lexer);
 	cmd_tab = init_cmd_tab(lexer, nop);
 	// printf("IN_ID%d\n", cmd_tab->in_fd);
-	// print_all_cmd_tab(cmd_tab);
-	pid = fork();
-	if (pid == 0)
-		execution(cmd_tab, data, nop);
-	// wait(&pid);
-	waitpid(pid, NULL, 0);
+	print_all_cmd_tab(cmd_tab);
+	/*
+	EXEC ICIIIIIIIIIIIIIIIIIIIIIIII
+	EXEC ICIIIIIIIIIIIIIIIIIIIIIIII
+	EXEC ICIIIIIIIIIIIIIIIIIIIIIIII
+	EXEC ICIIIIIIIIIIIIIIIIIIIIIIII
+	EXEC ICIIIIIIIIIIIIIIIIIIIIIIII
+	*/
 	free_cmd_tab(cmd_tab);
 	free_lex(lexer);
 }

@@ -16,7 +16,7 @@ void	builtin_env(t_data *data)
 {
 	int	i;
 
-	i = 1;
+	i = 0;
 	while (data->envp[i])
 	{
 		printf("%s\n", data->envp[i]);

@@ -37,8 +37,6 @@ typedef struct s_lexer
 
 typedef struct s_cmd_tab
 {
-	int					in_fd;
-	int					out_fd;
 	char				*cmd;
 	struct s_cmd_tab	*next;
 }	t_cmd_tab;

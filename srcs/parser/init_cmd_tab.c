@@ -21,8 +21,6 @@ void	free_cmd_tab(t_cmd_tab *cmd_tab)
 		aux = cmd_tab;
 		if (cmd_tab->cmd != NULL)
 			free(cmd_tab->cmd);
-		// check_fd_open(cmd_tab->in_fd);
-		// check_fd_open(cmd_tab->out_fd);
 		cmd_tab = cmd_tab->next;
 		free(aux);
 	}
@@ -36,8 +34,6 @@ t_cmd_tab	*add_cmd(t_cmd_tab *cmd_tab)
 	new_cmd = malloc(sizeof(t_cmd_tab));
 	if (!new_cmd)
 		ft_error("minishell: cmd_tab malloc failed");
-	new_cmd->in_fd = -1;
-	new_cmd->out_fd = -1;
 	new_cmd->cmd = NULL;
 	new_cmd->next = NULL;
 	while (cmd_tab->next != NULL)
@@ -54,8 +50,6 @@ t_cmd_tab	*init_cmd_tab(t_lexer *lexer, int nop)
 	cmd_tab = malloc(sizeof(t_cmd_tab));
 	if (!cmd_tab)
 		ft_error("minishell: cmd_tab malloc failed");
-	cmd_tab->in_fd = -1;
-	cmd_tab->out_fd = -1;
 	cmd_tab->cmd = NULL;
 	cmd_tab->next = NULL;
 	lexer = parse_cmd_tab(cmd_tab, lexer);
