@@ -21,7 +21,8 @@ DEPS		:= $(OBJS:.o=.d)
 
 # Compilator
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -MMD -g3 -I $(INCS_PATH)
+CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		+= -MMD -g3 -I $(INCS_PATH)
 LIBS		= -lreadline
 
 # Rules
@@ -47,3 +48,5 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 		$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY : all clean fclean re
+
+-include $(DEPS)
