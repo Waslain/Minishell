@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/24 12:41:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*expand_if_dollars_exec(t_data *data, char *lex, char *new_lex, int *i)
 	find = get_env_name(&lex[*i + 1]);
 	findval = get_env_var(data, find);
 	if (findval)
-	{					
+	{
 		tmp = new_lex;
 		new_lex = ft_strjoin(new_lex, findval);
 		*i = *i + skip_to_end_var(&lex[*i + 1]) + 1;

@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/24 12:37:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	print_error(char *str)
+{
+	write(2, str, ft_strlen(str));
+}
 
 static void	print_delimiter_error(char *delimiter)
 {

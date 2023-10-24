@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   library.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:32:10 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/24 11:43:24 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/24 11:54:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef LIBRARY_H
+# define LIBRARY_H
 
-# include "colors.h"
-# include "exec.h"
-# include "lexer.h"
-# include "library.h"
-# include "parser.h"
-# include "signal.h"
-# include "token.h"
-# include "utils.h"
-
-enum e_error
-{
-	EXIT_MINISHELL = 2,
-	EMPTY_COMMANDE = 1,
-	NO_ERROR = 0
-};
-
-void		init_signal(void);
-void		init_signal2(void);
+# include <stdlib.h>
+# include <errno.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <signal.h>
+# include <stdlib.h>
 
 #endif

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:11:52 by fduzant           #+#    #+#             */
-/*   Updated: 2022/05/05 12:11:53 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/24 12:20:10 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "utils.h"
 
 static int	ft_is_charset(char str, char charset)
 {

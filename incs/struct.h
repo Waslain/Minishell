@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:32:10 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/24 12:26:03 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
-# include "colors.h"
-# include "exec.h"
-# include "lexer.h"
-# include "library.h"
-# include "parser.h"
-# include "signal.h"
-# include "token.h"
-# include "utils.h"
-
-enum e_error
+typedef struct s_lexer
 {
-	EXIT_MINISHELL = 2,
-	EMPTY_COMMANDE = 1,
-	NO_ERROR = 0
-};
+	char				*str;
+	int					type;
+	struct s_lexer		*next;
+}	t_lexer;
 
-void		init_signal(void);
-void		init_signal2(void);
+typedef struct s_cmd_tab
+{
+	char				*cmd;
+	int					index;
+	struct s_cmd_tab	*next;
+}	t_cmd_tab;
 
+typedef struct s_data
+{
+	char	*cmd;
+	char	**envp;
+	int		nb_cmd;
+	int		nb_pipe;
+	t_lexer	*lexer;
+}	t_data;
 #endif

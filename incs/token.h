@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   token.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:32:10 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/24 11:45:41 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/24 11:47:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef TOKEN_H
+# define TOKEN_H
 
-# include "colors.h"
-# include "exec.h"
-# include "lexer.h"
-# include "library.h"
-# include "parser.h"
-# include "signal.h"
-# include "token.h"
-# include "utils.h"
-
-enum e_error
+enum e_token
 {
-	EXIT_MINISHELL = 2,
-	EMPTY_COMMANDE = 1,
-	NO_ERROR = 0
+	FILES_IN = 0,
+	FILES_OUT = 1,
+	HEREDOC = 2,
+	PIPE = 3,
+	CMD = 4,
+	ARGS = 5,
+	SIMPLE_QUOTE = 6,
+	DOUBLE_QUOTE = 7,
+	REDIR_IN = 8,
+	REDIR_OUT = 9,
+	APPEND_IN = 10,
+	APPEND_OUT = 11
 };
-
-void		init_signal(void);
-void		init_signal2(void);
 
 #endif
