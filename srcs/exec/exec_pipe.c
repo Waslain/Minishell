@@ -120,7 +120,7 @@ void	exec_pipe(t_data *data, char **lex, int nop)
 	// print_lexlst(lexer);
 	cmd_tab = init_cmd_tab(lexer, nop);
 	// printf("IN_ID%d\n", cmd_tab->in_fd);
-	print_all_cmd_tab(cmd_tab);
+	// print_all_cmd_tab(cmd_tab);
 	pid = fork();
 	if (pid == 0)
 		execution(cmd_tab, data, nop);

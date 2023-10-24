@@ -33,10 +33,10 @@ t_lexer	*parse_cmd_tab(t_cmd_tab *cmd_tab, t_lexer *lexer)
 {
 	while (lexer != NULL && lexer->type != PIPE)
 	{
-		if (lexer->type == FILES_IN)
-			open_infile(cmd_tab, lexer);
-		if (lexer->type == FILES_OUT)
-			open_outfile(cmd_tab, lexer);
+		// if (lexer->type == FILES_IN)
+		// 	open_infile(cmd_tab, lexer);
+		// if (lexer->type == FILES_OUT)
+		// 	open_outfile(cmd_tab, lexer);
 		if (lexer->type == CMD || lexer->type == ARGS)
 		{
 			parse_cmd_tab_exec(cmd_tab, lexer);

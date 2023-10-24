@@ -20,7 +20,7 @@ DEPS		:= $(OBJS:.o=.d)
 
 # Compilator
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -MMD -g3 -I $(INCS_PATH)
+CFLAGS		=  -MMD -g3 -I $(INCS_PATH)
 LIBS		= -lreadline
 
 # Rules

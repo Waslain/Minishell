@@ -21,8 +21,8 @@ void	free_cmd_tab(t_cmd_tab *cmd_tab)
 		aux = cmd_tab;
 		if (cmd_tab->cmd != NULL)
 			free(cmd_tab->cmd);
-		check_fd_open(cmd_tab->in_fd);
-		check_fd_open(cmd_tab->out_fd);
+		// check_fd_open(cmd_tab->in_fd);
+		// check_fd_open(cmd_tab->out_fd);
 		cmd_tab = cmd_tab->next;
 		free(aux);
 	}

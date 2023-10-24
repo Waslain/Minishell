@@ -32,10 +32,10 @@ void	fork_no_pipe(t_data *data)
 
 void	exec_no_pipe(t_data *data, char **lex)
 {
-	if (is_builtin(lex[0]))
-	{
-		exec_builtin(data, lex[0], lex);
-		return ;
-	}
-	fork_no_pipe(data);
+	// if (is_builtin(lex[0]))
+	// {
+	// 	exec_builtin(data, lex[0], lex);
+	// 	return ;
+	// }
+	// fork_no_pipe(data);
 }
