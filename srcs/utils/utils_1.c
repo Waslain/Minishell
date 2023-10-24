@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
+/*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/02/24 11:26:22 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/24 18:36:29 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	y = 0;
 	result = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!result)
+		return (0);
 	while (s1[i])
 	{
 		result[i] = s1[i];
@@ -80,6 +82,8 @@ char	*ft_strdup(const char *src)
 	while (src[n])
 		n++;
 	ptr = malloc(sizeof(*ptr) * (n + 1));
+	if (!ptr)
+		return (0);
 	n = 0;
 	while (src[n])
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:41:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:33:42 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*get_env_name(char *lex)
 
 	i = skip_to_end_var(lex);
 	find = malloc(sizeof(char) * i + 1);
+	if (!find)
+		return (0);
 	i = 0;
 	while (lex[i])
 	{
