@@ -9,12 +9,12 @@ OBJS_PATH	= ./objs/
 DEBUG		= debug.c
 LEXER		= lexer/check_char.c lexer/check_lexer.c lexer/count_token.c lexer/skip.c \
 			lexer/spliters.c lexer/is_delimiter.c lexer/lexer.c lexer/lexer_expand.c \
-			lexer/lexer_expand_utils.c lexer/lexer_utils.c lexer/check_lexer_utils.c
-PARSER		= parser/parser.c parser/init_lex.c parser/init_cmd_tab.c
+			lexer/lexer_expand_utils.c lexer/lexer_utils.c
+PARSER		= parser/main.c parser/init_lex.c parser/init_cmds.c parser/init_redir.c parser/init_redir_utils.c
 BUILTINS	= 
-EXEC		= exec/main_exec.c $(BUILTINS)
+EXEC		= exec/main.c $(BUILTINS)
 UTILS		= utils/split.c utils/utils_1.c utils/utils_2.c utils/utils_3.c
-SRCS		= main.c signals.c $(LEXER) $(PARSER) $(EXEC) $(UTILS) $(DEBUG)
+SRCS		= main.c minishell.c signals.c $(LEXER) $(PARSER) $(EXEC) $(UTILS) $(DEBUG)
 SRCS		:= $(addprefix $(SRCS_PATH), $(SRCS))
 OBJS		:= $(subst $(SRCS_PATH), $(OBJS_PATH), $(SRCS:.c=.o))
 DEPS		:= $(OBJS:.o=.d)
@@ -31,9 +31,6 @@ all		: $(NAME)
 $(NAME)	: $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS)
 	@echo "Executable created"
-
-leak	: $(NAME)
-	valgrind --leak-check=full --track-origins=yes ./$(NAME)
 
 clean	:
 	@rm -rf $(OBJS_PATH) $(OBJS) $(DEPS)

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:46:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:54:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ enum e_error
 	EMPTY_COMMANDE = 1,
 	NO_ERROR = 0
 };
+
+int			minishell_loop(t_data *data);
 
 void		init_signal(void);
 void		init_signal2(void);

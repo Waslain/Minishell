@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:43:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 11:54:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 18:20:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 #endif
