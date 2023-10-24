@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:34:33 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 11:44:58 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:00:54 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,8 @@ char		*ft_strndup(const char *src, int x);
 int			skip_to_dollars(char *lex);
 void		free_for_expand(char *find, char *findval);
 void		free_for_expand_all(char *tmp, char *find, char *findval);
+int			check_quote(char *lex);
+void		print_error(char *str);
+void		print_delimiter_error(char *delimiter);
+
 #endif

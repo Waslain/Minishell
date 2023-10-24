@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:51:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 17:51:15 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	print_error(char *str)
-{
-	write(2, str, ft_strlen(str));
-}
-
-static void	print_delimiter_error(char *delimiter)
-{
-	print_error("minishell: syntax error near unexpected token '");
-	print_error(delimiter);
-	print_error("'\n");
-	exit(0); // Need to work for return
-}
 
 static int	check_pipe(char **lex)
 {
@@ -38,6 +25,32 @@ static int	check_pipe(char **lex)
 				return (print_delimiter_error(lex[i]), 0);
 			if (ft_strcmp(lex[i + 1], "|") == 0)
 				return (print_delimiter_error(lex[i]), 0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_quote(char *lex)
+{
+	int	i;
+
+	i = 0;
+	while (lex[i])
+	{
+		if (lex[i] == '"')
+		{
+			i++;
+			go_next_quote(lex, &i, '"');
+			if (lex[i] != '"')
+				return (print_delimiter_error(lex), 0);
+		}
+		else if (lex[i] == '\'')
+		{
+			i++;
+			go_next_quote(lex, &i, '\'');
+			if (lex[i] != '\'')
+				return (print_delimiter_error(lex), 0);
 		}
 		i++;
 	}
