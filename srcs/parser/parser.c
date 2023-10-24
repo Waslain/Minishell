@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/24 12:47:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ t_lexer	*parse_cmd_tab(t_cmd_tab *cmd_tab, t_lexer *lexer)
 {
 	while (lexer != NULL && lexer->type != PIPE)
 	{
-		// if (lexer->type == FILES_IN)
-		// 	open_infile(cmd_tab, lexer);
-		// if (lexer->type == FILES_OUT)
-		// 	open_outfile(cmd_tab, lexer);
 		if (lexer->type == CMD || lexer->type == ARGS)
 		{
 			parse_cmd_tab_exec(cmd_tab, lexer);

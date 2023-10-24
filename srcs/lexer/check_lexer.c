@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:37:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 12:51:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	print_delimiter_error(char *delimiter)
 	print_error("minishell: syntax error near unexpected token '");
 	print_error(delimiter);
 	print_error("'\n");
-	exit(0);
+	exit(0); // Need to work for return
 }
 
 static int	check_pipe(char **lex)

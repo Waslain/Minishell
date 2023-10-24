@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/24 12:48:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static int	process(char *str, int *i, int	*nb_token)
 		if (str[*i] == '\0')
 			return (-1);
 		(*i)++;
-		if (str[*i] == '\0' || is_white_space(str[*i]) || is_spec_char(str[*i]))
+		if (str[*i] == '\0' || is_white_space(str[*i]) \
+							|| is_spec_char(str[*i]))
 			(*nb_token)++;
 	}
 	else if (is_spec_char(str[*i]))
@@ -41,7 +42,8 @@ static int	process(char *str, int *i, int	*nb_token)
 	else if (str[*i] != '\0')
 	{
 		skip_token(str, i);
-		if (str[*i] == '\0' || is_white_space(str[*i]) || is_spec_char(str[*i]))
+		if (str[*i] == '\0' || is_white_space(str[*i]) \
+							|| is_spec_char(str[*i]))
 			(*nb_token)++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:43:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 12:46:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	minishell(t_data *data)
 	data->lexer = init_lex(lex);
 	if (!data->lexer)
 		return (EXIT_MINISHELL);
-	print_lexlst(data->lexer)
+	print_lexlst(data->lexer);
 	if (main_exec(data) == EXIT_FAILURE)
 		return (EXIT_MINISHELL);
 	free_lexer(lex);
