@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 11:52:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:02:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char		*ft_strdup(const char *src);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 
 //libft1.c
+void		ft_bzero(void *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
 int			ft_strcmp(char *s1, char *s2);
 size_t		ft_strlcpy(char *dest, const char *src, size_t size);
@@ -37,6 +38,6 @@ char		**ft_split(char const *str, char charset);
 //utils.c
 void		ft_free(char **tab);
 void		freeall(char **cmd, char **paths, char *bin);
-t_data		*get_envp(t_data *data, char **envp);
+int			get_envp(t_data *data, char **envp);
 void		ft_error(const char *str);
 #endif

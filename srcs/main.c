@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:46:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/24 13:06:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,26 +72,26 @@ int	minishell_loop(t_data *data)
 	while (1)
 	{
 		if (minishell(data) == 2)
-			return (ft_free(data->envp), free(data), 1);
+			return (ft_free(data->envp), 1);
 	}
 	rl_clear_history();
 	ft_free(data->envp);
-	free(data);
 	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data	*data;
+	t_data	data;
 
 	(void)argv;
-	data = malloc(sizeof(t_data));
-	data = get_envp(data, envp);
+	ft_bzero(&data, sizeof(t_data));
+	if (get_envp(&data, envp) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (argc == 1)
-		minishell_loop(data);
+		minishell_loop(&data);
 	else
 	{
 		printf("Minishell doesn't take arguments");
-		return (ft_free(data->envp), free(data), -1);
+		return (ft_free(data.envp), -1);
 	}
 }

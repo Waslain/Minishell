@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/23 11:26:22 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/24 12:57:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	freeall(char **cmd, char **paths, char *bin)
 	free(bin);
 }
 
-t_data	*get_envp(t_data *data, char **envp)
+int	get_envp(t_data *data, char **envp)
 {
 	int		i;
 
@@ -40,6 +40,8 @@ t_data	*get_envp(t_data *data, char **envp)
 	while (envp[i])
 		i++;
 	data->envp = ft_calloc(sizeof(char *), i + 2);
+	if (!data->envp)
+		return (EXIT_FAILURE);
 	data->envp[0] = ft_strdup("?=0");
 	i = 0;
 	while (envp[i])
@@ -47,7 +49,7 @@ t_data	*get_envp(t_data *data, char **envp)
 		data->envp[i + 1] = ft_strdup(envp[i]);
 		i++;
 	}
-	return (data);
+	return (EXIT_SUCCESS);
 }
 
 void	ft_error(const char *str)

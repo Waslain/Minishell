@@ -25,21 +25,21 @@ CFLAGS		= -Wall -Wextra -Werror -MMD -g3 -I $(INCS_PATH)
 LIBS		= -lreadline
 
 # Rules
-all : $(NAME)
+all		: $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME)	: $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS)
 	@echo "Executable created"
 
-clean :
+clean	:
 	@rm -rf $(OBJS_PATH) $(OBJS) $(DEPS)
 	@echo "Objects deleted"
 
-fclean : clean
+fclean	: clean
 	@rm -rf $(NAME)
 	@echo "Executable deleted"
 
-re : fclean all
+re		: fclean all
 
 # Rules for .o files
 $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
