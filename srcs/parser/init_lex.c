@@ -67,12 +67,7 @@ void	set_lexer_token(t_lexer *lexer)
 	first = 1;
 	while (lexer != NULL)
 	{
-		if (first == 1 && is_token(lexer->str) == -1)
-		{
-			lexer->type = CMD;
-			first = 0;
-		}
-		else if (first == 0 && lexer->type == -1)
+		if (first == 0 && lexer->type == -1)
 			lexer->type = ARGS;
 		else if (lexer->type == PIPE)
 			first = 1;
@@ -82,6 +77,11 @@ void	set_lexer_token(t_lexer *lexer)
 			lexer->type = FILES_OUT;
 		else if (prev && prev->type == APPEND_IN)
 			lexer->type = HEREDOC;
+		else if (first == 1 && is_token(lexer->str) == -1)
+		{
+			lexer->type = CMD;
+			first = 0;
+		}
 		prev = lexer;
 		lexer = lexer->next;
 	}
@@ -130,7 +130,7 @@ t_lexer	*init_lex(char **lex)
 	if (!lexer)
 		ft_error("minishell: lexer malloc failed");
 	lexer->str = lex[0];
-	lexer->type = 0;
+	lexer->type = is_token(lex[0]);
 	lexer->next = NULL;
 	i = 1;
 	while (lex[i])
