@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:45:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 11:47:04 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 09:22:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ enum e_token
 {
 	FILES_IN = 0,
 	FILES_OUT = 1,
+	FILES_OUT_APPEND = 12,
 	HEREDOC = 2,
 	PIPE = 3,
 	CMD = 4,

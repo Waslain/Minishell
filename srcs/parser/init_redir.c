@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:06:00 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 20:58:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 09:41:48 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	calloc_all_struct_files(t_data *data)
 	i = 0;
 	while (i < data->parser.size_redir)
 	{
-		data->parser.redir[i].files = ft_calloc(data->parser.redir[i].nb_files, sizeof(t_file));
+		data->parser.redir[i].files = ft_calloc(data->parser.redir[i].nb_files, \
+			sizeof(t_file));
 		if (!data->parser.redir[i].files)
 			return (EXIT_FAILURE);
 		i++;

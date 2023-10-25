@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_lex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 18:37:08 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 10:12:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static
 int	is_token(char *lex)
 {
 	if (ft_strcmp(lex, ">>") == 0)
@@ -28,19 +29,7 @@ int	is_token(char *lex)
 		return (-1);
 }
 
-void	free_lex(t_lexer *lexer)
-{
-	t_lexer	*aux;
-
-	while (lexer != NULL)
-	{
-		aux = lexer;
-		lexer = lexer->next;
-		free(aux);
-	}
-	lexer = NULL;
-}
-
+static
 void	add_lex_end(t_lexer *lexer, char *str, int type)
 {
 	t_lexer	*new_node;
@@ -58,18 +47,15 @@ void	add_lex_end(t_lexer *lexer, char *str, int type)
 	lexer->next = new_node;
 }
 
-void	set_lexer_token(t_lexer *lexer)
+static
+void	set_lexer_token(t_lexer *lexer, t_lexer *prev)
 {
 	int		first;
-	t_lexer	*prev;
 
-	prev = NULL;
 	first = 1;
 	while (lexer != NULL)
 	{
-		if (first == 0 && lexer->type == -1)
-			lexer->type = ARGS;
-		else if (lexer->type == PIPE)
+		if (lexer->type == PIPE)
 			first = 1;
 		else if (prev && prev->type == REDIR_IN)
 			lexer->type = FILES_IN;
@@ -77,6 +63,10 @@ void	set_lexer_token(t_lexer *lexer)
 			lexer->type = FILES_OUT;
 		else if (prev && prev->type == APPEND_IN)
 			lexer->type = HEREDOC;
+		else if (prev && prev->type == APPEND_OUT)
+			lexer->type = FILES_OUT_APPEND;
+		else if (first == 0 && lexer->type == -1)
+			lexer->type = ARGS;
 		else if (first == 1 && is_token(lexer->str) == -1)
 		{
 			lexer->type = CMD;
@@ -91,6 +81,7 @@ t_lexer	*init_lex(char **lex)
 {
 	t_lexer	*lexer;
 	int		i;
+	t_lexer	*prev;
 
 	lexer = malloc(sizeof(t_lexer));
 	if (!lexer)
@@ -104,6 +95,7 @@ t_lexer	*init_lex(char **lex)
 		add_lex_end(lexer, lex[i], is_token(lex[i]));
 		i++;
 	}
-	set_lexer_token(lexer);
+	prev = NULL;
+	set_lexer_token(lexer, prev);
 	return (lexer);
 }

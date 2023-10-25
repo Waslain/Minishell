@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_lexer_utils.c                                :+:      :+:    :+:   */
+/*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 16:55:57 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 10:27:08 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/25 09:15:19 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/25 10:09:58 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_error(char *str)
+void	child_no_cmd_redir(t_data *data)
 {
-	write(2, str, ft_strlen(str));
+	(void)data;
 }
 
-// NEED TO PATCH THIS FUNCTION
-void	print_delimiter_error(char *delimiter)
+void	child_pipe(t_data *data)
 {
-	print_error("minishell: syntax error near unexpected token '");
-	print_error(delimiter);
-	print_error("'\n");
-	exit(0);
+	(void)data;
+}
+
+void	child_pipe_redir(t_data *data)
+{
+	(void)data;
+}
+
+void	child_redir(t_data *data)
+{
+	(void)data;
 }

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 13:02:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:20:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int			ft_isalpha(int c);
 char		**ft_split(char const *str, char charset);
 
 //utils.c
-void		ft_free(char **tab);
+void		ft_free(void **ptr);
+void		free_array(char **tab);
 void		freeall(char **cmd, char **paths, char *bin);
 int			get_envp(t_data *data, char **envp);
 void		ft_error(const char *str);

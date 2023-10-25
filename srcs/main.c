@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 21:22:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 21:22:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:19:02 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int	main(int argc, char **argv, char **envp)
 	else
 	{
 		printf("Minishell doesn't take arguments");
-		return (ft_free(data.envp), -1);
+		return (free_array(data.envp), -1);
 	}
 }

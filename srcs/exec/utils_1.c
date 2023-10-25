@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_lexer_utils.c                                :+:      :+:    :+:   */
+/*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 16:55:57 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 10:27:08 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/25 09:08:54 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/25 10:02:47 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_error(char *str)
+void	ft_close(int *fd)
 {
-	write(2, str, ft_strlen(str));
+	if (*fd >= 0)
+	{
+		close(*fd);
+		*fd = -2;
+	}
 }
 
-// NEED TO PATCH THIS FUNCTION
-void	print_delimiter_error(char *delimiter)
+void	close_all_pipe(int pipes[2][2])
 {
-	print_error("minishell: syntax error near unexpected token '");
-	print_error(delimiter);
-	print_error("'\n");
-	exit(0);
+	ft_close(&pipes[0][0]);
+	ft_close(&pipes[0][1]);
+	ft_close(&pipes[1][0]);
+	ft_close(&pipes[1][1]);
 }

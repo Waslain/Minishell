@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 21:12:07 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:24:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,14 @@ int	minishell(t_data *data)
 {
 	char	*ret;
 	char	**lex;
-	char	**tmp;
 
-	tmp = data->envp;
-	ft_bzero(data, sizeof(t_data));
-	data->envp = tmp;
 	ret = readline(BCYN"Minishell $> "CRESET);
 	if (check_cmd(ret) == EXIT_MINISHELL)
 		return (free(ret), EXIT_MINISHELL);
 	else if (check_cmd(ret) == EMPTY_COMMANDE)
 		return (free(ret), EMPTY_COMMANDE);
 	lex = clear_lex(data, ret);
+	ft_free((void **)&ret);
 	data->lexer = init_lex(lex);
 	if (!data->lexer)
 		return (EXIT_MINISHELL);
@@ -84,11 +81,8 @@ int	minishell(t_data *data)
 		return (EXIT_MINISHELL);
 	// if (main_exec(data) == EXIT_FAILURE)
 	// 	return (EXIT_MINISHELL);
-	free_parser(&data->parser, data->nb_cmd);
-	free_lex(data->lexer);
 	free_lexer(lex);
-	free(ret);
-	return (0);
+	return (destroy_data(data, DONT_DESTROY_ENV), NO_ERROR);
 }
 
 int	minishell_loop(t_data *data)
@@ -97,9 +91,9 @@ int	minishell_loop(t_data *data)
 	while (1)
 	{
 		if (minishell(data) == 2)
-			return (ft_free(data->envp), 1);
+			return (free_array(data->envp), 1);
 	}
 	rl_clear_history();
-	ft_free(data->envp);
+	free_array(data->envp);
 	return (0);
 }

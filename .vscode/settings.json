@@ -2,6 +2,7 @@
 	"C_Cpp.errorSquiggles": "disabled",
 	"files.associations": {
 		"minishell.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"typeinfo": "c"
 	}
 }

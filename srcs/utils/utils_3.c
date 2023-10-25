@@ -6,13 +6,22 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:57:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 10:19:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_free(char **tab)
+void	ft_free(void **ptr)
+{
+	if (*ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
+}
+
+void	free_array(char **tab)
 {
 	int	i;
 
@@ -27,8 +36,8 @@ void	ft_free(char **tab)
 
 void	freeall(char **cmd, char **paths, char *bin)
 {
-	ft_free(cmd);
-	ft_free(paths);
+	free_array(cmd);
+	free_array(paths);
 	free(bin);
 }
 
