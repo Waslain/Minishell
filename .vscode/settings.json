@@ -1,8 +1,8 @@
 {
 	"C_Cpp.errorSquiggles": "disabled",
 	"files.associations": {
-		"minishell.h": "c",
-		"stdbool.h": "c",
-		"typeinfo": "c"
+		"array": "c",
+		"string": "c",
+		"string_view": "c"
 	}
 }

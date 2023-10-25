@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 10:24:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:13:03 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	check_cmd(char *cmd)
 	return (NO_ERROR);
 }
 
-static
 int	minishell(t_data *data)
 {
 	char	*ret;

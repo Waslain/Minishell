@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 10:23:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:31:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,11 @@ void	destroy_data(t_data *data, int mode)
 	}
 	else
 		ft_bzero(data, sizeof(t_data));
+}
+
+void	malloc_error(t_data *data)
+{
+	destroy_data(data, DESTROY_ENV);
+	write(2, "minishell: malloc error\n", 24);
+	exit(1);
 }

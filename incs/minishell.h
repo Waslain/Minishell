@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 10:21:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:09:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ enum e_destroy
 };
 
 int		minishell_loop(t_data *data);
+int		minishell(t_data *data);
 
 void	init_signal(void);
 void	init_signal2(void);
@@ -44,5 +45,7 @@ void	print_lexlst(t_lexer *lexer);
 char	*found_token(int token);
 
 void	destroy_data(t_data *data, int mode);
+void	print_cmds_struct(t_data *data);
+void	print_redir_struct(t_data *data);
 
 #endif

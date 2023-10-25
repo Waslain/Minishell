@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:45:30 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 09:43:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:03:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,43 @@ char	*found_token(int token)
 	else if (token == ARGS)
 		return ("ARGS");
 	return ("NOT FOUND");
+}
+
+void	print_cmds_struct(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->nb_cmd)
+	{
+		j = 0;
+		while (data->parser.cmds[i].cmd[j])
+		{
+			printf("cmd[%d][%d] = %s\n", i, j, data->parser.cmds[i].cmd[j]);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	print_redir_struct(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < data->parser.size_redir)
+	{
+		j = 0;
+		while (j < data->parser.redir[i].nb_files)
+		{
+			printf("redir[%d][%d] = %s\n", i, j, \
+				data->parser.redir[i].files[j].name_file);
+			j++;
+		}
+		i++;
+	}
 }
 
 void	print_lexlst(t_lexer *lexer)

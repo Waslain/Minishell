@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 09:05:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 11:29:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,15 @@ typedef struct s_parser
 	int			size_redir;
 }	t_parser;
 
+typedef struct s_envp
+{
+	char		*key;
+	char		*value;
+}	t_envp;
+
 typedef struct s_exec
 {
+	t_envp	*env_struct;
 	int		pipes[2][2];
 	int		id_child;
 	pid_t	*pid;
