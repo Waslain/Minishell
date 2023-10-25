@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 18:36:29 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 13:24:54 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;
@@ -28,22 +30,21 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		y;
 
-	i = 0;
-	y = 0;
 	result = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!result)
 		return (0);
-	while (s1[i])
-	{
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	if (!s1 && !s2)
+		return (ft_strdup(""));
+	i = -1;
+	while (s1[++i])
 		result[i] = s1[i];
-		i++;
-	}
+	y = 0;
 	while (s2[y])
-	{
-		result[i] = s2[y];
-		i++;
-		y++;
-	}
+		result[i++] = s2[y++];
 	result[i] = '\0';
 	return (result);
 }

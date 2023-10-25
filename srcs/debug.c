@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:45:30 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 11:03:32 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:07:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,19 @@ void	print_redir_struct(t_data *data)
 				data->parser.redir[i].files[j].name_file);
 			j++;
 		}
+		i++;
+	}
+}
+
+void	print_envp_struct(t_envp *envp, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		printf("envp[%d].key = %s\n", i, envp[i].key);
+		printf("envp[%d].value = %s\n", i, envp[i].value);
 		i++;
 	}
 }

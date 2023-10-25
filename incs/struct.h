@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 11:29:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:21:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ typedef struct s_envp
 
 typedef struct s_exec
 {
-	t_envp	*env_struct;
+	t_envp	*envp_s;
+	int		size;
 	int		pipes[2][2];
 	int		id_child;
 	pid_t	*pid;

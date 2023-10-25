@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 10:27:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 13:40:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ void	ft_execve(t_data *data);
 
 void	ft_close(int *fd);
 void	close_all_pipe(int pipes[2][2]);
+
+int		conv_env_to_struct(char **envp, t_envp **envp_s, int *size);
+int		conv_env_struct_to_env(char ***envp, t_envp *envp_s, int size);
+
+char	*found_value_with_key(t_envp *envp, char *key, int size);
+int		found_index_with_key(t_envp *envp, char *key, int size);
+int		update_value_with_key(t_envp *envp_s, int *size, char *key, char *val);
+int		add_key_value(t_envp **envp_s, int *size, char *key, char *value);
+int		delete_key_value(t_envp **envp_s, int *size, char *key);
 
 //Builtin/builtin.c
 int		is_builtin(char *str);

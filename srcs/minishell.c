@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 11:13:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:22:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	minishell(t_data *data)
 	data->nb_redir = count_nb_redir(data->lexer);
 	if (main_parser(data) == EXIT_FAILURE)
 		return (EXIT_MINISHELL);
-	// if (main_exec(data) == EXIT_FAILURE)
-	// 	return (EXIT_MINISHELL);
+	if (main_exec(data) == EXIT_FAILURE)
+		return (EXIT_MINISHELL);
 	free_lexer(lex);
 	return (destroy_data(data, DONT_DESTROY_ENV), NO_ERROR);
 }
