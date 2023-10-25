@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 13:40:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:27:47 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include "library.h"
 # include "struct.h"
+
+enum e_stdfd
+{
+	STDIN = 0,
+	STDOUT = 1,
+	STDERR = 2
+};
 
 int		main_exec(t_data *data);
 
@@ -46,6 +53,8 @@ int		found_index_with_key(t_envp *envp, char *key, int size);
 int		update_value_with_key(t_envp *envp_s, int *size, char *key, char *val);
 int		add_key_value(t_envp **envp_s, int *size, char *key, char *value);
 int		delete_key_value(t_envp **envp_s, int *size, char *key);
+
+void	error_child(t_data *data, const char *arg, const char *msg);
 
 //Builtin/builtin.c
 int		is_builtin(char *str);

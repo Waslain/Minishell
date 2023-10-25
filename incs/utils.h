@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 13:55:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:35:03 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include "library.h"
 # include "struct.h"
+
+# define INT_MIN -2147483648
 
 //libft.c
 size_t		ft_strlen(const char *str);
@@ -44,4 +46,11 @@ void		ft_error(const char *str);
 
 void		ft_memcpy(void *dst, const void *src, size_t n);
 void		free_key_value(char *key, char *value);
+int			ft_putchar_fd(char c, int fd);
+int			ft_putstr_fd(char *str, int fd);
+int			ft_putendl_fd(char *str, int fd);
+
+char		*ft_strchr(const char *s, int c);
+int			ft_strncmp(const char *s1, const char *s2, size_t n);
+char		*ft_itoa(int n);
 #endif

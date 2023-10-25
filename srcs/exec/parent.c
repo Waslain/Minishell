@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 10:27:14 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:30:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	parent_no_cmd_redir(t_data *data)
 {
 	int	i;
 
-	data->exec.id_child = 0;
 	while (data->exec.id_child < data->nb_pipe)
 	{
 		data->exec.pid[data->exec.id_child] = fork();
@@ -49,7 +48,6 @@ int	parent_pipe(t_data *data)
 {
 	int	i;
 
-	data->exec.id_child = 0;
 	while (data->exec.id_child < data->nb_pipe)
 	{
 		data->exec.pid[data->exec.id_child] = fork();
@@ -70,7 +68,6 @@ int	parent_pipe_redir(t_data *data)
 {
 	int	i;
 
-	data->exec.id_child = 0;
 	while (data->exec.id_child < data->nb_pipe)
 	{
 		data->exec.pid[data->exec.id_child] = fork();

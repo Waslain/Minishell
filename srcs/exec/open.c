@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:17:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 10:03:39 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:23:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	open_infile(t_file *file, int size)
 		{
 			fd = ft_open(file[i].name_file, file[i].type);
 			if (fd == -1)
-				return (EXIT_FAILURE);
+				return (-1);
 		}
 		i++;
 	}
@@ -60,7 +60,7 @@ int	open_outfile(t_file *file, int size)
 		{
 			fd = ft_open(file[i].name_file, file[i].type);
 			if (fd == -1)
-				return (EXIT_FAILURE);
+				return (-1);
 		}
 		i++;
 	}

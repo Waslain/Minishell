@@ -6,53 +6,87 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 10:26:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:42:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_execve(t_data *data)
+static
+void	free_tmp_and_path(char *tmp, char **path)
 {
-	(void)data;
+	if (tmp)
+		ft_free((void **)&tmp);
+	if (path)
+		free_array(path);
 }
 
-// // the main execution child process
-// void	ft_shell_child(t_shell *shell)
-// {
-// 	const int	n = shell->id_child;
+static
+char	**ft_get_path(t_data *data)
+{
+	char	**path;
+	char	*tmp;
 
-// 	if ((ft_strncmp("./", shell->args[n][0], 2) == 0 && 
-// 		access(shell->args[n][0], X_OK) != FAILURE) || 
-// 		ft_strchr(shell->args[n][0], '/') != NULL)
-// 	{
-// 		execve(shell->args[n][0], shell->args[n], shell->env);
-// 		ft_msg(shell, shell->args[n][0], errno, &exit);
-// 	}
-// 	ft_shell_child_bis(shell, n);
-// }
+	tmp = found_value_with_key(data->exec.envp_s, "PATH", data->exec.size);
+	if (!tmp)
+		return (malloc_error(data), NULL);
+	path = ft_split(tmp, ':');
+	if (!path)
+		return (malloc_error(data), NULL);
+	return (path);
+}
 
-// // the main execution child process bis
-// void	ft_shell_child_bis(t_shell *shell, const int n)
-// {
-// 	char	*tmp;
-// 	char	*cmd;
-// 	char	**path;
+static
+void	ft_execve_bis(t_data *data, const char **cmds, char **path, char *tmp)
+{
+	char	*cmd;
+	int		i;
 
-// 	path = ft_get_path(shell);
-// 	tmp = ft_strjoin("/", shell->args[n][0]);
-// 	if (!tmp)
-// 		return (free_array_strs(path), ft_msg(shell, NULL, MA, &exit));
-// 	cmd = ft_access(tmp, path);
-// 	if (!cmd)
-// 		return (free_array_strs(path), free(tmp),
-//	ft_msg(shell, NULL, MA, &exit));
-// 	if (cmd == FAIL && !ft_strcmp("exit", shell->args[n][0]))
-// 		return (free_array_strs(path), free(tmp), 
-// 				ft_msg(shell, shell->args[n][0], EX, &exit));
-// 	if (cmd == FAIL)
-// 		return (free_array_strs(path), free(tmp), 
-// 				ft_msg(shell, shell->args[n][0], CM, &exit));
-// 	execve(cmd, shell->args[n], shell->env);
-// 	exit(EXIT_FAILURE);
-// }
+	if (path)
+	{
+		i = -1;
+		while (path[++i])
+		{
+			cmd = ft_strjoin(path[i], tmp);
+			if (!cmd)
+				return (free_array(path), malloc_error(data));
+			errno = 0;
+			if (access(cmd, X_OK) != -1)
+				break ;
+			ft_free((void **)&cmd);
+		}
+		free_tmp_and_path(tmp, path);
+	}
+	if (!cmd)
+	{
+		cmd = ft_strdup(cmds[0]);
+		if (!cmd)
+			return (free_tmp_and_path(tmp, path), malloc_error(data));
+	}
+	return (execve(cmd, (char *const *)cmds, data->envp), free(cmd));
+}
+
+void	ft_execve(t_data *data)
+{
+	const int	n = data->exec.id_child;
+	const char	**cmds = (const char **)data->parser.cmds[n].cmd;
+	char		**path;
+	char		*tmp;
+
+	if ((ft_strncmp("./", cmds[0], 2) == 0 && \
+		access(cmds[0], X_OK) != -1) || \
+		ft_strchr(cmds[0], '/') != NULL)
+	{
+		execve(cmds[0], (char *const *)cmds, data->envp);
+		error_child(data, cmds[0], ": command not found");
+	}
+	path = ft_get_path(data);
+	if (!path)
+		return (error_child(data, "malloc error", NULL));
+	tmp = ft_strjoin("/", cmds[0]);
+	if (!tmp)
+		return (free_array(path), error_child(data, NULL, NULL));
+	ft_execve_bis(data, cmds, path, tmp);
+	errno = 127;
+	error_child(data, cmds[0], ": command not found");
+}
