@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 14:59:58 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:10:07 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include "signal.h"
 # include "token.h"
 # include "utils.h"
+
+extern int	g_signal;
 
 enum e_error
 {
