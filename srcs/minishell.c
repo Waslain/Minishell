@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 12:30:25 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:27:40 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	minishell(t_data *data)
 	else if (check_cmd(ret) == EMPTY_COMMANDE)
 		return (free(ret), EMPTY_COMMANDE);
 	lex = clear_lex(data, ret);
+	if (!lex)
+		return (EMPTY_COMMANDE);
 	ft_free((void **)&ret);
 	data->lexer = init_lex(data, lex);
 	if (!data->lexer)

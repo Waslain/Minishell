@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 12:40:13 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:24:42 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ char	**lexer(t_data *data, char *str)
 	char	**lex;
 	int		nb_token;
 
-	if (check_quote(str) == 0)
-		return (0);
 	nb_token = count_token(str);
 	if (nb_token < 0)
 		return (get_empty_lexer());
@@ -66,6 +64,6 @@ char	**lexer(t_data *data, char *str)
 	if (split_lexer(lex, str) == 0)
 		return (free_lexer(lex), get_empty_lexer());
 	if (check_lexer(lex) == 0)
-		return (free_lexer(lex), get_empty_lexer());
+		return (free_lexer(lex), get_empty_lexer(), NULL);
 	return (lex);
 }

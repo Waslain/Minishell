@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_lexer_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:55:57 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 10:27:08 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:27:28 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,4 @@ void	print_delimiter_error(char *delimiter)
 	print_error("minishell: syntax error near unexpected token '");
 	print_error(delimiter);
 	print_error("'\n");
-	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 17:51:15 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:26:36 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	check_quote(char *lex)
 			i++;
 			go_next_quote(lex, &i, '"');
 			if (lex[i] != '"')
-				return (print_delimiter_error(lex), 0);
+				return (print_delimiter_error(lex), free(lex), 0);
 		}
 		else if (lex[i] == '\'')
 		{
 			i++;
 			go_next_quote(lex, &i, '\'');
 			if (lex[i] != '\'')
-				return (print_delimiter_error(lex), 0);
+				return (print_delimiter_error(lex), free(lex), 0);
 		}
 		i++;
 	}
@@ -70,8 +70,7 @@ static int	check_delimiters(char **lex)
 				|| is_delimiter(lex[i + 1])
 				|| ft_strcmp(lex[i + 1], "|") == 0)
 			{
-				print_delimiter_error(lex[i]);
-				return (0);
+				return (print_delimiter_error(lex[i]), 0);
 			}
 		}
 		i++;
