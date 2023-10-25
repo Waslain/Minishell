@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 12:38:10 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:52:34 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,5 @@ char	*expandlex(t_data *data, char *lex)
 			i = i + skip_to_dollars(&lex[i]);
 		}
 	}
-	return (new_lex);
+	return (ft_free((void **)&lex), new_lex);
 }

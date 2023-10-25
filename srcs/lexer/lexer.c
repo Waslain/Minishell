@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 14:24:42 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 14:44:12 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ char	**lexer(t_data *data, char *str)
 	if (lex == NULL)
 		return (get_empty_lexer(), malloc_error(data), NULL);
 	if (split_lexer(lex, str) == 0)
-		return (free_lexer(lex), get_empty_lexer());
+		return (free_lexer(lex), NULL);
 	if (check_lexer(lex) == 0)
-		return (free_lexer(lex), get_empty_lexer(), NULL);
+		return (free_lexer(lex), NULL);
 	return (lex);
 }
