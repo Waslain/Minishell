@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 11:13:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:30:25 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	minishell(t_data *data)
 		return (free(ret), EMPTY_COMMANDE);
 	lex = clear_lex(data, ret);
 	ft_free((void **)&ret);
-	data->lexer = init_lex(lex);
+	data->lexer = init_lex(data, lex);
 	if (!data->lexer)
 		return (EXIT_MINISHELL);
 	print_lexlst(data->lexer);

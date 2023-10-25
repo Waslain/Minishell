@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 18:35:08 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 12:25:53 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_strjoinn(char const *s1, char const *s2, int n)
 	y = 0;
 	result = malloc(sizeof(char) * ft_strlen(s1) + n + 2);
 	if (!result)
-		return (0);
+		return (NULL);
 	while (s1[i])
 	{
 		result[i] = s1[i];
@@ -72,7 +72,7 @@ char	*ft_strndup(const char *src, int x)
 
 	ptr = malloc(sizeof(*ptr) * (x + 2));
 	if (!ptr)
-		return (0);
+		return (NULL);
 	n = 0;
 	while (src[n] && n <= x)
 	{

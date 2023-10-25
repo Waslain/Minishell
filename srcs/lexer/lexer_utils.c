@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 17:51:13 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 12:47:00 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_strdupnoquote(const char *src)
 
 	ptr = malloc(sizeof(*ptr) * (ft_strlen(src) + 1));
 	if (!ptr)
-		return (0);
+		return (NULL);
 	n = 0;
 	i = 0;
 	while (src[n])
@@ -104,7 +104,7 @@ char	**clear_lex(t_data *data, char *rl)
 	char	**new_lex;
 
 	rl = expandlex(data, rl);
-	lex = lexer(rl);
+	lex = lexer(data, rl);
 	free(rl);
 	new_lex = clearquotes(lex);
 	free_lexer(lex);

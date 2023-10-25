@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 12:11:52 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:20:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:35:35 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*ft_splitdup(char const *src, int wl)
 	i = 0;
 	dup = malloc((wl + 1) * sizeof(char));
 	if (!dup)
-		return (0);
+		return (NULL);
 	while (src[i] && i < wl)
 	{
 		dup[i] = src[i];
@@ -76,7 +76,7 @@ char	**ft_split(char const *str, char charset)
 	size = ft_wordcount(str, charset);
 	dest = malloc((size + 1) * sizeof(char *));
 	if (!dest)
-		return (0);
+		return (NULL);
 	while (i < size)
 	{
 		while (ft_is_charset(*str, charset))

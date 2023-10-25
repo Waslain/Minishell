@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 18:33:42 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 12:38:10 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_env_var(t_data *data, char *find)
 		{
 			path = ft_substr(path, x + 1, ft_strlen(path));
 			if (!path)
-				ft_error("Substr failed\n");
+				return (malloc_error(data), NULL);
 			return (path);
 		}
 		i++;
@@ -60,7 +60,7 @@ char	*get_env_name(char *lex)
 	i = skip_to_end_var(lex);
 	find = malloc(sizeof(char) * i + 1);
 	if (!find)
-		return (0);
+		return (NULL);
 	i = 0;
 	while (lex[i])
 	{
@@ -83,11 +83,17 @@ char	*expand_if_dollars_exec(t_data *data, char *lex, char *new_lex, int *i)
 	char	*findval;
 
 	find = get_env_name(&lex[*i + 1]);
+	if (!find)
+		return (malloc_error(data), NULL);
 	findval = get_env_var(data, find);
+	if (!findval)
+		return (malloc_error(data), NULL);
 	if (findval)
 	{
 		tmp = new_lex;
 		new_lex = ft_strjoin(new_lex, findval);
+		if (!new_lex)
+			return (free(tmp), malloc_error(data), NULL);
 		*i = *i + skip_to_end_var(&lex[*i + 1]) + 1;
 		free_for_expand_all(tmp, find, findval);
 	}
@@ -106,19 +112,20 @@ char	*expandlex(t_data *data, char *lex)
 	char	*new_lex;
 
 	i = skip_to_dollars(lex) - 1;
-	new_lex = ft_strndup(lex, i);
-	i++;
+	new_lex = ft_strndup(lex, i++);
+	if (!new_lex)
+		return (malloc_error(data), NULL);
 	while (lex[i])
 	{
 		if (lex[i] == '$')
-		{
 			new_lex = expand_if_dollars_exec(data, lex, new_lex, &i);
-		}
 		else
 		{
 			tmp = new_lex;
 			new_lex = ft_strjoinn
 				(new_lex, &lex[i], skip_to_dollars(&lex[i]) - 1);
+			if (!new_lex)
+				return (free(tmp), malloc_error(data), NULL);
 			free(tmp);
 			i = i + skip_to_dollars(&lex[i]);
 		}

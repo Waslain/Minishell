@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 17:51:11 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 12:40:13 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**get_empty_lexer(void)
 	return (empty_lex);
 }
 
-char	**lexer(char *str)
+char	**lexer(t_data *data, char *str)
 {
 	char	**lex;
 	int		nb_token;
@@ -62,7 +62,7 @@ char	**lexer(char *str)
 		return (get_empty_lexer());
 	lex = ft_calloc(nb_token + 1, sizeof(char *));
 	if (lex == NULL)
-		return (get_empty_lexer());
+		return (get_empty_lexer(), malloc_error(data), NULL);
 	if (split_lexer(lex, str) == 0)
 		return (free_lexer(lex), get_empty_lexer());
 	if (check_lexer(lex) == 0)

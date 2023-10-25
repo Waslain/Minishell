@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:34:33 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 17:00:54 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/25 12:40:25 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void		go_next_quote(char	*str, int *i, char quote);
 void		skip_white_space(char *str, int *i);
 void		skip_token(char *str, int *i);
 int			split_lexer(char **lex, char *str);
-char		**lexer(char *str);
+char		**lexer(t_data *data, char *str);
 void		free_lexer(char **lex);
 void		print_lexer(char **lex);
 int			check_lexer(char **lex);

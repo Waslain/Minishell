@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_lex.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 10:12:53 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:49:49 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	is_token(char *lex)
 }
 
 static
-void	add_lex_end(t_lexer *lexer, char *str, int type)
+int	add_lex_end(t_lexer *lexer, char *str, int type)
 {
 	t_lexer	*new_node;
 
 	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
-		ft_error("minishell: lexer malloc failed");
+		return (EXIT_FAILURE);
 	new_node->str = str;
 	new_node->type = type;
 	new_node->next = NULL;
@@ -45,6 +45,7 @@ void	add_lex_end(t_lexer *lexer, char *str, int type)
 		lexer = lexer->next;
 	}
 	lexer->next = new_node;
+	return (EXIT_SUCCESS);
 }
 
 static
@@ -77,7 +78,7 @@ void	set_lexer_token(t_lexer *lexer, t_lexer *prev)
 	}
 }
 
-t_lexer	*init_lex(char **lex)
+t_lexer	*init_lex(t_data *data, char **lex)
 {
 	t_lexer	*lexer;
 	int		i;
@@ -85,14 +86,15 @@ t_lexer	*init_lex(char **lex)
 
 	lexer = malloc(sizeof(t_lexer));
 	if (!lexer)
-		ft_error("minishell: lexer malloc failed");
+		return (malloc_error(data), NULL);
 	lexer->str = lex[0];
 	lexer->type = is_token(lex[0]);
 	lexer->next = NULL;
 	i = 1;
 	while (lex[i])
 	{
-		add_lex_end(lexer, lex[i], is_token(lex[i]));
+		if (add_lex_end(lexer, lex[i], is_token(lex[i])) == EXIT_FAILURE)
+			return (malloc_error(data), NULL);
 		i++;
 	}
 	prev = NULL;
