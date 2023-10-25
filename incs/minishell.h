@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 12:46:23 by fduzant          ###   ########.fr       */
+/*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/25 14:57:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ int		minishell(t_data *data);
 void	init_signal(void);
 void	init_signal2(void);
 
+void	destroy_data(t_data *data, int mode);
+
 void	print_lexlst(t_lexer *lexer);
 char	*found_token(int token);
 
 void	destroy_data(t_data *data, int mode);
-void	malloc_error(t_data *data);
 void	print_cmds_struct(t_data *data);
 void	print_redir_struct(t_data *data);
+void	print_envp_struct(t_envp *envp, int size);
 
 #endif

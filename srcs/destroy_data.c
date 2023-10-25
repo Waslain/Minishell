@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 11:31:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 12:25:05 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,20 @@ void	free_parser(t_parser *parser, int nb_cmd)
 	}
 }
 
+void	free_envp_struct(t_envp *envp, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(envp[i].key);
+		free(envp[i].value);
+		i++;
+	}
+	free(envp);
+}
+
 void	destroy_data(t_data *data, int mode)
 {
 	char	**tmp;
@@ -64,6 +78,8 @@ void	destroy_data(t_data *data, int mode)
 		free_parser(&data->parser, data->nb_cmd);
 	if (data->exec.pid)
 		free(data->exec.pid);
+	if (data->exec.envp_s)
+		free_envp_struct(data->exec.envp_s, data->exec.size);
 	if (mode == DONT_DESTROY_ENV)
 	{
 		ft_bzero(data, sizeof(t_data));
