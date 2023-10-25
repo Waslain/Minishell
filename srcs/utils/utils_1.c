@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 14:57:26 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 14:57:28 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/25 14:58:02 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/25 14:58:54 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,17 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		i;
 	int		y;
 
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	if (!s1 && !s2)
+		return (ft_strdup(""));
 	result = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!result)
-		return (0);
-	while (s1[i])
-	{
+		return (NULL);
+	i = -1;
+	while (s1[++i])
 		result[i] = s1[i];
 	y = 0;
 	while (s2[y])

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 14:57:04 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:59:58 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_signal(void);
 void	init_signal2(void);
 
 void	destroy_data(t_data *data, int mode);
+void	malloc_error(t_data *data);
 
 void	print_lexlst(t_lexer *lexer);
 char	*found_token(int token);
