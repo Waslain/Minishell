@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 14:29:03 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 14:34:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:57:46 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	unset(t_data *data)
 	{
 		ret = found_value_with_key(data->exec.envp_s, (char *)cmd[i], \
 								data->exec.size);
-		if (ret)
+		if (ret && ft_strcmp((char *)cmd[i], "?") != 0 && \
+					ft_strcmp((char *)cmd[i], "_") != 0)
 		{
 			if (delete_key_value(&data->exec.envp_s, &data->exec.size, \
 									(char *)cmd[i]))

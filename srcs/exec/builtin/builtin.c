@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 14:42:31 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:59:53 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	is_in_parent(t_data *data)
 	if (ft_strcmp(cmd, "cd") == 0
 		|| ft_strcmp(cmd, "unset") == 0
 		|| ft_strcmp(cmd, "exit") == 0
-		|| (ft_strcmp(cmd, "export") == 0 && id == 0 && data->nb_cmd == 0))
+		|| (ft_strcmp(cmd, "export") == 0 && id == 0 && data->nb_cmd == 1))
 		return (true);
 	else
 		return (false);
