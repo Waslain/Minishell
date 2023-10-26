@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 14:51:33 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/26 15:20:00 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ char	**clear_lex(t_data *data, char *rl)
 	char	**new_lex;
 
 	if (check_quote(rl) == 0)
+		return (NULL);
+	if (chek_invalidchar(rl) == 0)
 		return (NULL);
 	rl = expandlex(data, rl);
 	lex = lexer(data, rl);

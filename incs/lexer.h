@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:34:33 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 12:40:25 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/26 15:30:40 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "library.h"
 # include "struct.h"
+
+# define INVALID_CHAR "!@#%^&()_+{}[]:;\\"
 
 int			is_white_space(char c);
 int			is_spec_char(char c);
@@ -41,5 +43,6 @@ void		free_for_expand_all(char *tmp, char *find, char *findval);
 int			check_quote(char *lex);
 void		print_error(char *str);
 void		print_delimiter_error(char *delimiter);
+int			chek_invalidchar(char *lex);
 
 #endif
