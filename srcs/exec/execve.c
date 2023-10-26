@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 12:15:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:07:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ void	ft_execve(t_data *data)
 	char		**path;
 	char		*tmp;
 
+	if (is_builtin((char *)cmds[0]))
+	{
+		if (builtin_in_child(data) == EXIT_FAILURE)
+			exit(EXIT_FAILURE);
+		exit(0);
+	}
 	if ((ft_strncmp("./", cmds[0], 2) == 0 && access(cmds[0], X_OK) != -1))
 	{
 		execve(cmds[0], (char *const *)cmds, data->envp);

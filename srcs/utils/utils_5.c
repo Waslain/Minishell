@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:43:32 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 08:48:25 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:55:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,11 @@ char	*ft_itoa(int n)
 		size--;
 	}
 	return (nstr);
+}
+
+bool	ft_isalphanum(int c)
+{
+	if (ft_isalpha(c) || (c <= '9' && c >= '0'))
+		return (true);
+	return (false);
 }

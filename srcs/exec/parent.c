@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 10:04:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:05:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,39 @@ int	parent_no_cmd_redir(t_data *data)
 
 int	parent_simple_cmd(t_data *data)
 {
-	data->exec.pid[0] = fork();
-	if (data->exec.pid[0] == -1)
-		return (EXIT_FAILURE);
-	if (data->exec.pid[0] == 0)
+	if (is_in_parent(data) == true)
 	{
-		ft_execve(data);
+		if (builtin_in_parent(data) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	}
-	waitpid(data->exec.pid[0], &data->exec.status, 0);
+	else
+	{
+		data->exec.pid[0] = fork();
+		if (data->exec.pid[0] == -1)
+			return (EXIT_FAILURE);
+		if (data->exec.pid[0] == 0)
+			ft_execve(data);
+		waitpid(data->exec.pid[0], &data->exec.status, 0);
+	}
 	return (EXIT_SUCCESS);
 }
 
 int	parent_redir(t_data *data)
 {
-	data->exec.pid[0] = fork();
-	if (data->exec.pid[0] == -1)
-		return (EXIT_FAILURE);
-	if (data->exec.pid[0] == 0)
-		child_redir(data);
-	waitpid(data->exec.pid[0], &data->exec.status, 0);
+	if (is_in_parent(data) == true)
+	{
+		if (builtin_in_parent(data) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	}
+	else
+	{
+		data->exec.pid[0] = fork();
+		if (data->exec.pid[0] == -1)
+			return (EXIT_FAILURE);
+		if (data->exec.pid[0] == 0)
+			child_redir(data);
+		waitpid(data->exec.pid[0], &data->exec.status, 0);
+	}
 	return (EXIT_SUCCESS);
 }
 

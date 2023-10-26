@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:52:03 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 13:33:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:13:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	count_envp(char **envp)
 	return (i);
 }
 
-static
 char	*get_key(char *str)
 {
 	int	len;
@@ -34,7 +33,6 @@ char	*get_key(char *str)
 	return (ft_substr(str, 0, len));
 }
 
-static
 char	*get_value(char *str)
 {
 	int	len;

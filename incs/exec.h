@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 12:16:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:32:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ enum e_redir
 
 # define HEREDOC_MSG_CTRL_D "minishell: warning: here-document delimited by end-of-file \
 (wanted `"
+# define ERROR_WRITE "write error: No space left on device"
 
 int		main_exec(t_data *data);
 
@@ -54,6 +55,8 @@ void	ft_execve(t_data *data);
 void	ft_close(int *fd);
 void	close_all_pipe(int **pipes, int nb_pipe);
 
+char	*get_key(char *str);
+char	*get_value(char *str);
 int		conv_env_to_struct(char **envp, t_envp **envp_s, int *size);
 int		conv_env_struct_to_env(char ***envp, t_envp *envp_s, int size);
 
@@ -65,15 +68,16 @@ int		delete_key_value(t_envp **envp_s, int *size, char *key);
 
 void	error_child(t_data *data, const char *arg, const char *msg, int val);
 
-//Builtin/builtin.c
-int		is_builtin(char *str);
-int		exec_builtin(t_data *data, char *cmd, char **str);
-//Builtin/echo.c
-void	builtin_echo(char **str);
-//Builtin/pwd.c
-int		builtin_pwd(void);
-//Builtin/env.c
-void	builtin_env(t_data *data);
-//Builtin/exit.c
-void	builtin_exit(void);
+// BUILTINS
+bool	is_builtin(char *str);
+bool	is_in_child(t_data *data);
+bool	is_in_parent(t_data *data);
+int		builtin_in_child(t_data *data);
+int		builtin_in_parent(t_data *data);
+
+int		echo(t_data *data, const int id);
+int		env(t_data *data, const int id);
+int		pwd(t_data *data, const int id);
+int		export(t_data *data);
+int		unset(t_data *data);
 #endif

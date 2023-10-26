@@ -6,41 +6,68 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/24 12:44:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:09:03 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_options(char **cmd, int i)
+static
+int	is_option(char *str, bool *endl)
 {
-	if (!cmd[i] || cmd[i][0] != '-' || cmd[i][1] != 'n')
-		return (0);
-	return (1);
+	int	i;
+
+	if (str[0] && str[0] != '-')
+		return (false);
+	i = 1;
+	while (str[i])
+	{
+		if (str[i] != 'n')
+			return (false);
+		i++;
+	}
+	if (*endl == true)
+		*endl = false;
+	return (true);
 }
 
-void	builtin_echo(char **str)
+static
+void	insert_newline(bool endl, t_data *data)
 {
-	char	**cmd;
-	int		i;
-	int		x;
+	int	ret;
 
-	cmd = str;
+	if (endl)
+	{
+		ret = ft_putchar_fd('\n', STDOUT);
+		if (ret == -1)
+			return (error_child(data, "echo", ERROR_WRITE, 1));
+	}
+}
+
+int	echo(t_data *data, const int id)
+{
+	const char	**cmd = (const char **)data->parser.cmds[id].cmd;
+	bool		endl;
+	int			i;
+	int			ret;
+
 	i = 1;
-	if (check_options(cmd, i) == 1)
+	endl = true;
+	while (cmd[i] && is_option((char *)cmd[i], &endl))
 		i++;
 	while (cmd[i])
 	{
-		x = 0;
-		while (cmd[i][x])
+		ret = ft_putstr_fd((char *)cmd[i], STDOUT);
+		if (ret == -1)
+			return (error_child(data, "echo", ERROR_WRITE, 1), EXIT_FAILURE);
+		if (cmd[i + 1])
 		{
-			write(1, &cmd[i][x], 1);
-			x++;
+			ret = ft_putstr_fd(" ", STDOUT);
+			if (ret == -1)
+				return (error_child(data, "echo", ERROR_WRITE, 1), 1);
 		}
-		if (cmd[i + 1] != NULL)
-			write(1, " ", 1);
 		i++;
 	}
-	if (check_options(cmd, 1) != 1)
-		write(1, "\n", 1);
+	insert_newline(endl, data);
+	return (EXIT_SUCCESS);
 }
