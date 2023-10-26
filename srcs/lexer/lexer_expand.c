@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 14:09:58 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/26 15:11:11 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	skip_to_end_var(char *lex)
 	i = 0;
 	while (lex[i])
 	{
-		if (!ft_isalpha(lex[i]) && lex[0] != '?')
+		if (!ft_isalphanum(lex[i]) && lex[0] != '?')
 			return (i);
 		i++;
 	}
@@ -64,7 +64,7 @@ char	*get_env_name(char *lex)
 	i = 0;
 	while (lex[i])
 	{
-		if (ft_isalpha(lex[i]) || (lex[0] == '?' && lex[1] != '?'))
+		if (ft_isalphanum(lex[i]) || (lex[0] == '?' && lex[1] != '?'))
 		{
 			find[i] = lex[i];
 			i++;
@@ -115,7 +115,7 @@ char	*expandlex(t_data *data, char *lex)
 		return (malloc_error(data), NULL);
 	while (lex[i])
 	{
-		if (lex[i] == '$')
+		if (lex[i] == '$' && ft_isalphanum(lex[i + 1]))
 			new_lex = expand_if_dollars_exec(data, lex, new_lex, &i);
 		else
 		{
