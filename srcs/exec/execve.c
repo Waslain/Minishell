@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 12:05:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:09:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,9 @@ char	**ft_get_path(t_data *data)
 static
 void	ft_execve_bis(t_data *data, const char **cmds, char **path, char *tmp)
 {
-	char	*cmd;
-	int		i;
+	static char	*cmd = NULL;
+	int			i;
 
-	cmd = NULL;
 	if (path)
 	{
 		i = -1;
