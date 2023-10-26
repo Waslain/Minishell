@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 14:52:34 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/26 14:09:58 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ char	*expand_if_dollars_exec(t_data *data, char *lex, char *new_lex, int *i)
 	if (!find)
 		return (malloc_error(data), NULL);
 	findval = get_env_var(data, find);
-	if (!findval)
-		return (malloc_error(data), NULL);
 	if (findval)
 	{
 		tmp = new_lex;
