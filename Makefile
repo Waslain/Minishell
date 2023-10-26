@@ -13,7 +13,8 @@ LEXER		= lexer/check_char.c lexer/check_lexer.c lexer/count_token.c lexer/skip.c
 PARSER		= parser/main.c parser/init_lex.c parser/init_cmds.c parser/init_redir.c parser/init_redir_utils.c
 BUILTINS	= 
 EXEC		= exec/main.c exec/parent.c exec/child.c exec/child_bis.c exec/open.c exec/close.c exec/execve.c \
-			exec/convert_envp.c exec/envp_utils.c exec/error.c $(BUILTINS)
+			exec/convert_envp.c exec/envp_utils.c exec/error.c $(BUILTINS) $(HEREDOC)
+HEREDOC		= exec/heredoc.c exec/heredoc_bis.c
 UTILS		= utils/split.c utils/utils_1.c utils/utils_2.c utils/utils_3.c utils/utils_4.c utils/utils_5.c
 SRCS		= main.c minishell.c signals.c destroy_data.c $(LEXER) $(PARSER) $(EXEC) $(UTILS) $(DEBUG)
 SRCS		:= $(addprefix $(SRCS_PATH), $(SRCS))

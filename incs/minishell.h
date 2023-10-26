@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 14:59:58 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:26:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,12 @@ enum e_destroy
 	DONT_DESTROY_ENV
 };
 
+int		count_type_token(t_lexer *lexer, int type);
 int		minishell_loop(t_data *data);
 int		minishell(t_data *data);
+
+int		heredoc(t_data *data);
+void	runheredocchild(t_heredoc hd, t_data *data, t_heredoc *all_h, int size);
 
 void	init_signal(void);
 void	init_signal2(void);

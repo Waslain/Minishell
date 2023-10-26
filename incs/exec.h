@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:28:39 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:17:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ enum e_redir
 	NO_FILE = -2,
 	ERROR_FILE = -1
 };
+
+# define HEREDOC_MSG_CTRL_D "minishell: warning: here-document delimited by end-of-file \
+(wanted `"
 
 int		main_exec(t_data *data);
 

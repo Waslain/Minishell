@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:31:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:37:03 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_lex(t_lexer *lexer)
 	{
 		aux = lexer;
 		lexer = lexer->next;
-		free(aux);
+		ft_free((void **)&aux);
 	}
 	lexer = NULL;
 }

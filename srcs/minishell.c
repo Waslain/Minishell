@@ -6,13 +6,12 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:24:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:19:46 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static
 int	count_type_token(t_lexer *lexer, int type)
 {
 	int	nb;

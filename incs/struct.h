@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:11:18 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:45:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ enum e_pipes
 	READ,
 	WRITE
 };
+
+typedef struct s_heredoc
+{
+	char		*delimiter;
+	char		*name_file;
+	int			fd;
+}	t_heredoc;
 
 typedef struct s_exec
 {
