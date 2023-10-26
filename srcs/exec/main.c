@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 14:54:13 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 15:03:37 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ int	init_exec(t_data *data)
 	}
 	if (conv_env_to_struct(data->envp, &data->exec.envp_s, &data->exec.size))
 		return (EXIT_FAILURE);
-	printf("envp_s:\n");
-	printf("size: %d\n", data->exec.size);
-	print_envp_struct(data->exec.envp_s, data->exec.size);
 	return (EXIT_SUCCESS);
 }
 
