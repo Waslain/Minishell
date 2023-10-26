@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 17:48:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:05:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@ char	**ft_get_path(t_data *data)
 
 	tmp = found_value_with_key(data->exec.envp_s, "PATH", data->exec.size);
 	if (!tmp)
-		return (malloc_error(data), NULL);
+	{
+		path = ft_calloc(sizeof(char *), 1);
+		if (!path)
+			return (malloc_error(data), NULL);
+		path[0] = NULL;
+		return (path);
+	}
 	path = ft_split(tmp, ':');
 	if (!path)
 		return (malloc_error(data), NULL);
@@ -42,6 +48,7 @@ void	ft_execve_bis(t_data *data, const char **cmds, char **path, char *tmp)
 	char	*cmd;
 	int		i;
 
+	cmd = NULL;
 	if (path)
 	{
 		i = -1;
@@ -76,11 +83,12 @@ void	ft_execve(t_data *data)
 	if ((ft_strncmp("./", cmds[0], 2) == 0 && access(cmds[0], X_OK) != -1))
 	{
 		execve(cmds[0], (char *const *)cmds, data->envp);
+		errno = 127;
 		error_child(data, cmds[0], ": command not found");
 	}
 	path = ft_get_path(data);
 	if (!path)
-		return (malloc_error(data));
+		return (error_child(data, NULL, NULL));
 	tmp = ft_strjoin("/", cmds[0]);
 	if (!tmp)
 		return (free_array(path), error_child(data, NULL, NULL));
