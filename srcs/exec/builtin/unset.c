@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 13:26:31 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/26 14:29:03 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/26 14:34:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(t_data *data, const int id)
+int	unset(t_data *data)
 {
-	int	i;
-	int	ret;
+	const int	id = data->exec.id_child;
+	const char	**cmd = (const char **)data->parser.cmds[id].cmd;
+	int			i;
+	char		*ret;
 
-	(void)id;
 	i = 1;
-	while (data->envp[i])
+	while (cmd[i])
 	{
-		if (ft_strchr(data->envp[i], '=') != NULL)
+		ret = found_value_with_key(data->exec.envp_s, (char *)cmd[i], \
+								data->exec.size);
+		if (ret)
 		{
-			ret = ft_putendl_fd(data->envp[i], STDOUT);
-			if (ret == -1)
-				return (error_child(data, "env", ERROR_WRITE, 1), EXIT_FAILURE);
+			if (delete_key_value(&data->exec.envp_s, &data->exec.size, \
+									(char *)cmd[i]))
+				return (malloc_error(data), EXIT_FAILURE);
 		}
 		i++;
 	}

@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 13:26:31 by obouhlel         ###   ########.fr       */
+/*   Created: 2023/10/25 16:33:15 by obouhlel          #+#    #+#             */
+/*   Updated: 2023/10/26 12:14:46 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(t_data *data, const int id)
+void	error_child(t_data *data, const char *arg, const char *msg, int val)
 {
-	int	i;
-	int	ret;
-
-	(void)id;
-	i = 1;
-	while (data->envp[i])
+	if (arg && !msg)
 	{
-		if (ft_strchr(data->envp[i], '=') != NULL)
-		{
-			ret = ft_putendl_fd(data->envp[i], STDOUT);
-			if (ret == -1)
-				return (error_child(data, "env", ERROR_WRITE, 1), EXIT_FAILURE);
-		}
-		i++;
+		ft_putstr_fd("minishell: ", STDERR);
+		perror(arg);
 	}
-	return (EXIT_SUCCESS);
+	else if (arg && msg)
+	{
+		ft_putstr_fd("minishell: ", STDERR);
+		ft_putstr_fd((char *)arg, STDERR);
+		ft_putendl_fd((char *)msg, STDERR);
+	}
+	destroy_data(data, DESTROY_ENV);
+	if (val == -1)
+		exit(errno);
+	else
+		exit(val);
 }

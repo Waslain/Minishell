@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/25 10:19:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:32:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_array(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		free(tab[i]);
+		ft_free((void **)&tab[i]);
 		i++;
 	}
 	free(tab);

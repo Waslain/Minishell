@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cmds_parser.c                                 :+:      :+:    :+:   */
+/*   init_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:17:56 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/24 16:49:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:57:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ int	calculate_size_array_cmd(t_lexer *lexer)
 	}
 	if (!lexer && size_cmd == 0)
 		return (size_cmd);
-	while (lexer && (lexer)->type == ARGS)
+	while (lexer && (lexer)->type != PIPE)
 	{
-		size_cmd++;
+		if ((lexer)->type == ARGS)
+			size_cmd++;
 		lexer = lexer->next;
 	}
 	return (size_cmd);
@@ -58,10 +59,11 @@ int	create_array_cmd(char ***cmds, t_lexer **lexer_copy)
 		}
 		(*lexer_copy) = (*lexer_copy)->next;
 	}
-	i = 0;
-	while ((*lexer_copy) && ++i < size_cmd)
+	i = 1;
+	while ((*lexer_copy) && (*lexer_copy)->type != PIPE)
 	{
-		(*cmds)[i] = (*lexer_copy)->str;
+		if ((*lexer_copy)->type == ARGS)
+			(*cmds)[i++] = (*lexer_copy)->str;
 		(*lexer_copy) = (*lexer_copy)->next;
 	}
 	return (EXIT_SUCCESS);

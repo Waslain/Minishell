@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 12:25:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 11:55:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_lex(t_lexer *lexer)
 	{
 		aux = lexer;
 		lexer = lexer->next;
-		free(aux);
+		ft_free((void **)&aux);
 	}
 	lexer = NULL;
 }
@@ -51,18 +51,26 @@ void	free_parser(t_parser *parser, int nb_cmd)
 	}
 }
 
-void	free_envp_struct(t_envp *envp, int size)
+void	free_exec(t_exec *exec, int nb_pipe)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
+	while (i < exec->size)
 	{
-		free(envp[i].key);
-		free(envp[i].value);
+		free(exec->envp_s[i].key);
+		free(exec->envp_s[i].value);
 		i++;
 	}
-	free(envp);
+	free(exec->envp_s);
+	i = 0;
+	while (i < nb_pipe)
+	{
+		free(exec->pipes[i]);
+		i++;
+	}
+	free(exec->pipes);
+	free(exec->pid);
 }
 
 void	destroy_data(t_data *data, int mode)
@@ -76,10 +84,10 @@ void	destroy_data(t_data *data, int mode)
 		free_lex(data->lexer);
 	if (data->parser.cmds || data->parser.redir)
 		free_parser(&data->parser, data->nb_cmd);
-	if (data->exec.pid)
-		free(data->exec.pid);
-	if (data->exec.envp_s)
-		free_envp_struct(data->exec.envp_s, data->exec.size);
+	if (data->exec.pid || data->exec.envp_s || data->exec.pipes)
+		free_exec(&data->exec, data->nb_pipe);
+	if (data->to_free && mode == DESTROY_ENV)
+		free_array(data->to_free);
 	if (mode == DONT_DESTROY_ENV)
 	{
 		ft_bzero(data, sizeof(t_data));

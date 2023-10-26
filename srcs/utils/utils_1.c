@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:58:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 14:58:54 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:22:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ char	*ft_strdup(const char *src)
 	char	*ptr;
 	int		n;
 
+	if (!src)
+		return (NULL);
 	n = 0;
 	while (src[n])
 		n++;
