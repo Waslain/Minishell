@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 21:22:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 15:11:11 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/26 15:10:14 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	g_signal = 0;
-	printf("SIG : %d\n", g_signal);
 	ft_bzero(&data, sizeof(t_data));
 	if (get_envp(&data, envp) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
