@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:07:46 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:28:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int		parent_pipe_redir(t_data *data);
 int		parent_redir(t_data *data);
 
 void	child_no_cmd_redir(t_data *data);
+void	child_redir(t_data *data);
 void	child_pipe(t_data *data);
 void	child_pipe_redir(t_data *data);
-void	child_redir(t_data *data);
 
 int		ft_open(char *name, int type);
 int		open_infile(t_file *file, int size, t_data *data);

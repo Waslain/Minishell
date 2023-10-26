@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:26:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:28:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	child_no_cmd_redir(t_data *data)
 	int	fd_out;
 	int	i;
 
-	printf("Hello from child\n");
 	i = 0;
 	while (i < data->parser.size_redir)
 	{
@@ -61,11 +60,6 @@ void	child_pipe(t_data *data)
 	ft_execve(data);
 }
 
-void	child_pipe_redir(t_data *data)
-{
-	(void)data;
-}
-
 void	child_redir(t_data *data)
 {
 	int	fd_in;
@@ -88,4 +82,9 @@ void	child_redir(t_data *data)
 		ft_close(&fd_out);
 	}
 	ft_execve(data);
+}
+
+void	child_pipe_redir(t_data *data)
+{
+	(void)data;
 }

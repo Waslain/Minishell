@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:23:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:31:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ void	destroy_data(t_data *data, int mode)
 	tmp = data->envp;
 	if (mode == DESTROY_ENV && data->envp)
 		free_array(data->envp);
-	if (data->to_free && mode == DESTROY_ENV)
-		free(data->to_free);
 	if (data->lexer)
 		free_lex(data->lexer);
 	if (data->parser.cmds || data->parser.redir)
 		free_parser(&data->parser, data->nb_cmd);
 	if (data->exec.pid || data->exec.envp_s || data->exec.pipes)
 		free_exec(&data->exec, data->nb_pipe);
+	if (data->to_free && mode == DESTROY_ENV)
+		free_array(data->to_free);
 	if (mode == DONT_DESTROY_ENV)
 	{
 		ft_bzero(data, sizeof(t_data));

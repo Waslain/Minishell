@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:33:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 17:32:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:33:20 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	error_child(t_data *data, const char *arg, const char *msg)
 {
-	destroy_data(data, DESTROY_ENV);
 	if (arg && !msg)
 	{
 		ft_putstr_fd("minishell: ", STDERR);
@@ -26,5 +25,6 @@ void	error_child(t_data *data, const char *arg, const char *msg)
 		ft_putstr_fd((char *)arg, STDERR);
 		ft_putendl_fd((char *)msg, STDERR);
 	}
+	destroy_data(data, DESTROY_ENV);
 	exit(errno);
 }
