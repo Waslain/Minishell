@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 08:29:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:11:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_exec
 
 typedef struct s_data
 {
+	char		**to_free;
 	char		**envp;
 	int			nb_cmd;
 	int			nb_pipe;

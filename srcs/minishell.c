@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 14:57:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:12:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	minishell(t_data *data)
 	if (!data->lexer)
 		return (EXIT_MINISHELL);
 	print_lexlst(data->lexer);
+	data->to_free = lex;
 	data->nb_cmd = count_type_token(data->lexer, CMD);
 	data->nb_pipe = count_type_token(data->lexer, PIPE);
 	data->nb_redir = count_nb_redir(data->lexer);
@@ -81,7 +82,6 @@ int	minishell(t_data *data)
 		return (EXIT_MINISHELL);
 	if (main_exec(data) == EXIT_FAILURE)
 		return (EXIT_MINISHELL);
-	free_lexer(lex);
 	return (destroy_data(data, DONT_DESTROY_ENV), NO_ERROR);
 }
 

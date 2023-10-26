@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:17:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 15:23:38 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:07:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,47 +20,47 @@ int	ft_open(char *name, int type)
 		return (open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644));
 	else if (type == FILES_OUT_APPEND)
 		return (open(name, O_WRONLY | O_CREAT | O_APPEND, 0644));
-	return (-1);
+	return (NO_FILE);
 }
 
-int	open_infile(t_file *file, int size)
+int	open_infile(t_file *file, int size, t_data *data)
 {
 	int	i;
 	int	fd;
 
 	i = 0;
-	fd = -2;
+	fd = NO_FILE;
 	while (i < size)
 	{
-		if (fd != -2)
+		if (fd != NO_FILE)
 			ft_close(&fd);
 		if (is_infile(file[i].type))
 		{
 			fd = ft_open(file[i].name_file, file[i].type);
-			if (fd == -1)
-				return (-1);
+			if (fd == ERROR_FILE)
+				return (error_child(data, file[i].name_file, NULL), ERROR_FILE);
 		}
 		i++;
 	}
 	return (fd);
 }
 
-int	open_outfile(t_file *file, int size)
+int	open_outfile(t_file *file, int size, t_data *data)
 {
 	int	i;
 	int	fd;
 
 	i = 0;
-	fd = -2;
+	fd = NO_FILE;
 	while (i < size)
 	{
-		if (fd != -2)
+		if (fd != NO_FILE)
 			ft_close(&fd);
 		if (is_outfile(file[i].type))
 		{
 			fd = ft_open(file[i].name_file, file[i].type);
-			if (fd == -1)
-				return (-1);
+			if (fd == ERROR_FILE)
+				return (error_child(data, file[i].name_file, NULL), ERROR_FILE);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 08:49:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:02:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	init_exec(t_data *data)
 			data->exec.pipes[i] = ft_calloc(sizeof(int), 2);
 			if (!data->exec.pipes[i])
 				return (EXIT_FAILURE);
-			// data->exec.pipes[i] = (int [2]) {-1, -1};
 			if (pipe(data->exec.pipes[i]) == -1)
 				return (close_all_pipe(data->exec.pipes, data->nb_pipe), 1);
 		}
@@ -71,10 +70,10 @@ int	main_exec(t_data *data)
 		status = parent_simple_cmd(data);
 	else if (data->nb_pipe > 0 && data->nb_redir == 0)
 		status = parent_pipe(data);
+	else if (data->nb_pipe == 0 && data->nb_cmd == 1 && data->nb_redir > 0)
+		status = parent_redir(data);
 	// else if (data->nb_pipe > 0 && data->nb_redir > 0)
 	// 	status = parent_pipe_redir(data);
-	// else if (data->nb_pipe == 0 && data->nb_cmd == 1 && data->nb_redir > 0)
-	// 	status = parent_redir(data);
 	if (status == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	update_exit_code(data);
