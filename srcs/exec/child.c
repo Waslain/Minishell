@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:28:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:23:58 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,19 @@ void	child_redir(t_data *data)
 
 	fd_in = open_infile(data->parser.redir[0].files, \
 				data->parser.redir[0].nb_files, data);
-	fd_out = open_outfile(data->parser.redir[0].files, \
-				data->parser.redir[0].nb_files, data);
 	if (fd_in != NO_FILE)
 	{
 		if (dup2(fd_in, STDIN) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (ft_close(&fd_in), error_child(data, "dup2", NULL));
 		ft_close(&fd_in);
 	}
+	fd_out = open_outfile(data->parser.redir[0].files, \
+				data->parser.redir[0].nb_files, data);
 	if (fd_out != NO_FILE)
 	{
 		if (dup2(fd_out, STDOUT) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (ft_close(&fd_out), error_child(data, "dup2", NULL));
 		ft_close(&fd_out);
 	}
 	ft_execve(data);
-}
-
-void	child_pipe_redir(t_data *data)
-{
-	(void)data;
 }

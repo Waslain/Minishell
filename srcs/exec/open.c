@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:17:02 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:07:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:23:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	open_infile(t_file *file, int size, t_data *data)
 	fd = NO_FILE;
 	while (i < size)
 	{
-		if (fd != NO_FILE)
+		if (fd != NO_FILE && is_infile(file[i].type))
 			ft_close(&fd);
 		if (is_infile(file[i].type))
 		{
@@ -54,7 +54,7 @@ int	open_outfile(t_file *file, int size, t_data *data)
 	fd = NO_FILE;
 	while (i < size)
 	{
-		if (fd != NO_FILE)
+		if (fd != NO_FILE && is_outfile(file[i].type))
 			ft_close(&fd);
 		if (is_outfile(file[i].type))
 		{

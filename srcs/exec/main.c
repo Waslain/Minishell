@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:20:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:51:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	main_exec(t_data *data)
 		status = parent_pipe(data);
 	else if (data->nb_pipe == 0 && data->nb_cmd == 1 && data->nb_redir > 0)
 		status = parent_redir(data);
-	// else if (data->nb_pipe > 0 && data->nb_redir > 0)
-	// 	status = parent_pipe_redir(data);
+	else if (data->nb_pipe > 0 && data->nb_redir > 0)
+		status = parent_pipe_redir(data);
 	if (status == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	update_exit_code(data);
