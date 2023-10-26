@@ -33,7 +33,7 @@ $(NAME)	: $(OBJS)
 	@echo "Executable created"
 
 leak	: $(NAME)
-	@valgrind --leak-check=full --track-origins=yes ./$(NAME)
+	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=./.readline.supp --track-origins=yes ./$(NAME)
 
 clean	:
 	@rm -rf $(OBJS_PATH) $(OBJS) $(DEPS)

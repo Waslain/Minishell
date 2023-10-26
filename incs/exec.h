@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 17:27:47 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 08:30:07 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		open_outfile(t_file *file, int size);
 void	ft_execve(t_data *data);
 
 void	ft_close(int *fd);
-void	close_all_pipe(int pipes[2][2]);
+void	close_all_pipe(int **pipes, int nb_pipe);
 
 int		conv_env_to_struct(char **envp, t_envp **envp_s, int *size);
 int		conv_env_struct_to_env(char ***envp, t_envp *envp_s, int size);

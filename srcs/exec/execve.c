@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 17:45:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/25 17:48:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_execve_bis(t_data *data, const char **cmds, char **path, char *tmp)
 		{
 			cmd = ft_strjoin(path[i], tmp);
 			if (!cmd)
-				return (free_array(path), malloc_error(data));
+				return (free_tmp_and_path(tmp, path), malloc_error(data));
 			errno = 0;
 			if (access(cmd, X_OK) != -1)
 				break ;
@@ -80,7 +80,7 @@ void	ft_execve(t_data *data)
 	}
 	path = ft_get_path(data);
 	if (!path)
-		return (error_child(data, "malloc error", NULL));
+		return (malloc_error(data));
 	tmp = ft_strjoin("/", cmds[0]);
 	if (!tmp)
 		return (free_array(path), error_child(data, NULL, NULL));

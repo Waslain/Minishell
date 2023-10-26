@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   close.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:08:54 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 10:02:47 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 08:23:02 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,15 @@ void	ft_close(int *fd)
 	}
 }
 
-void	close_all_pipe(int pipes[2][2])
+void	close_all_pipe(int **pipes, int nb_pipe)
 {
-	ft_close(&pipes[0][0]);
-	ft_close(&pipes[0][1]);
-	ft_close(&pipes[1][0]);
-	ft_close(&pipes[1][1]);
+	int	i;
+
+	i = 0;
+	while (i < nb_pipe)
+	{
+		ft_close(&pipes[i][0]);
+		ft_close(&pipes[i][1]);
+		i++;
+	}
 }

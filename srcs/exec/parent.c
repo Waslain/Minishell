@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 15:30:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 08:56:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	parent_no_cmd_redir(t_data *data)
 {
 	int	i;
 
-	while (data->exec.id_child < data->nb_pipe)
+	while (data->exec.id_child < data->nb_cmd)
 	{
 		data->exec.pid[data->exec.id_child] = fork();
 		if (data->exec.pid[data->exec.id_child] == -1)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
 			child_no_cmd_redir(data);
-		i++;
+		data->exec.id_child++;
 	}
 	i = -1;
-	while (++i < data->nb_pipe)
+	while (++i < data->nb_cmd)
 		waitpid(data->exec.pid[i], &data->exec.status, 0);
 	return (EXIT_SUCCESS);
 }
@@ -48,18 +48,18 @@ int	parent_pipe(t_data *data)
 {
 	int	i;
 
-	while (data->exec.id_child < data->nb_pipe)
+	while (data->exec.id_child < data->nb_cmd)
 	{
 		data->exec.pid[data->exec.id_child] = fork();
 		if (data->exec.pid[data->exec.id_child] == -1)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
 			child_pipe(data);
-		i++;
+		data->exec.id_child++;
 	}
-	close_all_pipe(data->exec.pipes);
+	close_all_pipe(data->exec.pipes, data->nb_pipe);
 	i = -1;
-	while (++i < data->nb_pipe)
+	while (++i < data->nb_cmd)
 		waitpid(data->exec.pid[i], &data->exec.status, 0);
 	return (EXIT_SUCCESS);
 }
@@ -68,18 +68,18 @@ int	parent_pipe_redir(t_data *data)
 {
 	int	i;
 
-	while (data->exec.id_child < data->nb_pipe)
+	while (data->exec.id_child < data->nb_cmd)
 	{
 		data->exec.pid[data->exec.id_child] = fork();
 		if (data->exec.pid[data->exec.id_child] == -1)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
 			child_pipe_redir(data);
-		i++;
+		data->exec.id_child++;
 	}
-	close_all_pipe(data->exec.pipes);
+	close_all_pipe(data->exec.pipes, data->nb_pipe);
 	i = -1;
-	while (++i < data->nb_pipe)
+	while (++i < data->nb_cmd)
 		waitpid(data->exec.pid[i], &data->exec.status, 0);
 	return (EXIT_SUCCESS);
 }

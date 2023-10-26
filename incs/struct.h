@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 12:21:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 08:29:43 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,17 @@ typedef struct s_envp
 	char		*value;
 }	t_envp;
 
+enum e_pipes
+{
+	READ,
+	WRITE
+};
+
 typedef struct s_exec
 {
 	t_envp	*envp_s;
 	int		size;
-	int		pipes[2][2];
+	int		**pipes;
 	int		id_child;
 	pid_t	*pid;
 	int		status;
