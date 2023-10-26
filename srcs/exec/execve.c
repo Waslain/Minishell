@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 12:09:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:15:40 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,14 @@ void	ft_execve(t_data *data)
 	if ((ft_strncmp("./", cmds[0], 2) == 0 && access(cmds[0], X_OK) != -1))
 	{
 		execve(cmds[0], (char *const *)cmds, data->envp);
-		errno = 127;
-		error_child(data, cmds[0], ": command not found");
+		error_child(data, cmds[0], ": command not found", 127);
 	}
 	path = ft_get_path(data);
 	if (!path)
-		return (error_child(data, NULL, NULL));
+		return (error_child(data, NULL, NULL, 1));
 	tmp = ft_strjoin("/", cmds[0]);
 	if (!tmp)
-		return (free_array(path), error_child(data, NULL, NULL));
+		return (free_array(path), error_child(data, NULL, NULL, 1));
 	ft_execve_bis(data, cmds, path, tmp);
-	errno = 127;
-	error_child(data, cmds[0], ": command not found");
+	error_child(data, cmds[0], ": command not found", 127);
 }

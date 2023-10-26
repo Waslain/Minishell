@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 11:08:16 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 11:42:16 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:18:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	runheredocchild(t_heredoc hd, t_data *data, t_heredoc *all_h, int size)
 
 	hd.fd = open(hd.name_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (hd.fd == -1)
-		return (error_child(data, hd.name_file, "heredoc error"));
+		return (error_child(data, hd.name_file, "heredoc error", 1));
 	// while (!g_signal)
 	while (1)
 	{

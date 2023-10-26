@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:06:45 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 10:25:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:17:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	child_pipe_redir_first(t_data *data, int fd_in, int fd_out, int id)
 	if (fd_in != NO_FILE)
 	{
 		if (dup2(fd_in, STDIN) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 		ft_close(&fd_in);
 	}
 	fd_out = open_outfile(data->parser.redir[id].files, \
@@ -28,13 +28,13 @@ void	child_pipe_redir_first(t_data *data, int fd_in, int fd_out, int id)
 	if (fd_out != NO_FILE)
 	{
 		if (dup2(fd_out, STDOUT) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 		ft_close(&fd_out);
 	}
 	else
 	{
 		if (dup2(data->exec.pipes[id][WRITE], STDOUT) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 	}
 }
 
@@ -46,21 +46,21 @@ void	child_pipe_redir_middle(t_data *data, int fd_in, int fd_out, int id)
 	if (fd_in != NO_FILE)
 	{
 		if (dup2(fd_in, STDIN) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 		ft_close(&fd_in);
 	}
 	else if (dup2(data->exec.pipes[id - 1][READ], STDIN) == -1)
-		return (error_child(data, "dup2", NULL));
+		return (error_child(data, "dup2", NULL, -1));
 	fd_out = open_outfile(data->parser.redir[id].files, \
 		data->parser.redir[id].nb_files, data);
 	if (fd_out != NO_FILE)
 	{
 		if (dup2(fd_out, STDOUT) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 		ft_close(&fd_out);
 	}
 	else if (dup2(data->exec.pipes[id][WRITE], STDOUT) == -1)
-		return (error_child(data, "dup2", NULL));
+		return (error_child(data, "dup2", NULL, -1));
 }
 
 static
@@ -71,20 +71,20 @@ void	child_pipe_redir_last(t_data *data, int fd_in, int fd_out, int id)
 	if (fd_in != NO_FILE)
 	{
 		if (dup2(fd_in, STDIN) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 		ft_close(&fd_in);
 	}
 	else
 	{
 		if (dup2(data->exec.pipes[id - 1][READ], STDIN) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 	}
 	fd_out = open_outfile(data->parser.redir[id].files, \
 		data->parser.redir[id].nb_files, data);
 	if (fd_out != NO_FILE)
 	{
 		if (dup2(fd_out, STDOUT) == -1)
-			return (error_child(data, "dup2", NULL));
+			return (error_child(data, "dup2", NULL, -1));
 		ft_close(&fd_out);
 	}
 }

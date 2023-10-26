@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 11:17:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 12:16:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		update_value_with_key(t_envp *envp_s, int *size, char *key, char *val);
 int		add_key_value(t_envp **envp_s, int *size, char *key, char *value);
 int		delete_key_value(t_envp **envp_s, int *size, char *key);
 
-void	error_child(t_data *data, const char *arg, const char *msg);
+void	error_child(t_data *data, const char *arg, const char *msg, int val);
 
 //Builtin/builtin.c
 int		is_builtin(char *str);
