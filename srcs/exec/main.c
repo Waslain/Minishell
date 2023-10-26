@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:02:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:20:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ int	main_exec(t_data *data)
 	if (init_exec(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	status = EXIT_SUCCESS;
-	// if (data->nb_cmd == 0 && data->nb_redir > 0)
-	// 	status = parent_no_cmd_redir(data);
-	if (data->nb_pipe == 0 && data->nb_redir == 0)
+	if (data->nb_cmd == 0 && data->nb_redir > 0)
+		status = parent_no_cmd_redir(data);
+	else if (data->nb_pipe == 0 && data->nb_redir == 0)
 		status = parent_simple_cmd(data);
 	else if (data->nb_pipe > 0 && data->nb_redir == 0)
 		status = parent_pipe(data);

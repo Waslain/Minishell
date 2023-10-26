@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 09:09:48 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:26:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,26 @@
 
 void	child_no_cmd_redir(t_data *data)
 {
-	(void)data;
+	int	fd_in;
+	int	fd_out;
+	int	i;
+
+	printf("Hello from child\n");
+	i = 0;
+	while (i < data->parser.size_redir)
+	{
+		fd_in = open_infile(data->parser.redir[i].files, \
+					data->parser.redir[i].nb_files, data);
+		fd_out = open_outfile(data->parser.redir[i].files, \
+					data->parser.redir[i].nb_files, data);
+		if (fd_in != NO_FILE)
+			ft_close(&fd_in);
+		if (fd_out != NO_FILE)
+			ft_close(&fd_out);
+		i++;
+	}
+	destroy_data(data, DESTROY_ENV);
+	exit(0);
 }
 
 void	child_pipe(t_data *data)
