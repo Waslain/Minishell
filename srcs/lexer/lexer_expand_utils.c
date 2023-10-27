@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 13:12:07 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/27 18:02:42 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	skip_to_dollars(char *lex)
 	{
 		if (lex[i] == '\'')
 			go_next_simplequote(lex, &i);
-		else if (lex[i] == '"')
-			go_next_doublequote(lex, &i);
 		else if (lex[i] != '$')
 			i++;
 		else if (lex[i] == '$' && !ft_isalphanum(lex[i + 1]) \
