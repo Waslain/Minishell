@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 15:17:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:21:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ int	update_exit_code_signal(t_data *data, int value)
 }
 
 static
-int	check_cmd(char *cmd, t_data *data)
+int	check_cmd_and_signal(char *cmd, t_data *data)
 {
-	printf("g_signal = %d\n", g_signal);
 	if (cmd == NULL)
 	{
 		ft_putstr_fd("exit\n", STDOUT);
@@ -93,7 +92,7 @@ int	minishell_loop(t_data *data)
 		g_signal = 0;
 		mode_signal(S_MAIN);
 		ret = readline(BCYN"Minishell $> "CRESET);
-		return_check = check_cmd(ret, data);
+		return_check = check_cmd_and_signal(ret, data);
 		if (return_check == EMPTY_COMMANDE)
 		{
 			free(ret);

@@ -18,7 +18,7 @@ EXEC		= exec/main.c exec/parent.c exec/child.c exec/child_bis.c exec/open.c exec
 			exec/convert_envp.c exec/envp_utils.c exec/error.c $(BUILTINS) $(HEREDOC)
 HEREDOC		= exec/heredoc.c exec/heredoc_bis.c
 UTILS		= utils/split.c utils/utils_1.c utils/utils_2.c utils/utils_3.c utils/utils_4.c utils/utils_5.c utils/utils_6.c
-SRCS		= main.c minishell.c signals.c destroy_data.c $(LEXER) $(PARSER) $(EXEC) $(UTILS) $(DEBUG)
+SRCS		= main.c minishell.c signals.c signals_bis.c destroy_data.c $(LEXER) $(PARSER) $(EXEC) $(UTILS) $(DEBUG)
 SRCS		:= $(addprefix $(SRCS_PATH), $(SRCS))
 OBJS		:= $(subst $(SRCS_PATH), $(OBJS_PATH), $(SRCS:.c=.o))
 DEPS		:= $(OBJS:.o=.d)
