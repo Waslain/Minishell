@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:58:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:52:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	destroy_data(t_data *data, int mode)
 		free_array(data->envp);
 	if (data->lexer)
 		free_lex(data->lexer);
+	if (data->heredoc)
+		free_heredoc(data->heredoc, data->nb_heredoc);
 	if (data->parser.cmds || data->parser.redir)
 		free_parser(&data->parser, data->nb_cmd);
 	if (data->exec.pid || data->exec.envp_s || data->exec.pipes)

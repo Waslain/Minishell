@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:56:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:13:40 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,9 @@ typedef struct s_data
 	int			nb_cmd;
 	int			nb_pipe;
 	int			nb_redir;
+	int			nb_heredoc;
 	t_lexer		*lexer;
+	t_heredoc	*heredoc;
 	t_parser	parser;
 	t_exec		exec;
 }	t_data;

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 15:36:31 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:52:01 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	minishell(t_data *data, char *rl)
 		return (EXIT_MINISHELL);
 	if (main_exec(data) == EXIT_FAILURE)
 		return (EXIT_MINISHELL);
+	destroy_all_heredoc(data);
 	free_lexer(lex);
 	return (destroy_data(data, DONT_DESTROY_ENV), 0);
 }

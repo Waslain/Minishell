@@ -6,28 +6,69 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 15:41:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:54:01 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static
-int	init_heredoc(t_heredoc *heredoc, t_lexer *lexer)
+void	free_heredoc(t_heredoc *heredoc, int nb_heredoc)
 {
-	const char	*name = "/tmp/.heredoc_";
+	int	i;
 
+	i = 0;
+	while (i < nb_heredoc)
+	{
+		ft_free((void **)&heredoc[i].name_file);
+		i++;
+	}
+	ft_free((void **)&heredoc);
+}
+
+void	destroy_all_heredoc(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nb_heredoc)
+	{
+		unlink(data->heredoc[i].name_file);
+		i++;
+	}
+}
+
+static
+char	*name_file_heredoc(int n, t_data *data)
+{
+	char	*str_itoa;
+	char	*name_file;
+
+	str_itoa = ft_itoa(n);
+	if (!str_itoa)
+		return (malloc_error(data), NULL);
+	name_file = ft_strjoin("/tmp/.heredoc_", str_itoa);
+	if (!name_file)
+		return (ft_free((void **)&str_itoa), malloc_error(data), NULL);
+	ft_free((void **)&str_itoa);
+	return (name_file);
+}
+
+static
+int	init_heredoc(t_heredoc *heredoc, t_lexer *lexer, t_data *data)
+{
+	static int	n;
+	int			i;
+
+	i = 0;
 	while (lexer)
 	{
-		if (lexer->type == HEREDOC)
+		if (lexer->type == HEREDOC && i < data->nb_heredoc)
 		{
-			heredoc->delimiter = lexer->str;
-			if (!heredoc->delimiter)
-				return (EXIT_FAILURE);
-			heredoc->name_file = (char *)name;
-			if (!heredoc->name_file)
-				return (EXIT_FAILURE);
-			lexer->str = heredoc->name_file;
+			heredoc[i].delimiter = lexer->str;
+			heredoc[i].name_file = name_file_heredoc(n, data);
+			lexer->str = heredoc[i].name_file;
+			n++;
+			i++;
 		}
 		lexer = lexer->next;
 	}
@@ -35,38 +76,37 @@ int	init_heredoc(t_heredoc *heredoc, t_lexer *lexer)
 }
 
 static
-void	run_heredoc(t_heredoc heredoc, t_data *data, t_heredoc *all_h, int size)
+void	run_heredoc(t_heredoc *heredoc, t_data *data)
 {
 	pid_t	pid;
+	int		i;
 
-	pid = fork();
-	if (pid == 0)
+	i = 0;
+	while (i < data->nb_heredoc)
 	{
-		mode_signal(S_HEREDOC);
-		runheredocchild(heredoc, data, all_h, size);
-		exit(0);
+		pid = fork();
+		if (pid == 0)
+		{
+			mode_signal(S_HEREDOC);
+			run_heredoc_child(heredoc[i], data);
+			exit(0);
+		}
+		else
+			waitpid(pid, NULL, 0);
+		i++;
 	}
-	waitpid(pid, &data->exec.status, 0);
 }
 
 int	heredoc(t_data *data)
 {
-	t_heredoc	*heredoc;
-	int			nb_heredoc;
-	int			i;
-
-	nb_heredoc = count_type_token(data->lexer, HEREDOC);
-	if (nb_heredoc == 0)
+	data->nb_heredoc = count_type_token(data->lexer, HEREDOC);
+	if (data->nb_heredoc == 0)
 		return (EXIT_SUCCESS);
-	heredoc = ft_calloc(sizeof(t_heredoc), nb_heredoc);
-	if (!heredoc)
+	data->heredoc = ft_calloc(sizeof(t_heredoc), data->nb_heredoc);
+	if (!data->heredoc)
 		return (EXIT_FAILURE);
-	if (init_heredoc(heredoc, data->lexer))
+	if (init_heredoc(data->heredoc, data->lexer, data))
 		return (EXIT_FAILURE);
-	print_lexlst(data->lexer);
-	i = 0;
-	while (i < nb_heredoc)
-		run_heredoc(heredoc[i++], data, heredoc, nb_heredoc);
-	free(heredoc);
+	run_heredoc(data->heredoc, data);
 	return (EXIT_SUCCESS);
 }
