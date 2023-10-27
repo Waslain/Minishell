@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 13:42:40 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/27 15:46:52 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@ int	skip_to_end_var(char *lex)
 {
 	int	i;
 
+	if (lex[0] == '?')
+		return (1);
 	i = 0;
 	while (lex[i])
 	{
-		if (!ft_isalphanum(lex[i]) && lex[i] != '?')
+		if (!ft_isalphanum(lex[i]))
 			return (i);
 		i++;
 	}
@@ -57,6 +59,11 @@ char	*get_env_name(char *lex)
 	int		i;
 	char	*find;
 
+	if (lex[0] == '?')
+	{
+		find = ft_strdup("?");
+		return (find);
+	}
 	i = skip_to_end_var(lex);
 	find = malloc(sizeof(char) * i + 1);
 	if (!find)
@@ -64,7 +71,7 @@ char	*get_env_name(char *lex)
 	i = 0;
 	while (lex[i])
 	{
-		if (ft_isalphanum(lex[i]) || (lex[i] == '?' && lex[i + 1] != '?'))
+		if (ft_isalphanum(lex[i]))
 		{
 			find[i] = lex[i];
 			i++;
