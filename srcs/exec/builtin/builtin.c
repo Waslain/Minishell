@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 10:47:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:30:51 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ bool	is_in_child(t_data *data)
 	if (ft_strcmp(cmd, "echo") == 0
 		|| ft_strcmp(cmd, "pwd") == 0
 		|| ft_strcmp(cmd, "env") == 0
+		|| ft_strcmp(cmd, "exit") == 0
 		|| (ft_strcmp(cmd, "export") == 0 && id != 0 && data->nb_pipe != 0))
 		return (true);
 	else
@@ -45,29 +46,27 @@ bool	is_in_parent(t_data *data)
 int	builtin_in_child(t_data *data)
 {
 	const int	id = data->exec.id_child;
-	char		*cmd;
+	const char	*cmd = data->parser.cmds[id].cmd[0];
 
-	cmd = data->parser.cmds[id].cmd[0];
-	if (ft_strcmp(cmd, "echo") == 0)
+	if (ft_strcmp((char *)cmd, "echo") == 0)
 	{
 		if (echo(data, id) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	else if (ft_strcmp(cmd, "pwd") == 0)
+	else if (ft_strcmp((char *)cmd, "pwd") == 0)
 	{
 		if (pwd(data, id) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	else if (ft_strcmp(cmd, "env") == 0)
+	else if (ft_strcmp((char *)cmd, "env") == 0)
 	{
 		if (env(data, id) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	else if (ft_strcmp(cmd, "export") == 0)
-	{
-		if (export(data) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-	}
+	else if (ft_strcmp((char *)cmd, "export") == 0 && (export(data)))
+		return (EXIT_FAILURE);
+	else if (ft_strcmp((char *)cmd, "exit") == 0 && ft_exit_child(data))
+		return (EXIT_FAILURE);
 	return (destroy_data(data, DESTROY_ENV), EXIT_SUCCESS);
 }
 
@@ -92,11 +91,11 @@ int	builtin_in_parent(t_data *data)
 		if (cd(data) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	// else if (ft_strcmp(cmd, "exit") == 0)
-	// {
-	// 	if (exit(data) == EXIT_FAILURE)
-	// 		return (EXIT_FAILURE);
-	// }
+	else if (ft_strcmp(cmd, "exit") == 0)
+	{
+		if (ft_exit(data) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 

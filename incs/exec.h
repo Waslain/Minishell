@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:36:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:29:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,6 @@ int		pwd(t_data *data, const int id);
 int		export(t_data *data);
 int		unset(t_data *data);
 int		cd(t_data *data);
+int		ft_exit(t_data *data);
+int		ft_exit_child(t_data *data);
 #endif

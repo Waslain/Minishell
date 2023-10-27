@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:43:32 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:50:32 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:18:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,20 +94,4 @@ bool	ft_isalphanum(int c)
 	if (ft_isalpha(c) || (c <= '9' && c >= '0'))
 		return (true);
 	return (false);
-}
-
-char	*ft_strrchr(const char *s, int c)
-{
-	char	*str;
-	int		i;
-
-	str = (char *)s;
-	i = ft_strlen(str);
-	while (i >= 0)
-	{
-		if (str[i] == (char)c)
-			return (str + i);
-		i--;
-	}
-	return (NULL);
 }

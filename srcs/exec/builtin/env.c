@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 13:26:31 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:34:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 int	env(t_data *data, const int id)
 {
-	int	i;
-	int	ret;
+	const char	**cmds = (const char **)data->parser.cmds[id].cmd;
+	const int	nb_args = count_args(cmds);
+	int			len;
+	int			i;
+	int			ret;
 
-	(void)id;
+	if (nb_args > 1)
+	{
+		ft_putendl_fd("env: too many arguments", STDERR);
+		return (EXIT_FAILURE);
+	}
 	i = 1;
 	while (data->envp[i])
 	{
-		if (ft_strchr(data->envp[i], '=') != NULL)
+		len = ft_strlen(data->envp[i]);
+		if (len > 0 && data->envp[i][len - 1] != '=')
 		{
 			ret = ft_putendl_fd(data->envp[i], STDOUT);
 			if (ret == -1)

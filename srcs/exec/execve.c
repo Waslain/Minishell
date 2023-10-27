@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:48:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:31:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_execve(t_data *data)
 	if (is_in_child(data))
 	{
 		if (builtin_in_child(data) == EXIT_FAILURE)
-			exit(EXIT_FAILURE);
+			return (destroy_data(data, DESTROY_ENV), exit(EXIT_FAILURE));
 		exit(0);
 	}
 	if ((ft_strncmp("./", cmds[0], 2) == 0 && access(cmds[0], X_OK) != -1))

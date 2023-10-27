@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:50:52 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 11:20:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,7 @@ char		*ft_strchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_itoa(int n);
 bool		ft_isalphanum(int c);
+
 char		*ft_strrchr(const char *s, int c);
+int			ft_atoi(const char *n);
 #endif
