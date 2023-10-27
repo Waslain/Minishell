@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 14:23:28 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:28:27 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	update_status_with_signal(int *status)
 	}
 	else if (*status == 3)
 	{
-		ft_putendl_fd("Quit (core dumped)", STDERR);
+		ft_putendl_fd("Quit", STDERR);
 		*status = 131;
 	}
 }
@@ -53,7 +53,7 @@ void	handler_quit(int signal)
 		block_signal(SIGQUIT);
 		return ;
 	}
-	printf("Quit (core dumped)");
+	ft_putstr_fd("Quit", STDERR);
 }
 
 void	handler_end_spe(int signal1)
@@ -63,10 +63,8 @@ void	handler_end_spe(int signal1)
 		rl_done = 1;
 		g_signal = 1;
 		write(1, "\n", 1);
-		printf(BCYN"Minishell $> "CRESET);
+		ft_putstr_fd(BCYN"Minishell $> "CRESET, STDOUT);
 	}
-	else
-		return ;
 }
 
 void	handler_end(int signal)
@@ -86,11 +84,10 @@ void	handler_end(int signal)
 		else
 			g_signal = 0;
 	}
-	else
-		return ;
 }
 
-void	create_siga2(int mode)
+static
+void	mode_signal_bis(int mode)
 {
 	struct sigaction	act;
 
@@ -108,7 +105,7 @@ void	create_siga2(int mode)
 	}
 }
 
-int	create_siga(int mode)
+void	mode_signal(int mode)
 {
 	struct sigaction	act;
 
@@ -126,6 +123,5 @@ int	create_siga(int mode)
 		signal(SIGQUIT, SIG_DFL);
 	}
 	else
-		create_siga2(mode);
-	return (0);
+		mode_signal_bis(mode);
 }

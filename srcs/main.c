@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 21:22:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 12:48:21 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:43:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	(void)argv;
-	create_siga(S_MAIN);
+	mode_signal(S_MAIN);
 	ft_bzero(&data, sizeof(t_data));
 	if (get_envp(&data, envp) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
@@ -28,4 +28,5 @@ int	main(int argc, char **argv, char **envp)
 		printf("Minishell doesn't take arguments");
 		return (free_array(data.envp), -1);
 	}
+	return (EXIT_SUCCESS);
 }

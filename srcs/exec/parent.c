@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 14:22:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:29:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	parent_no_cmd_redir(t_data *data)
 		return (EXIT_FAILURE);
 	if (data->exec.pid[0] == 0)
 	{
-		create_siga(S_CHILD);
+		mode_signal(S_CHILD);
 		child_no_cmd_redir(data);
 	}
 	waitpid(data->exec.pid[0], &data->exec.status, 0);
@@ -43,7 +43,7 @@ int	parent_simple_cmd(t_data *data)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[0] == 0)
 		{
-			create_siga(S_CHILD);
+			mode_signal(S_CHILD);
 			ft_execve(data);
 		}
 		waitpid(data->exec.pid[0], &data->exec.status, WUNTRACED);
@@ -66,7 +66,7 @@ int	parent_redir(t_data *data)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[0] == 0)
 		{
-			create_siga(S_CHILD);
+			mode_signal(S_CHILD);
 			child_redir(data);
 		}
 		waitpid(data->exec.pid[0], &data->exec.status, WUNTRACED);
@@ -86,7 +86,7 @@ int	parent_pipe(t_data *data)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
 		{
-			create_siga(S_CHILD);
+			mode_signal(S_CHILD);
 			child_pipe(data);
 		}
 		data->exec.id_child++;
@@ -110,7 +110,7 @@ int	parent_pipe_redir(t_data *data)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
 		{
-			create_siga(S_CHILD);
+			mode_signal(S_CHILD);
 			child_pipe_redir(data);
 		}
 		data->exec.id_child++;

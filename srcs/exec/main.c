@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:58:23 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:54:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	init_exec(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-static
 void	update_exit_code(t_data *data, int status)
 {
 	char			*exit_code;
@@ -62,8 +61,6 @@ int	main_exec(t_data *data)
 {
 	int	status;
 
-	// if (heredoc(data) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
 	if (init_exec(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	status = EXIT_SUCCESS;

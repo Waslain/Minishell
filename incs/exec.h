@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 11:29:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:39:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum e_redir
 # define ERROR_WRITE "write error: No space left on device"
 
 int		main_exec(t_data *data);
+void	update_exit_code(t_data *data, int status);
 
 int		parent_no_cmd_redir(t_data *data);
 int		parent_simple_cmd(t_data *data);

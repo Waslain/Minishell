@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:16:07 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 11:20:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:54:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,33 @@ char	*ft_strrchr(const char *s, int c)
 		i--;
 	}
 	return (NULL);
+}
+
+int	count_type_token(t_lexer *lexer, int type)
+{
+	int	nb;
+
+	nb = 0;
+	while (lexer)
+	{
+		if (lexer->type == type)
+			nb++;
+		lexer = lexer->next;
+	}
+	return (nb);
+}
+
+int	count_nb_redir(t_lexer *lexer)
+{
+	int	nb_redir;
+
+	nb_redir = 0;
+	while (lexer)
+	{
+		if (lexer->type == REDIR_IN || lexer->type == REDIR_OUT
+			|| lexer->type == APPEND_IN || lexer->type == APPEND_OUT)
+			nb_redir++;
+		lexer = lexer->next;
+	}
+	return (nb_redir);
 }
