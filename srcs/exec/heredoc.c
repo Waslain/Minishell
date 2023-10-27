@@ -6,24 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 16:54:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 16:57:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_heredoc(t_heredoc *heredoc, int nb_heredoc)
-{
-	int	i;
-
-	i = 0;
-	while (i < nb_heredoc)
-	{
-		ft_free((void **)&heredoc[i].name_file);
-		i++;
-	}
-	ft_free((void **)&heredoc);
-}
 
 void	destroy_all_heredoc(t_data *data)
 {

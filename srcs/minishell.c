@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 16:52:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 17:09:44 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	update_exit_code_signal(t_data *data, int value)
 	ft_free((void **)&data->envp[0]);
 	free(exit_code);
 	data->envp[0] = tmp;
-	printf("data->envp[0] = %s\n", data->envp[0]);
 	return (EXIT_SUCCESS);
 }
 
@@ -67,7 +66,6 @@ int	minishell(t_data *data, char *rl)
 	data->lexer = init_lex(data, lex);
 	if (!data->lexer)
 		return (free_array(lex), malloc_error(data), EXIT_FAILURE);
-	print_lexlst(data->lexer);
 	data->to_free = lex;
 	data->nb_cmd = count_type_token(data->lexer, CMD);
 	data->nb_pipe = count_type_token(data->lexer, PIPE);
@@ -100,7 +98,7 @@ int	minishell_loop(t_data *data)
 			continue ;
 		}
 		mode_signal(S_PARENT);
-		if (minishell(data, ret) == EXIT_FAILURE)
+		if (minishell(data, ret) == EXIT_MINISHELL)
 			return (destroy_data(data, DESTROY_ENV), rl_clear_history(), 1);
 	}
 	return (EXIT_SUCCESS);
