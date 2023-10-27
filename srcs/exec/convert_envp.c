@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 11:52:03 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 13:13:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:20:18 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,16 @@ int	conv_env_struct_to_env(char ***envp, t_envp *envp_s, int size)
 	i = 0;
 	while (i < size)
 	{
-		tmp = ft_strjoin(envp_s[i].key, "=");
-		if (!tmp)
-			return (EXIT_FAILURE);
-		(*envp)[i] = ft_strjoin(tmp, envp_s[i].value);
-		if (!(*envp)[i])
-			return (free(tmp), EXIT_FAILURE);
-		ft_free((void **)&tmp);
+		if (envp_s[i].value != NULL)
+		{
+			tmp = ft_strjoin(envp_s[i].key, "=");
+			if (!tmp)
+				return (EXIT_FAILURE);
+			(*envp)[i] = ft_strjoin(tmp, envp_s[i].value);
+			if (!(*envp)[i])
+				return (free(tmp), EXIT_FAILURE);
+			ft_free((void **)&tmp);
+		}
 		i++;
 	}
 	return (EXIT_SUCCESS);

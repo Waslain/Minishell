@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 19:50:15 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:16:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	init_exec(t_data *data)
 				return (close_all_pipe(data->exec.pipes, data->nb_pipe), 1);
 		}
 	}
-	if (conv_env_to_struct(data->envp, &data->exec.envp_s, &data->exec.size))
-		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -115,6 +113,12 @@ int	main_exec(t_data *data)
 
 	if (init_exec(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	if (data->exec.envp_s == NULL)
+	{
+		if (conv_env_to_struct(data->envp, &data->exec.envp_s, \
+								&data->exec.size))
+			return (EXIT_FAILURE);
+	}
 	if (first)
 	{
 		first = 0;

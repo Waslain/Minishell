@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:13:13 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 19:54:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:23:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ static
 void	add_envp_bis(char *str, t_data *d, char *key)
 {
 	char	*val;
+	int		index;
 
-	val = found_value_with_key(d->exec.envp_s, key, d->exec.size);
-	if (!val)
+	index = found_index_with_key(d->exec.envp_s, key, d->exec.size);
+	if (index == -1)
 	{
 		val = get_value(str);
 		if (!val)
@@ -52,7 +53,7 @@ void	add_envp(char *str, t_data *d, bool equal_exist)
 			return (ft_free((void **)&key));
 		else
 		{
-			if (add_key_value(&d->exec.envp_s, &d->exec.size, key, ""))
+			if (add_key_value(&d->exec.envp_s, &d->exec.size, key, NULL))
 				return (ft_free((void **)&key), malloc_error(d));
 			return (ft_free((void **)&key));
 		}

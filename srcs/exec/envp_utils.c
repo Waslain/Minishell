@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:05:14 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/25 15:28:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:15:50 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,14 @@ int	add_key_value(t_envp **envp_s, int *size, char *key, char *value)
 	new_key_value.key = ft_strdup(key);
 	if (!new_key_value.key)
 		return (EXIT_FAILURE);
-	new_key_value.value = ft_strdup(value);
-	if (!new_key_value.value)
-		return (free(new_key_value.key), EXIT_FAILURE);
+	if (value)
+	{
+		new_key_value.value = ft_strdup(value);
+		if (!new_key_value.value)
+			return (free(new_key_value.key), EXIT_FAILURE);
+	}
+	else
+		new_key_value.value = NULL;
 	new_envp[*size] = new_key_value;
 	*size += 1;
 	free(*envp_s);
