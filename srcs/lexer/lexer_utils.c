@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 15:20:00 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/28 00:36:41 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_strdupnoquote(const char *src)
 	int		n;
 	int		i;
 
-	ptr = malloc(sizeof(*ptr) * (ft_strlen(src) + 1));
+	ptr = ft_calloc(sizeof(*ptr), (ft_strlen(src) + 1));
 	if (!ptr)
 		return (NULL);
 	n = 0;
