@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 14:45:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:23:06 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	minishell_loop(t_data *data)
 	while (1)
 	{
 		if (minishell(data) == 2)
-			return (free_array(data->envp), 1);
+			return (free_array(data->envp), exit(2), 1);
 	}
 	rl_clear_history();
 	free_array(data->envp);
