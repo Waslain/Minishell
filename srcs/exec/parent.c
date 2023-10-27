@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 13:05:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:28:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ int	parent_no_cmd_redir(t_data *data)
 
 int	parent_simple_cmd(t_data *data)
 {
+	int	ret;
+
 	if (is_in_parent(data) == true)
 	{
-		if (builtin_in_parent(data) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
+		ret = builtin_in_parent(data);
+		if (ret)
+			return (ret);
 	}
 	else
 	{

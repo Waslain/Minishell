@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 11:55:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:58:52 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	free_exec(t_exec *exec, int nb_pipe)
 	int	i;
 
 	i = 0;
+	if (exec->to_free)
+		free(exec->to_free);
 	while (i < exec->size)
 	{
 		free(exec->envp_s[i].key);

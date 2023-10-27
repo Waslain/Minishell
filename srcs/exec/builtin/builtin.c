@@ -6,25 +6,11 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 14:59:53 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:47:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	is_builtin(char *str)
-{
-	if (ft_strcmp(str, "echo") == 0
-		|| ft_strcmp(str, "cd") == 0
-		|| ft_strcmp(str, "pwd") == 0
-		|| ft_strcmp(str, "export") == 0
-		|| ft_strcmp(str, "unset") == 0
-		|| ft_strcmp(str, "env") == 0
-		|| ft_strcmp(str, "exit") == 0)
-		return (true);
-	else
-		return (false);
-}
 
 bool	is_in_child(t_data *data)
 {
@@ -101,15 +87,25 @@ int	builtin_in_parent(t_data *data)
 		if (unset(data) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	// else if (ft_strcmp(cmd, "cd") == 0)
-	// {
-	// 	if (cd(data, id) == EXIT_FAILURE)
-	// 		return (EXIT_FAILURE);
-	// }
+	else if (ft_strcmp(cmd, "cd") == 0)
+	{
+		if (cd(data) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	}
 	// else if (ft_strcmp(cmd, "exit") == 0)
 	// {
 	// 	if (exit(data) == EXIT_FAILURE)
 	// 		return (EXIT_FAILURE);
 	// }
 	return (EXIT_SUCCESS);
+}
+
+int	count_args(const char **cmds)
+{
+	int	i;
+
+	i = 0;
+	while (cmds[i])
+		i++;
+	return (i);
 }

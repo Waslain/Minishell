@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 14:32:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:36:40 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,15 +69,16 @@ int		delete_key_value(t_envp **envp_s, int *size, char *key);
 void	error_child(t_data *data, const char *arg, const char *msg, int val);
 
 // BUILTINS
-bool	is_builtin(char *str);
 bool	is_in_child(t_data *data);
 bool	is_in_parent(t_data *data);
 int		builtin_in_child(t_data *data);
 int		builtin_in_parent(t_data *data);
+int		count_args(const char **cmds);
 
 int		echo(t_data *data, const int id);
 int		env(t_data *data, const int id);
 int		pwd(t_data *data, const int id);
 int		export(t_data *data);
 int		unset(t_data *data);
+int		cd(t_data *data);
 #endif

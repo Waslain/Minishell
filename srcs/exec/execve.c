@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 13:07:12 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:48:11 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_execve(t_data *data)
 	char		**path;
 	char		*tmp;
 
-	if (is_builtin((char *)cmds[0]))
+	if (is_in_child(data))
 	{
 		if (builtin_in_child(data) == EXIT_FAILURE)
 			exit(EXIT_FAILURE);

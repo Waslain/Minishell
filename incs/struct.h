@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 13:21:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:56:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_heredoc
 
 typedef struct s_exec
 {
+	char	*to_free;
 	t_envp	*envp_s;
 	int		size;
 	int		**pipes;

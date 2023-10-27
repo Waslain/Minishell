@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 15:03:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 10:58:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	init_exec(t_data *data)
 {
 	int	i;
 
+	data->exec.to_free = NULL;
 	data->exec.id_child = 0;
 	data->exec.pid = ft_calloc(sizeof(pid_t), data->nb_pipe + 1);
 	if (!data->exec.pid)
@@ -42,13 +43,13 @@ int	init_exec(t_data *data)
 }
 
 static
-void	update_exit_code(t_data *data)
+void	update_exit_code(t_data *data, int status)
 {
 	char			*exit_code;
 
-	while (data->exec.status > 255)
-		data->exec.status -= 255;
-	exit_code = ft_itoa(data->exec.status);
+	while (status > 255)
+		status -= 255;
+	exit_code = ft_itoa(status);
 	if (!exit_code)
 		return (malloc_error(data));
 	if (update_value_with_key(data->exec.envp_s, &data->exec.size, "?", \
@@ -76,9 +77,10 @@ int	main_exec(t_data *data)
 		status = parent_redir(data);
 	else if (data->nb_pipe > 0 && data->nb_redir > 0)
 		status = parent_pipe_redir(data);
-	if (status == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	update_exit_code(data);
+	if (status != 0)
+		update_exit_code(data, status);
+	else
+		update_exit_code(data, data->exec.status);
 	if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, data->exec.size))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
