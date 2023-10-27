@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 11:29:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:53:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_exit_bis(t_data *data, const char *arg)
 
 	exit_code = ft_atoi(arg);
 	while (exit_code > 255)
-		exit_code -= 255;
+		exit_code -= 256;
 	destroy_data(data, DESTROY_ENV);
 	exit(exit_code);
 }

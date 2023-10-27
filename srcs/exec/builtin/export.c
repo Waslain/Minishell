@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:13:13 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 14:37:34 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:54:33 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_envp_bis(char *str, t_data *d, char *key)
 	{
 		val = get_value(str);
 		if (!val)
-			return (ft_free((void **)key), malloc_error(d));
+			return (ft_free((void **)&key), malloc_error(d));
 		if (add_key_value(&d->exec.envp_s, &d->exec.size, key, val))
 			return (free_key_value(key, val), malloc_error(d));
 		return (free_key_value(key, val));
@@ -31,9 +31,9 @@ void	add_envp_bis(char *str, t_data *d, char *key)
 	{
 		val = get_value(str);
 		if (!val)
-			return (ft_free((void **)key), malloc_error(d));
+			return (ft_free((void **)&key), malloc_error(d));
 		if (update_value_with_key(d->exec.envp_s, &d->exec.size, key, val))
-			return (ft_free((void **)key), malloc_error(d));
+			return (ft_free((void **)&key), malloc_error(d));
 		return (free_key_value(key, val));
 	}
 }
@@ -45,11 +45,17 @@ void	add_envp(char *str, t_data *d, bool equal_exist)
 
 	key = get_key(str);
 	if (!key)
-		return (ft_free((void **)key), malloc_error(d));
+		return (ft_free((void **)&key), malloc_error(d));
 	if (!equal_exist)
 	{
-		if (add_key_value(&d->exec.envp_s, &d->exec.size, key, ""))
-			return (ft_free((void **)key), malloc_error(d));
+		if (found_index_with_key(d->exec.envp_s, key, d->exec.size) != -1)
+			return (ft_free((void **)&key));
+		else
+		{
+			if (add_key_value(&d->exec.envp_s, &d->exec.size, key, ""))
+				return (ft_free((void **)&key), malloc_error(d));
+			return (ft_free((void **)&key));
+		}
 	}
 	add_envp_bis(str, d, key);
 }
