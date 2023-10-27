@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 14:55:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 20:13:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,6 @@ char		*ft_strrchr(const char *s, int c);
 int			ft_atoi(const char *n);
 int			count_type_token(t_lexer *lexer, int type);
 int			count_nb_redir(t_lexer *lexer);
+
+void		free_array_size(void **array, int size);
 #endif

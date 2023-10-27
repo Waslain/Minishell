@@ -17,7 +17,7 @@ BUILTINS	= exec/builtin/builtin.c exec/builtin/echo.c exec/builtin/env.c exec/bu
 EXEC		= exec/main.c exec/parent.c exec/child.c exec/child_bis.c exec/open.c exec/close.c exec/execve.c \
 			exec/convert_envp.c exec/envp_utils.c exec/error.c $(BUILTINS) $(HEREDOC)
 HEREDOC		= exec/heredoc.c exec/heredoc_bis.c
-UTILS		= utils/split.c utils/utils_1.c utils/utils_2.c utils/utils_3.c utils/utils_4.c utils/utils_5.c utils/utils_6.c
+UTILS		= utils/split.c utils/utils_1.c utils/utils_2.c utils/utils_3.c utils/utils_4.c utils/utils_5.c utils/utils_6.c utils/utils_7.c
 SRCS		= main.c minishell.c signals.c signals_bis.c destroy_data.c $(LEXER) $(PARSER) $(EXEC) $(UTILS) $(DEBUG)
 SRCS		:= $(addprefix $(SRCS_PATH), $(SRCS))
 OBJS		:= $(subst $(SRCS_PATH), $(OBJS_PATH), $(SRCS:.c=.o))
@@ -27,7 +27,7 @@ DEPS		:= $(OBJS:.o=.d)
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 CFLAGS		+= -MMD -g3 -I $(INCS_PATH)
-# CFLAGS		+= -fsanitize=leak -fsanitize=undefined -fsanitize=address
+CFLAGS		+= -fsanitize=leak -fsanitize=undefined -fsanitize=address
 LIBS		= -lreadline
 
 # Rules
