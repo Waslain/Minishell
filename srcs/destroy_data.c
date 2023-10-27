@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 00:19:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:27:17 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,11 @@ void	free_exec(t_exec *exec, int nb_pipe, int mode)
 
 void	destroy_data(t_data *data, int mode)
 {
-	char	**tmp;
-	t_envp	*envp;
-	int		size;
+	t_save	to_save;
 
-	tmp = data->envp;
-	envp = data->exec.envp_s;
-	size = data->exec.size;
+	to_save.envp = data->envp;
+	to_save.envp_s = data->exec.envp_s;
+	to_save.size = data->exec.size;
 	if (mode == DESTROY_ENV && data->envp)
 		free_array(data->envp);
 	if (data->lexer)
@@ -102,9 +100,9 @@ void	destroy_data(t_data *data, int mode)
 	if (mode == DONT_DESTROY_ENV)
 	{
 		ft_bzero(data, sizeof(t_data));
-		data->envp = tmp;
-		data->exec.envp_s = envp;
-		data->exec.size = size;
+		data->envp = to_save.envp;
+		data->exec.envp_s = to_save.envp_s;
+		data->exec.size = to_save.size;
 	}
 }
 

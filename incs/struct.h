@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:36:24 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 16:13:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 00:26:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ typedef struct s_heredoc
 	char		*name_file;
 	int			fd;
 }	t_heredoc;
+
+typedef struct s_save
+{
+	char	**envp;
+	t_envp	*envp_s;
+	int		size;
+}	t_save;
 
 typedef struct s_exec
 {
