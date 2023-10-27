@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 18:02:42 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/27 19:05:22 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	skip_to_dollars(char *lex)
 	i = 0;
 	while (lex[i])
 	{
-		if (lex[i] == '\'')
+		if (lex[i] == '\'' && check_if_is_inside_dblquote(lex, i) == 0)
 			go_next_simplequote(lex, &i);
 		else if (lex[i] != '$')
 			i++;
@@ -27,7 +27,7 @@ int	skip_to_dollars(char *lex)
 		&& lex[i + 1] != '?')
 			i++;
 		else
-			break ;
+			return (i);
 	}
 	return (i);
 }
