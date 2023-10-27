@@ -27,7 +27,7 @@ DEPS		:= $(OBJS:.o=.d)
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 CFLAGS		+= -MMD -g3 -I $(INCS_PATH)
-CFLAGS		+= -fsanitize=leak -fsanitize=undefined -fsanitize=address
+# CFLAGS		+= -fsanitize=leak -fsanitize=undefined -fsanitize=address
 LIBS		= -lreadline
 
 # Rules

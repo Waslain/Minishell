@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 15:21:41 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 15:36:31 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ int	minishell(t_data *data, char *rl)
 	data->nb_cmd = count_type_token(data->lexer, CMD);
 	data->nb_pipe = count_type_token(data->lexer, PIPE);
 	data->nb_redir = count_nb_redir(data->lexer);
+	if (heredoc(data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	if (main_parser(data) == EXIT_FAILURE)
 		return (EXIT_MINISHELL);
-	// if (heredoc(data) == EXIT_FAILURE)
-	// 	return (EXIT_FAILURE);
 	if (main_exec(data) == EXIT_FAILURE)
 		return (EXIT_MINISHELL);
 	free_lexer(lex);
