@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 14:54:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 19:50:15 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,41 @@ void	update_exit_code(t_data *data, int status)
 	ft_free((void **)&exit_code);
 }
 
-int	main_exec(t_data *data)
+static
+void	update_shlvl(t_data *data)
+{
+	char	*shlvl;
+	int		shlvl_int;
+
+	shlvl = found_value_with_key(data->exec.envp_s, "SHLVL", data->exec.size);
+	if (!shlvl)
+	{
+		if (add_key_value(&data->exec.envp_s, &data->exec.size, "SHLVL", \
+			"1"))
+			return (malloc_error(data));
+		if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, \
+								data->exec.size))
+			return (malloc_error(data));
+		return ;
+	}
+	shlvl_int = ft_atoi(shlvl);
+	shlvl_int++;
+	shlvl = ft_itoa(shlvl_int);
+	if (!shlvl)
+		return (malloc_error(data));
+	if (update_value_with_key(data->exec.envp_s, &data->exec.size, "SHLVL", \
+		shlvl))
+		return (free(shlvl), malloc_error(data));
+	if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, data->exec.size))
+		return (malloc_error(data));
+	ft_free((void **)&shlvl);
+}
+
+static
+void	exec(t_data *data)
 {
 	int	status;
 
-	if (init_exec(data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
 	status = EXIT_SUCCESS;
 	if (data->nb_cmd == 0 && data->nb_redir > 0)
 		status = parent_no_cmd_redir(data);
@@ -78,6 +107,20 @@ int	main_exec(t_data *data)
 		update_exit_code(data, status);
 	else
 		update_exit_code(data, data->exec.status);
+}
+
+int	main_exec(t_data *data)
+{
+	static int	first = 1;
+
+	if (init_exec(data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	if (first)
+	{
+		first = 0;
+		update_shlvl(data);
+	}
+	exec(data);
 	if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, data->exec.size))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
