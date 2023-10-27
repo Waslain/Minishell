@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:06:03 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 13:11:32 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/27 19:00:25 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,23 @@ void	go_next_doublequote(char *lex, int *i)
 	(*i)++;
 	go_next_quote(lex, i, '"');
 	(*i)++;
+}
+
+int	check_if_is_inside_dblquote(char *lex, int i)
+{
+	int	nb_quote;
+	int	x;
+
+	nb_quote = 0;
+	x = 0;
+	while (x < i)
+	{
+		if (lex[x] == '"')
+			nb_quote++;
+		x++;
+	}
+	if (nb_quote % 2 == 0)
+		return (0);
+	else
+		return (1);
 }

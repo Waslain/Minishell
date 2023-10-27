@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 15:46:52 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/27 19:04:48 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char	*expandlex(t_data *data, char *lex)
 
 	i = skip_to_dollars(lex) - 1;
 	new_lex = ft_strndup(lex, i++);
+	printf("new_lex = [%s]\n", new_lex);
 	if (!new_lex)
 		return (malloc_error(data), NULL);
 	while (lex[i])
