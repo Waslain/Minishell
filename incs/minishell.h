@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 12:53:08 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:22:55 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ enum e_signal
 	S_PARENT
 };
 
-void	deal_w_return_pid(int status);
+void	update_status_with_signal(int *status);
 void	block_signal(int signal);
 void	unblock_signal(int signal);
 void	handler_quit(int signal);

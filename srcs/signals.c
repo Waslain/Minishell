@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 12:54:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:23:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 volatile int	g_signal = 0;
 
-void	deal_w_return_pid(int status)
+void	update_status_with_signal(int *status)
 {
-	if (status == 130)
+	if (*status == 2)
+	{
 		ft_putchar_fd('\n', STDERR);
-	else if (status == 131)
+		*status = 130;
+	}
+	else if (*status == 3)
+	{
 		ft_putendl_fd("Quit (core dumped)", STDERR);
-	else
-		return ;
+		*status = 131;
+	}
 }
 
 void	block_signal(int signal)
