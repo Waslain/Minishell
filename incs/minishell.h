@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 14:46:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:53:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include "signal.h"
 # include "token.h"
 # include "utils.h"
-
-extern int	g_signal;
 
 enum e_error
 {
@@ -44,8 +42,22 @@ int		minishell(t_data *data);
 int		heredoc(t_data *data);
 void	runheredocchild(t_heredoc hd, t_data *data, t_heredoc *all_h, int size);
 
-void	init_signal(void);
-void	init_signal2(void);
+enum e_signal
+{
+	S_MAIN,
+	S_CHILD,
+	S_HEREDOC,
+	S_PARENT
+};
+
+void	deal_w_return_pid(int status);
+void	block_signal(int signal);
+void	unblock_signal(int signal);
+void	handler_quit(int signal);
+void	handler_end_spe(int signal1);
+void	handler_end(int signal);
+void	create_siga2(int mode);
+int		create_siga(int mode);
 
 void	destroy_data(t_data *data, int mode);
 void	malloc_error(t_data *data);

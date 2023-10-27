@@ -6,11 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 12:23:06 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:53:23 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern volatile int	g_signal;
 
 int	count_type_token(t_lexer *lexer, int type)
 {
@@ -66,6 +68,7 @@ int	minishell(t_data *data)
 		return (free(ret), EXIT_MINISHELL);
 	else if (check_cmd(ret) == EMPTY_COMMANDE)
 		return (free(ret), EMPTY_COMMANDE);
+	create_siga(S_PARENT);
 	lex = clear_lex(data, ret);
 	if (!lex)
 		return (EMPTY_COMMANDE);
@@ -87,9 +90,10 @@ int	minishell(t_data *data)
 
 int	minishell_loop(t_data *data)
 {
-	init_signal();
 	while (1)
 	{
+		g_signal = 0;
+		create_siga(S_MAIN);
 		if (minishell(data) == 2)
 			return (free_array(data->envp), exit(2), 1);
 	}

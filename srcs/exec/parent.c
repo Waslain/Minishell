@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 10:28:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:47:58 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	parent_no_cmd_redir(t_data *data)
 	if (data->exec.pid[0] == -1)
 		return (EXIT_FAILURE);
 	if (data->exec.pid[0] == 0)
+	{
+		create_siga(S_CHILD);
 		child_no_cmd_redir(data);
+	}
 	waitpid(data->exec.pid[0], &data->exec.status, 0);
 	return (EXIT_SUCCESS);
 }
@@ -39,8 +42,14 @@ int	parent_simple_cmd(t_data *data)
 		if (data->exec.pid[0] == -1)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[0] == 0)
+		{
+			create_siga(S_CHILD);
 			ft_execve(data);
-		waitpid(data->exec.pid[0], &data->exec.status, 0);
+		}
+		waitpid(data->exec.pid[0], &data->exec.status, WUNTRACED);
+		if (data->exec.status == 2)
+			data->exec.status = 130;
+		deal_w_return_pid(data->exec.status);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -58,8 +67,14 @@ int	parent_redir(t_data *data)
 		if (data->exec.pid[0] == -1)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[0] == 0)
+		{
+			create_siga(S_CHILD);
 			child_redir(data);
-		waitpid(data->exec.pid[0], &data->exec.status, 0);
+		}
+		waitpid(data->exec.pid[0], &data->exec.status, WUNTRACED);
+		if (data->exec.status == 2)
+			data->exec.status = 130;
+		deal_w_return_pid(data->exec.status);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -74,13 +89,19 @@ int	parent_pipe(t_data *data)
 		if (data->exec.pid[data->exec.id_child] == -1)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
+		{
+			create_siga(S_CHILD);
 			child_pipe(data);
+		}
 		data->exec.id_child++;
 	}
 	close_all_pipe(data->exec.pipes, data->nb_pipe);
 	i = -1;
 	while (++i < data->nb_cmd)
-		waitpid(data->exec.pid[i], &data->exec.status, 0);
+		waitpid(data->exec.pid[i], &data->exec.status, WUNTRACED);
+	if (data->exec.status == 2)
+		data->exec.status = 130;
+	deal_w_return_pid(data->exec.status);
 	return (EXIT_SUCCESS);
 }
 
@@ -94,12 +115,18 @@ int	parent_pipe_redir(t_data *data)
 		if (data->exec.pid[data->exec.id_child] == -1)
 			return (EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
+		{
+			create_siga(S_CHILD);
 			child_pipe_redir(data);
+		}
 		data->exec.id_child++;
 	}
 	close_all_pipe(data->exec.pipes, data->nb_pipe);
 	i = -1;
 	while (++i < data->nb_cmd)
-		waitpid(data->exec.pid[i], &data->exec.status, 0);
+		waitpid(data->exec.pid[i], &data->exec.status, WUNTRACED);
+	if (data->exec.status == 2)
+		data->exec.status = 130;
+	deal_w_return_pid(data->exec.status);
 	return (EXIT_SUCCESS);
 }
