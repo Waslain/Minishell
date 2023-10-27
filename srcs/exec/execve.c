@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 11:31:33 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/27 12:20:35 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@ void	free_tmp_and_path(char *tmp, char **path)
 		ft_free((void **)&tmp);
 	if (path)
 		free_array(path);
+}
+
+static
+void	no_run(const char *cmd, t_data *data)
+{
+	const char	*no_run[] = {"minishell", NULL};
+	int			i;
+
+	i = 0;
+	while (no_run[i])
+	{
+		if (ft_strcmp((char *)cmd, (char *)no_run[i]) == 0)
+		{
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
+			ft_putstr_fd((char *)cmd, STDERR_FILENO);
+			ft_putstr_fd(": command not found\n", STDERR_FILENO);
+			error_child(data, NULL, NULL, 127);
+		}
+		i++;
+	}
 }
 
 static
@@ -85,17 +105,18 @@ void	ft_execve(t_data *data)
 			return (destroy_data(data, DESTROY_ENV), exit(EXIT_FAILURE));
 		exit(0);
 	}
-	if ((ft_strncmp("./", cmds[0], 2) == 0 && access(cmds[0], X_OK) != -1))
+	no_run(cmds[0], data);
+	if (access(cmds[0], X_OK) != -1)
 	{
 		execve(cmds[0], (char *const *)cmds, data->envp);
 		error_child(data, cmds[0], ": command not found", 127);
 	}
-	path = ft_get_path(data);
-	if (!path)
-		return (error_child(data, NULL, NULL, 1));
 	tmp = ft_strjoin("/", cmds[0]);
 	if (!tmp)
-		return (free_array(path), error_child(data, NULL, NULL, 1));
+		return (error_child(data, NULL, NULL, 1));
+	path = ft_get_path(data);
+	if (!path)
+		return (free(tmp), error_child(data, NULL, NULL, 1));
 	ft_execve_bis(data, cmds, path, tmp);
 	error_child(data, cmds[0], ": command not found", 127);
 }

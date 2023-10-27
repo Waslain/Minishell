@@ -26,7 +26,6 @@ DEPS		:= $(OBJS:.o=.d)
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 CFLAGS		+= -MMD -g3 -I $(INCS_PATH)
-# CFLAGS		+= -O3
 CFLAGS		+= -fsanitize=leak -fsanitize=undefined -fsanitize=address
 LIBS		= -lreadline
 
@@ -39,6 +38,12 @@ $(NAME)	: $(OBJS)
 
 leak	: $(NAME)
 	@valgrind --leak-check=full --show-leak-kinds=all --suppressions=./.readline.supp --track-origins=yes ./$(NAME)
+
+run		: $(NAME)
+	@./$(NAME)
+
+run_no_env	: $(NAME)
+	@env -i ./$(NAME)
 
 clean	:
 	@rm -rf $(OBJS_PATH) $(OBJS) $(DEPS)
