@@ -9,7 +9,8 @@ OBJS_PATH	= ./objs/
 DEBUG		= debug.c
 LEXER		= lexer/check_char.c lexer/check_lexer.c lexer/count_token.c lexer/skip.c \
 			lexer/spliters.c lexer/is_delimiter.c lexer/lexer.c lexer/lexer_expand.c \
-			lexer/lexer_expand_utils.c lexer/lexer_utils.c lexer/check_lexer_utils.c
+			lexer/lexer_expand_utils.c lexer/lexer_utils.c lexer/check_lexer_utils.c \
+			lexer/lexer_expand_utils2.c
 PARSER		= parser/main.c parser/init_lex.c parser/init_cmds.c parser/init_redir.c parser/init_redir_utils.c
 BUILTINS	= exec/builtin/builtin.c exec/builtin/echo.c exec/builtin/env.c exec/builtin/pwd.c exec/builtin/export.c \
 			exec/builtin/unset.c exec/builtin/cd.c exec/builtin/exit.c
