@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:34:33 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 19:00:49 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/28 13:49:43 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "library.h"
 # include "struct.h"
 
-# define INVALID_CHAR "!@#%^&()_+{}[]:;\\"
+# define INVALID_CHAR "!@#%&()+{}[]:;\\"
 
 int			is_white_space(char c);
 int			is_spec_char(char c);

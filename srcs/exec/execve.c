@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 12:20:35 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 13:57:13 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_tmp_and_path(char *tmp, char **path)
 static
 void	no_run(const char *cmd, t_data *data)
 {
-	const char	*no_run[] = {"minishell", NULL};
+	const char	*no_run[] = {"minishell", "export", "cd", "unset", NULL};
 	int			i;
 
 	i = 0;
