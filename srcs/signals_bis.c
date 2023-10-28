@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:19:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 15:19:37 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:34:02 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,8 @@ void	handler_end_spe(int signal1)
 {
 	if (signal1 == SIGINT)
 	{
-		rl_done = 1;
-		g_signal = 1;
-		write(1, "\n", 1);
-		ft_putstr_fd(BCYN"Minishell $> "CRESET, STDOUT);
+		ctrl_c_heredoc((t_heredoc){NULL, NULL, 0}, NULL, DESTROY);
+		exit(130);
 	}
 }
 

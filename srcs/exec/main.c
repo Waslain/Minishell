@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 00:16:39 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:49:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	init_exec(t_data *data)
 		if (!data->exec.pipes)
 			return (EXIT_FAILURE);
 		i = -1;
-		while (++i < data->nb_pipe)
+		while (data->nb_cmd > 0 && ++i < data->nb_pipe)
 		{
 			data->exec.pipes[i] = ft_calloc(sizeof(int), 2);
 			if (!data->exec.pipes[i])
@@ -91,7 +91,9 @@ void	exec(t_data *data)
 	int	status;
 
 	status = EXIT_SUCCESS;
-	if (data->nb_cmd == 0 && data->nb_redir > 0)
+	if (data->nb_heredoc > 0 && data->nb_heredoc == data->nb_redir)
+		return (update_exit_code(data, data->exec.status));
+	else if (data->nb_cmd == 0 && data->nb_redir > 0)
 		status = parent_no_cmd_redir(data);
 	else if (data->nb_pipe == 0 && data->nb_redir == 0)
 		status = parent_simple_cmd(data);

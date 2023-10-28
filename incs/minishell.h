@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 16:52:43 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:29:21 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,15 @@ enum e_destroy
 
 int		minishell_loop(t_data *data);
 
+enum e_mode
+{
+	SAVE,
+	DESTROY
+};
+
 int		heredoc(t_data *data);
 void	run_heredoc_child(t_heredoc hd, t_data *data);
+void	ctrl_c_heredoc(t_heredoc hd, t_data *data, int mode);
 void	destroy_all_heredoc(t_data *data);
 void	free_heredoc(t_heredoc *heredoc, int nb_heredoc);
 

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 00:27:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:49:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_parser(t_parser *parser, int nb_cmd)
 	}
 }
 
-void	free_exec(t_exec *exec, int nb_pipe, int mode)
+void	free_exec(t_exec *exec, int nb_pipe, int nb_cmd, int mode)
 {
 	int	i;
 
@@ -69,7 +69,7 @@ void	free_exec(t_exec *exec, int nb_pipe, int mode)
 		free(exec->envp_s);
 	}
 	i = 0;
-	while (i < nb_pipe)
+	while (nb_cmd > 0 && i < nb_pipe)
 	{
 		free(exec->pipes[i]);
 		i++;
@@ -94,7 +94,7 @@ void	destroy_data(t_data *data, int mode)
 	if (data->parser.cmds || data->parser.redir)
 		free_parser(&data->parser, data->nb_cmd);
 	if (data->exec.pid || data->exec.envp_s || data->exec.pipes)
-		free_exec(&data->exec, data->nb_pipe, mode);
+		free_exec(&data->exec, data->nb_pipe, data->nb_cmd, mode);
 	if (data->to_free && mode == DESTROY_ENV)
 		free_array(data->to_free);
 	if (mode == DONT_DESTROY_ENV)

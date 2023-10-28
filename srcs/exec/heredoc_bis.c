@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 11:08:16 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 16:57:42 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:30:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,26 @@ void	free_heredoc(t_heredoc *heredoc, int nb_heredoc)
 	ft_free((void **)&heredoc);
 }
 
-// CTRL + C
-static
-void	finish_here_doc(t_heredoc hd, t_data *data)
+void	ctrl_c_heredoc(t_heredoc hd, t_data *data, int mode)
 {
-	ft_close(&hd.fd);
-	destroy_data(data, DESTROY_ENV);
-	exit(130);
+	static t_data	*data_bis = NULL;
+	static int		fd_bis = 0;
+
+	if (mode == SAVE)
+	{
+		data_bis = data;
+		fd_bis = hd.fd;
+	}
+	else if (mode == DESTROY)
+	{
+		ft_close(&fd_bis);
+		destroy_data(data_bis, DESTROY_ENV);
+	}
 }
 
 // CTRL + D
 static
-void	to_print_error(t_heredoc heredoc, t_data *data)
+void	ctrl_d_heredoc(t_heredoc heredoc, t_data *data)
 {
 	ft_putstr_fd(HEREDOC_MSG_CTRL_D, 2);
 	ft_putstr_fd(heredoc.delimiter, 2);
@@ -61,24 +69,24 @@ void	run_heredoc_child(t_heredoc hd, t_data *data)
 {
 	char	*line;
 
+	line = NULL;
 	hd.fd = open(hd.name_file, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (hd.fd == -1)
 		return (error_child(data, hd.name_file, ": heredoc error", 1));
-	while (!g_signal)
+	ctrl_c_heredoc(hd, data, SAVE);
+	while (1)
 	{
 		line = readline("heredoc > ");
-		if (!line || line[0] == 0 || g_signal)
+		if ((!line || line[0] == 0) && g_signal != SIGINT)
 		{
-			to_print_error(hd, data);
-			break ;
+			ft_free((void **)&line);
+			ctrl_d_heredoc(hd, data);
 		}
 		if (ft_strcmp(line, hd.delimiter) == 0)
 			break ;
 		ft_putendl_fd(line, hd.fd);
 		ft_free((void **)&line);
 	}
-	if (g_signal == 1)
-		finish_here_doc(hd, data);
-	free(line);
+	ft_free((void **)&line);
 	end_of_heredoc(hd, data);
 }

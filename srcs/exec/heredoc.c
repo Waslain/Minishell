@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 16:57:55 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:42:29 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	run_heredoc(t_heredoc *heredoc, t_data *data)
 			exit(0);
 		}
 		else
-			waitpid(pid, NULL, 0);
+			waitpid(pid, &data->exec.status, WUNTRACED);
 		i++;
 	}
 }
