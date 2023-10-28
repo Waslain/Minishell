@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 20:13:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:08:49 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char		**ft_split(char const *str, char charset);
 //utils.c
 void		ft_free(void **ptr);
 void		free_array(char **tab);
-void		freeall(char **cmd, char **paths, char *bin);
 int			get_envp(t_data *data, char **envp);
 void		ft_error(const char *str);
 
@@ -61,4 +60,5 @@ int			count_type_token(t_lexer *lexer, int type);
 int			count_nb_redir(t_lexer *lexer);
 
 void		free_array_size(void **array, int size);
+void		ft_strcpy(char *dest, char *src);
 #endif
