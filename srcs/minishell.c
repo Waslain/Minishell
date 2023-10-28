@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 17:09:44 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/28 12:04:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	minishell(t_data *data, char *rl)
 	data->nb_pipe = count_type_token(data->lexer, PIPE);
 	data->nb_redir = count_nb_redir(data->lexer);
 	if (heredoc(data) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+		return (malloc_error(data), EXIT_MINISHELL);
 	if (main_parser(data) == EXIT_FAILURE)
-		return (EXIT_MINISHELL);
+		return (malloc_error(data), EXIT_MINISHELL);
 	if (main_exec(data) == EXIT_FAILURE)
-		return (EXIT_MINISHELL);
-	destroy_all_heredoc(data);
+		return (malloc_error(data), EXIT_MINISHELL);
+	unlink_all_heredoc(data);
 	free_lexer(lex);
 	return (destroy_data(data, DONT_DESTROY_ENV), 0);
 }

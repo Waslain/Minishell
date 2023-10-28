@@ -6,13 +6,13 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 10:42:29 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 12:04:30 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	destroy_all_heredoc(t_data *data)
+void	unlink_all_heredoc(t_data *data)
 {
 	int	i;
 
