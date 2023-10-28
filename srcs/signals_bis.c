@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:19:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 10:34:02 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:53:00 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	handler_end_spe(int signal1)
 {
 	if (signal1 == SIGINT)
 	{
+		ft_putstr_fd("\n", STDERR);
 		ctrl_c_heredoc((t_heredoc){NULL, NULL, 0}, NULL, DESTROY);
 		exit(130);
 	}
