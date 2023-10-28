@@ -46,7 +46,7 @@ OBJS		:= $(subst $(SRCS_PATH), $(OBJS_PATH), $(SRCS:.c=.o))
 DEPS		:= $(OBJS:.o=.d)
 
 # Variables
-CLEAR		= \r\e[0K
+CLEAR		= \e[0K
 NB_FILES	= $(words $(SRCS))
 INDEX		= 0
 PERCENT		= 0
@@ -67,7 +67,7 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBS)
-	@echo "\n\n\t$(GREEN)$(NAME) created ! 🤖$(RESET)"
+	@echo "\n\t$(GREEN)$(NAME) created ! 🤖$(RESET)"
 	@echo $(MINISHELL)
 
 leak	: $(NAME)
@@ -91,7 +91,7 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 		@mkdir -p $(@D)
 		@$(CC) $(CFLAGS) -c $< -o $@
 		@$(call percentage)
-		@printf "$(CLEAR) 🛠️  $(GREEN)[%3d%%]$(RESET) - $(YELLOW)Compiling $< to $@$(RESET)" $(PERCENT)
+		@printf "$(CLEAR) 🛠️  $(GREEN)[%3d%%]$(RESET) - $(YELLOW)Compiling $< to $@$(RESET)\n" $(PERCENT)
 
 .PHONY : all clean fclean re leak no_env
 
