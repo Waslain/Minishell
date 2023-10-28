@@ -46,6 +46,7 @@ OBJS		:= $(subst $(SRCS_PATH), $(OBJS_PATH), $(SRCS:.c=.o))
 DEPS		:= $(OBJS:.o=.d)
 
 # Variables
+CLEAR		= \r\e[0K
 NB_FILES	= $(words $(SRCS))
 INDEX		= 0
 PERCENT		= 0
@@ -90,7 +91,7 @@ $(OBJS_PATH)%.o : $(SRCS_PATH)%.c
 		@mkdir -p $(@D)
 		@$(CC) $(CFLAGS) -c $< -o $@
 		@$(call percentage)
-		@printf "\r\e[0K 🛠️  $(GREEN)[%3d%%]$(RESET) - $(YELLOW)Compiling $< to $@$(RESET)" $(PERCENT)
+		@printf "$(CLEAR) 🛠️  $(GREEN)[%3d%%]$(RESET) - $(YELLOW)Compiling $< to $@$(RESET)" $(PERCENT)
 
 .PHONY : all clean fclean re leak no_env
 
