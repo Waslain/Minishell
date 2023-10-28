@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/28 11:09:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:45:04 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	**clear_lex(t_data *data, char *rl)
 	int		len;
 
 	len = ft_strlen(rl);
-	new_rl = ft_calloc(sizeof(char), (len * 5) + 1);
+	new_rl = ft_calloc(sizeof(char), (len + 1) + 1);
 	if (!new_rl)
 		return (ft_free((void **)&rl), NULL);
 	ft_strcpy(new_rl, rl);
