@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 12:47:24 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:14:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char		**ft_split(char const *str, char charset);
 void		ft_free(void **ptr);
 void		free_array(char **tab);
 int			get_envp(t_data *data, char **envp);
-void		ft_error(const char *str);
+bool		all_is_white_space(char *str);
 
 void		ft_memcpy(void *dst, const void *src, size_t n);
 void		free_key_value(char *key, char *value);
@@ -54,8 +54,9 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_itoa(int n);
 bool		ft_isalphanum(int c);
 
-char		*ft_strrchr(const char *s, int c);
+bool		is_whitespace(int c);
 int			ft_atoi(const char *n);
+char		*ft_strrchr(const char *s, int c);
 int			count_type_token(t_lexer *lexer, int type);
 int			count_nb_redir(t_lexer *lexer);
 

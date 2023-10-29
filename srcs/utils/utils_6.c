@@ -6,13 +6,12 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:16:07 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 14:54:56 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:13:20 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static
 bool	is_whitespace(int c)
 {
 	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || \

@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 14:25:40 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:16:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	check_cmd_and_signal(char *cmd, t_data *data)
 		exit(0);
 	}
 	if (ft_strcmp(cmd, "\0") == 0)
+		return (EMPTY_COMMANDE);
+	if (all_is_white_space(cmd))
 		return (EMPTY_COMMANDE);
 	add_history(cmd);
 	mode_signal(S_PARENT);

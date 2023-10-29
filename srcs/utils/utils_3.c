@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 20:17:05 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:14:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,16 @@ int	get_envp(t_data *data, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_error(const char *str)
+bool	all_is_white_space(char *str)
 {
-	perror(str);
-	exit(EXIT_FAILURE);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\t')
+			return (false);
+		i++;
+	}
+	return (true);
 }
