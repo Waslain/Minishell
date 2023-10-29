@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:34:33 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 13:18:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:25:12 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "library.h"
 # include "struct.h"
 
-# define INVALID_CHAR "!@#%&()+{}[];\\"
+# define INVALID_CHAR "!@#%&(){}[];\\"
 
 int			is_white_space(char c);
 int			is_spec_char(char c);

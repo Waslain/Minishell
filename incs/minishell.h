@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 12:33:22 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:49:24 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ enum e_destroy
 
 enum e_no_run
 {
-	MINISHELL,
 	EXPORT,
 	CD,
 	UNSET

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 19:53:17 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 15:39:53 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ bool	all_is_digit(const char *str)
 	int	i;
 
 	i = 0;
+	if (str[0] != '-' && str[0] != '+')
+		i++;
 	while (str[i])
 	{
 		if (!is_digit(str[i]))
