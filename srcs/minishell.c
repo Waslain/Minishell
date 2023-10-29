@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 12:18:11 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 13:59:38 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,7 @@ int	check_cmd_and_signal(char *cmd, t_data *data)
 {
 	if (cmd == NULL)
 	{
-		if (isatty(STDIN_FILENO))
-		{
-			write(2, "exit\n", 6);
-			exit(0);
-		}
+		write(2, "exit\n", 6);
 		ft_putstr_fd("exit\n", STDOUT);
 		free(cmd);
 		destroy_data(data, DESTROY_ENV);

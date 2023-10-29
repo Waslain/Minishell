@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 21:22:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 14:43:36 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 13:55:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	(void)argv;
+	close(2);
+	close(2);
 	mode_signal(S_MAIN);
 	ft_bzero(&data, sizeof(t_data));
 	if (get_envp(&data, envp) == EXIT_FAILURE)
