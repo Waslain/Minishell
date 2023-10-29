@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 09:45:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 11:00:01 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:22:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,16 @@ int	update_pwd(char **pwd, t_exec *exec)
 		*pwd = path;
 		return (EXIT_SUCCESS);
 	}
-	*pwd = ft_strrchr(path, '/');
-	if (!(*pwd))
+	if (ft_strncmp(*pwd, "..", ft_strlen(*pwd)) == 0)
 	{
-		*pwd = path;
-		return (EXIT_SUCCESS);
+		*pwd = ft_strrchr(path, '/');
+		if (!(*pwd))
+		{
+			*pwd = path;
+			return (EXIT_SUCCESS);
+		}
 	}
+	*pwd = path;
 	return (EXIT_SUCCESS);
 }
 
@@ -41,18 +45,19 @@ int	update_pwd_oldpwd(char *new_pwd, t_exec *exec)
 	char	*oldpwd;
 	char	*check_oldpwd;
 
-	if ((ft_strncmp(new_pwd, "..", ft_strlen(new_pwd)) == 0 || \
-		ft_strncmp(new_pwd, ".", ft_strlen(new_pwd)) == 0) && \
-		update_pwd(&new_pwd, exec))
+	if (update_pwd(&new_pwd, exec))
 		return (EXIT_FAILURE);
 	oldpwd = found_value_with_key(exec->envp_s, "PWD", exec->size);
 	check_oldpwd = found_value_with_key(exec->envp_s, "OLDPWD",
 			exec->size);
 	if (oldpwd)
 	{
-		if (!check_oldpwd && add_key_value(&exec->envp_s, &exec->size, \
+		if (!check_oldpwd)
+		{
+			if (add_key_value(&exec->envp_s, &exec->size, \
 											"OLDPWD", oldpwd))
-			return (EXIT_FAILURE);
+				return (EXIT_FAILURE);
+		}
 		else if (update_value_with_key(exec->envp_s, &exec->size, \
 										"OLDPWD", oldpwd))
 			return (EXIT_FAILURE);

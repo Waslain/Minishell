@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:39:06 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 14:39:50 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:46:57 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	ft_execve(t_data *data);
 
 void	ft_close(int *fd);
 void	close_all_pipe(int **pipes, int nb_pipe);
+void	error_pipes(int ***pipes, int index, t_data *data);
+void	malloc_error_exec(t_data *data);
 
 char	*get_key(char *str);
 char	*get_value(char *str);
@@ -68,6 +70,7 @@ int		add_key_value(t_envp **envp_s, int *size, char *key, char *value);
 int		delete_key_value(t_envp **envp_s, int *size, char *key);
 
 void	error_child(t_data *data, const char *arg, const char *msg, int val);
+void	error_fork(t_data *data);
 
 // BUILTINS
 bool	is_in_child(t_data *data);

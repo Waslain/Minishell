@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 10:49:26 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:52:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	init_exec(t_data *data)
 		{
 			data->exec.pipes[i] = ft_calloc(sizeof(int), 2);
 			if (!data->exec.pipes[i])
-				return (EXIT_FAILURE);
+				return (error_pipes(&data->exec.pipes, i, data), 1);
 			if (pipe(data->exec.pipes[i]) == -1)
-				return (close_all_pipe(data->exec.pipes, data->nb_pipe), 1);
+				return (error_pipes(&data->exec.pipes, i, data), 1);
 		}
 	}
 	return (EXIT_SUCCESS);
@@ -66,22 +66,22 @@ void	update_shlvl(t_data *data)
 	{
 		if (add_key_value(&data->exec.envp_s, &data->exec.size, "SHLVL", \
 			"1"))
-			return (malloc_error(data));
+			return (malloc_error_exec(data));
 		if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, \
 								data->exec.size))
-			return (malloc_error(data));
+			return (malloc_error_exec(data));
 		return ;
 	}
 	shlvl_int = ft_atoi(shlvl);
 	shlvl_int++;
 	shlvl = ft_itoa(shlvl_int);
 	if (!shlvl)
-		return (malloc_error(data));
+		return (malloc_error_exec(data));
 	if (update_value_with_key(data->exec.envp_s, &data->exec.size, "SHLVL", \
 		shlvl))
-		return (free(shlvl), malloc_error(data));
+		return (free(shlvl), malloc_error_exec(data));
 	if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, data->exec.size))
-		return (malloc_error(data));
+		return (malloc_error_exec(data));
 	ft_free((void **)&shlvl);
 }
 
@@ -112,6 +112,7 @@ void	exec(t_data *data)
 int	main_exec(t_data *data)
 {
 	static int	first = 1;
+	char		*tmp;
 
 	if (init_exec(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
@@ -119,13 +120,18 @@ int	main_exec(t_data *data)
 	{
 		if (conv_env_to_struct(data->envp, &data->exec.envp_s, \
 								&data->exec.size))
-			return (EXIT_FAILURE);
+			return (malloc_error_exec(data), EXIT_FAILURE);
 	}
 	if (first)
 	{
 		first = 0;
 		update_shlvl(data);
 	}
+	tmp = ft_strdup("");
+	if (!tmp)
+		return (EXIT_FAILURE);
+	free(data->envp[0]);
+	data->envp[0] = tmp;
 	exec(data);
 	if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, data->exec.size))
 		return (EXIT_FAILURE);

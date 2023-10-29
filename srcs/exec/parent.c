@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/27 14:29:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 09:40:59 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	parent_no_cmd_redir(t_data *data)
 {
 	data->exec.pid[0] = fork();
 	if (data->exec.pid[0] == -1)
-		return (EXIT_FAILURE);
+		return (error_fork(data), EXIT_FAILURE);
 	if (data->exec.pid[0] == 0)
 	{
 		mode_signal(S_CHILD);
@@ -40,7 +40,7 @@ int	parent_simple_cmd(t_data *data)
 	{
 		data->exec.pid[0] = fork();
 		if (data->exec.pid[0] == -1)
-			return (EXIT_FAILURE);
+			return (error_fork(data), EXIT_FAILURE);
 		if (data->exec.pid[0] == 0)
 		{
 			mode_signal(S_CHILD);
@@ -63,7 +63,7 @@ int	parent_redir(t_data *data)
 	{
 		data->exec.pid[0] = fork();
 		if (data->exec.pid[0] == -1)
-			return (EXIT_FAILURE);
+			return (error_fork(data), EXIT_FAILURE);
 		if (data->exec.pid[0] == 0)
 		{
 			mode_signal(S_CHILD);
@@ -83,7 +83,7 @@ int	parent_pipe(t_data *data)
 	{
 		data->exec.pid[data->exec.id_child] = fork();
 		if (data->exec.pid[data->exec.id_child] == -1)
-			return (EXIT_FAILURE);
+			return (error_fork(data), EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
 		{
 			mode_signal(S_CHILD);
@@ -107,7 +107,7 @@ int	parent_pipe_redir(t_data *data)
 	{
 		data->exec.pid[data->exec.id_child] = fork();
 		if (data->exec.pid[data->exec.id_child] == -1)
-			return (EXIT_FAILURE);
+			return (error_fork(data), EXIT_FAILURE);
 		if (data->exec.pid[data->exec.id_child] == 0)
 		{
 			mode_signal(S_CHILD);

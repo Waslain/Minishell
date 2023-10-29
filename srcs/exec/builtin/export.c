@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:13:13 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 13:43:34 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/29 09:18:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	export(t_data *data)
 			ft_putstr_fd("minishell: export: `", STDERR);
 			ft_putstr_fd((char *)cmds[i], STDERR);
 			ft_putstr_fd("': not a valid identifier\n", STDERR);
-			return (EXIT_FAILURE);
+			data->exec.status = 1;
 		}
 		i++;
 	}

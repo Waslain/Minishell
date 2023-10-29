@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 13:57:13 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/29 09:15:42 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,17 @@ void	no_run(const char *cmd, t_data *data)
 	i = 0;
 	while (no_run[i])
 	{
-		if (ft_strcmp((char *)cmd, (char *)no_run[i]) == 0)
+		if (i == 0 && ft_strcmp((char *)cmd, (char *)no_run[i]) == 0)
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd((char *)cmd, STDERR_FILENO);
 			ft_putstr_fd(": command not found\n", STDERR_FILENO);
 			error_child(data, NULL, NULL, 127);
+		}
+		else
+		{
+			if (ft_strcmp((char *)cmd, (char *)no_run[i]) == 0)
+				error_child(data, NULL, NULL, 0);
 		}
 		i++;
 	}
