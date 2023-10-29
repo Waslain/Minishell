@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:34:33 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 13:49:43 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/29 13:18:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "library.h"
 # include "struct.h"
 
-# define INVALID_CHAR "!@#%&()+{}[]:;\\"
+# define INVALID_CHAR "!@#%&()+{}[];\\"
 
 int			is_white_space(char c);
 int			is_spec_char(char c);
@@ -43,7 +43,7 @@ void		free_for_expand_all(char *tmp, char *find, char *findval);
 int			check_quote(char *lex);
 void		print_error(char *str);
 void		print_delimiter_error(char *delimiter);
-int			chek_invalidchar(char *lex);
+int			check_invalidchar(char *lex);
 void		go_next_simplequote(char *lex, int *i);
 void		go_next_doublequote(char *lex, int *i);
 int			check_if_is_inside_dblquote(char *lex, int i);

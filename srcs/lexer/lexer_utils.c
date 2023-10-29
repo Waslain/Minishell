@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/28 11:45:04 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 13:42:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ char	**clear_lex(t_data *data, char *rl)
 	ft_free((void **)&rl);
 	if (check_quote(new_rl) == 0)
 		return (NULL);
-	if (chek_invalidchar(new_rl) == 0)
-		return (NULL);
+	if (check_invalidchar(new_rl) == 0)
+		return (ft_free((void **)&new_rl), NULL);
 	new_rl = expandlex(data, new_rl);
 	lex = lexer(data, new_rl);
 	if (!lex)

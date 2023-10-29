@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_lexer_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 16:55:57 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 15:30:50 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/29 13:31:25 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	is_invalid_char(char c)
 	return (false);
 }
 
-int	chek_invalidchar(char *lex)
+int	check_invalidchar(char *lex)
 {
 	int			i;
 
