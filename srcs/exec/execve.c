@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 09:15:42 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:38:12 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_tmp_and_path(char *tmp, char **path)
 }
 
 static
-void	no_run(const char *cmd, t_data *data)
+void	no_run(const char **cmds, t_data *data)
 {
 	const char	*no_run[] = {"minishell", "export", "cd", "unset", NULL};
 	int			i;
@@ -30,17 +30,21 @@ void	no_run(const char *cmd, t_data *data)
 	i = 0;
 	while (no_run[i])
 	{
-		if (i == 0 && ft_strcmp((char *)cmd, (char *)no_run[i]) == 0)
+		if (i == MINISHELL && !ft_strcmp((char *)cmds[0], (char *)no_run[i]))
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
-			ft_putstr_fd((char *)cmd, STDERR_FILENO);
+			ft_putstr_fd((char *)cmds[0], STDERR_FILENO);
 			ft_putstr_fd(": command not found\n", STDERR_FILENO);
 			error_child(data, NULL, NULL, 127);
 		}
 		else
 		{
-			if (ft_strcmp((char *)cmd, (char *)no_run[i]) == 0)
+			if (ft_strcmp((char *)cmds[0], (char *)no_run[i]) == 0)
+			{
+				if (i == EXPORT && count_args(cmds) > 1)
+					return ;
 				error_child(data, NULL, NULL, 0);
+			}
 		}
 		i++;
 	}
@@ -99,8 +103,8 @@ void	ft_execve_bis(t_data *data, const char **cmds, char **path, char *tmp)
 
 void	ft_execve(t_data *data)
 {
-	const int	n = data->exec.id_child;
-	const char	**cmds = (const char **)data->parser.cmds[n].cmd;
+	const int	id = data->exec.id_child;
+	const char	**cmds = (const char **)data->parser.cmds[id].cmd;
 	char		**path;
 	char		*tmp;
 
@@ -110,7 +114,7 @@ void	ft_execve(t_data *data)
 			return (destroy_data(data, DESTROY_ENV), exit(EXIT_FAILURE));
 		exit(0);
 	}
-	no_run(cmds[0], data);
+	no_run(cmds, data);
 	if (access(cmds[0], X_OK) != -1)
 	{
 		execve(cmds[0], (char *const *)cmds, data->envp);

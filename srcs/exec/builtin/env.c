@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/28 00:21:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:15:32 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	env(t_data *data, const int id)
 		ft_putendl_fd("env: too many arguments", STDERR);
 		return (EXIT_FAILURE);
 	}
-	i = 1;
+	i = 0;
 	while (data->envp[i])
 	{
 		ret = ft_putendl_fd(data->envp[i], STDOUT);

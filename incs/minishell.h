@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:01 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 12:04:30 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:33:22 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ enum e_destroy
 {
 	DESTROY_ENV,
 	DONT_DESTROY_ENV
+};
+
+enum e_no_run
+{
+	MINISHELL,
+	EXPORT,
+	CD,
+	UNSET
 };
 
 int		minishell_loop(t_data *data);

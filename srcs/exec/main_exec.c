@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 09:52:08 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:10:31 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,7 @@ void	exec(t_data *data)
 
 int	main_exec(t_data *data)
 {
-	static int	first = 1;
-	char		*tmp;
+	static bool	first = true;
 
 	if (init_exec(data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
@@ -124,14 +123,10 @@ int	main_exec(t_data *data)
 	}
 	if (first)
 	{
-		first = 0;
+		first = false;
 		update_shlvl(data);
 	}
-	tmp = ft_strdup("");
-	if (!tmp)
-		return (EXIT_FAILURE);
-	free(data->envp[0]);
-	data->envp[0] = tmp;
+	swap_env(data);
 	exec(data);
 	if (conv_env_struct_to_env(&data->envp, data->exec.envp_s, data->exec.size))
 		return (EXIT_FAILURE);

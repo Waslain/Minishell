@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:41 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 11:08:49 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:47:24 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,7 @@ int			count_nb_redir(t_lexer *lexer);
 
 void		free_array_size(void **array, int size);
 void		ft_strcpy(char *dest, char *src);
+void		ft_swap(void **a, void **b);
+void		swap_env(t_data *data);
+void		sort_envp(t_envp *envp, int size);
 #endif

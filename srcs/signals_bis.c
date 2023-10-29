@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:19:23 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 10:53:00 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 13:10:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	handler_quit(int signal)
 	ft_putstr_fd("Quit", STDERR);
 }
 
-void	handler_end_spe(int signal1)
+void	handler_end_spe(int signal)
 {
-	if (signal1 == SIGINT)
+	if (signal == SIGINT)
 	{
 		ft_putstr_fd("\n", STDERR);
 		ctrl_c_heredoc((t_heredoc){NULL, NULL, 0}, NULL, DESTROY);
@@ -61,7 +61,7 @@ void	handler_end(int signal)
 			block_signal(SIGINT);
 			g_signal = 2;
 			rl_on_new_line();
-			write(1, "\n", 1);
+			write(2, "\n", 1);
 			rl_replace_line("", 0);
 			rl_redisplay();
 			unblock_signal(SIGINT);

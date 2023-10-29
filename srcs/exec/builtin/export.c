@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:13:13 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 09:18:08 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:45:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	print_export(t_data *data)
 	const t_envp	*envp = data->exec.envp_s;
 
 	i = 1;
+	sort_envp((t_envp *)envp, data->exec.size);
 	while (i < data->exec.size)
 	{
 		ft_putstr_fd("export ", STDOUT);

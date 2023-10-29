@@ -6,7 +6,7 @@
 /*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/27 11:38:10 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/29 13:12:08 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ bool	is_in_child(t_data *data)
 		|| ft_strcmp(cmd, "pwd") == 0
 		|| ft_strcmp(cmd, "env") == 0
 		|| ft_strcmp(cmd, "exit") == 0
-		|| (ft_strcmp(cmd, "export") == 0 && id != 0 && data->nb_pipe != 0))
+		|| (ft_strcmp(cmd, "export") == 0 && data->nb_pipe > 0 \
+			&& count_args((const char **)data->parser.cmds[id].cmd) == 1))
 		return (true);
 	else
 		return (false);
