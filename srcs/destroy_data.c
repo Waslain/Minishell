@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/31 15:33:02 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:11:26 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	free_exec(t_exec *exec, int nb_pipe, int mode)
 		free(exec->envp_s);
 	}
 	if (exec->pipes)
-	{		
-		i = 0;
+	{
+		i = -1;
 		while (++i < nb_pipe)
 			free(exec->pipes[i]);
 		free(exec->pipes);

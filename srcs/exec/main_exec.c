@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/31 15:31:44 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:12:39 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ void	exec(t_data *data)
 	int	status;
 
 	status = EXIT_SUCCESS;
-	if (data->nb_cmd == 0 && data->nb_redir > 0)
+	if (data->nb_heredoc > 0 && data->nb_cmd == 0)
+		return (update_exit_code(data, data->exec.status));
+	else if (data->nb_cmd == 0 && data->nb_redir > 0)
 		status = parent_no_cmd_redir(data);
 	else if (data->nb_pipe == 0 && data->nb_redir == 0)
 		status = parent_simple_cmd(data);
