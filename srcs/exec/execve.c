@@ -6,7 +6,7 @@
 /*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/31 15:23:45 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:43:19 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,6 @@ void	ft_execve(t_data *data)
 	{
 		if (ft_strncmp("/", cmds[0], 1) == 0)
 			error_child(data, cmds[0], ": No such file or directory", 127);
-		error_child(data, cmds[0], ": Permission denied", 126);
+		error_child(data, cmds[0], ": command not found", 127);
 	}
 }

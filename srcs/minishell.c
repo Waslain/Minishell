@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:57:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 15:16:57 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:42:46 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,34 @@ int	update_exit_code_signal(t_data *data, int value)
 }
 
 static
-int	check_cmd_and_signal(char *cmd, t_data *data)
+int	check_cmd_and_signal(char *cmd, t_data *data, int *exit_code)
 {
+	if (g_signal == 2)
+		*exit_code = 130;
 	if (cmd == NULL)
 	{
 		ft_putstr_fd("exit\n", STDOUT);
 		free(cmd);
 		destroy_data(data, DESTROY_ENV);
 		rl_clear_history();
-		exit(0);
+		exit(*exit_code);
 	}
 	if (ft_strcmp(cmd, "\0") == 0)
 		return (EMPTY_COMMANDE);
 	if (all_is_white_space(cmd))
 		return (EMPTY_COMMANDE);
-	add_history(cmd);
-	mode_signal(S_PARENT);
 	if (g_signal == 2)
 	{
 		if (update_exit_code_signal(data, 130))
 			return (EXIT_MINISHELL);
 	}
+	add_history(cmd);
+	mode_signal(S_PARENT);
 	return (NO_ERROR);
 }
 
 static
-int	minishell(t_data *data, char *rl)
+int	minishell(t_data *data, char *rl, int *exit_code)
 {
 	char	**lex;
 
@@ -79,28 +81,30 @@ int	minishell(t_data *data, char *rl)
 	if (main_exec(data) == EXIT_FAILURE)
 		return (malloc_error(data), EXIT_MINISHELL);
 	unlink_all_heredoc(data);
+	*exit_code = data->exec.status;
 	free_lexer(lex);
 	return (destroy_data(data, DONT_DESTROY_ENV), 0);
 }
 
 int	minishell_loop(t_data *data)
 {
-	char	*ret;
-	int		return_check;
+	static int	exit_code = 0;
+	char		*ret;
+	int			return_check;
 
 	while (1)
 	{
 		g_signal = 0;
 		mode_signal(S_MAIN);
 		ret = readline(BCYN"Minishell $> "CRESET);
-		return_check = check_cmd_and_signal(ret, data);
+		return_check = check_cmd_and_signal(ret, data, &exit_code);
 		if (return_check == EMPTY_COMMANDE)
 		{
 			free(ret);
 			continue ;
 		}
 		mode_signal(S_PARENT);
-		if (minishell(data, ret) == EXIT_MINISHELL)
+		if (minishell(data, ret, &exit_code) == EXIT_MINISHELL)
 			return (destroy_data(data, DESTROY_ENV), rl_clear_history(), 1);
 	}
 	return (EXIT_SUCCESS);

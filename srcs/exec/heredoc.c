@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 10:36:51 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/28 12:04:30 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:35:02 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	run_heredoc(t_heredoc *heredoc, t_data *data)
 		pid = fork();
 		if (pid == 0)
 		{
+			rl_clear_history();
 			mode_signal(S_HEREDOC);
 			run_heredoc_child(heredoc[i], data);
 			exit(0);
