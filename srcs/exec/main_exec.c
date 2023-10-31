@@ -6,7 +6,7 @@
 /*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:17:55 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/31 15:07:20 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:31:44 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	init_exec(t_data *data)
 	data->exec.pid = ft_calloc(sizeof(pid_t), data->nb_pipe + 1);
 	if (!data->exec.pid)
 		return (EXIT_FAILURE);
-	if (data->nb_pipe > 0)
+	if (data->nb_cmd > 0 && data->nb_pipe > 0)
 	{
 		data->exec.pipes = ft_calloc(sizeof(int *), data->nb_pipe);
 		if (!data->exec.pipes)
 			return (EXIT_FAILURE);
 		i = -1;
-		while (data->nb_cmd > 0 && ++i < data->nb_pipe)
+		while (++i < data->nb_pipe)
 		{
 			data->exec.pipes[i] = ft_calloc(sizeof(int), 2);
 			if (!data->exec.pipes[i])
