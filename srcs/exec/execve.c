@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:50 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 15:53:47 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/10/31 15:23:45 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,32 +62,32 @@ char	**ft_get_path(t_data *data)
 }
 
 static
-void	ft_execve_bis(t_data *data, const char **cmds, char **path, char *tmp)
+void	ft_execve_bis(t_data *data, const char **cmds)
 {
 	static char	*cmd = NULL;
+	char		*tmp;
+	char		**path;
 	int			i;
 
-	if (path)
+	tmp = ft_strjoin("/", cmds[0]);
+	if (!tmp)
+		return (error_child(data, NULL, NULL, 1));
+	path = ft_get_path(data);
+	if (!path)
+		return (free(tmp), error_child(data, NULL, NULL, 1));
+	i = -1;
+	while (path[++i])
 	{
-		i = -1;
-		while (path[++i])
-		{
-			cmd = ft_strjoin(path[i], tmp);
-			if (!cmd)
-				return (free_tmp_and_path(tmp, path), malloc_error(data));
-			errno = 0;
-			if (access(cmd, X_OK) != -1)
-				break ;
-			ft_free((void **)&cmd);
-		}
-		free_tmp_and_path(tmp, path);
-	}
-	if (!cmd)
-	{
-		cmd = ft_strdup(cmds[0]);
+		cmd = ft_strjoin(path[i], tmp);
 		if (!cmd)
 			return (free_tmp_and_path(tmp, path), malloc_error(data));
+		if (access(cmd, X_OK) != -1)
+			break ;
+		ft_free((void **)&cmd);
 	}
+	free_tmp_and_path(tmp, path);
+	if (!cmd)
+		return ;
 	return (execve(cmd, (char *const *)cmds, data->envp), free(cmd));
 }
 
@@ -95,8 +95,6 @@ void	ft_execve(t_data *data)
 {
 	const int	id = data->exec.id_child;
 	const char	**cmds = (const char **)data->parser.cmds[id].cmd;
-	char		**path;
-	char		*tmp;
 
 	if (is_in_child(data))
 	{
@@ -105,17 +103,17 @@ void	ft_execve(t_data *data)
 		exit(0);
 	}
 	no_run(cmds, data);
+	ft_execve_bis(data, cmds);
 	if (access(cmds[0], X_OK) != -1)
 	{
-		execve(cmds[0], (char *const *)cmds, data->envp);
+		if (ft_strncmp(cmds[0], "./", 2) == 0 || ft_strchr(cmds[0], '/') != 0)
+			execve(cmds[0], (char *const *)cmds, data->envp);
 		error_child(data, cmds[0], ": command not found", 127);
 	}
-	tmp = ft_strjoin("/", cmds[0]);
-	if (!tmp)
-		return (error_child(data, NULL, NULL, 1));
-	path = ft_get_path(data);
-	if (!path)
-		return (free(tmp), error_child(data, NULL, NULL, 1));
-	ft_execve_bis(data, cmds, path, tmp);
-	error_child(data, cmds[0], ": command not found", 127);
+	else
+	{
+		if (ft_strncmp("/", cmds[0], 1) == 0)
+			error_child(data, cmds[0], ": No such file or directory", 127);
+		error_child(data, cmds[0], ": Permission denied", 126);
+	}
 }
