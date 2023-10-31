@@ -6,7 +6,7 @@
 /*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 10:11:46 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/31 15:30:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:33:02 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_parser(t_parser *parser, int nb_cmd)
 	}
 }
 
-void	free_exec(t_exec *exec, int nb_pipe, int nb_cmd, int mode)
+void	free_exec(t_exec *exec, int nb_pipe, int mode)
 {
 	int	i;
 
@@ -94,7 +94,7 @@ void	destroy_data(t_data *data, int mode)
 	if (data->parser.cmds || data->parser.redir)
 		free_parser(&data->parser, data->nb_cmd);
 	if (data->exec.pid || data->exec.envp_s || data->exec.pipes)
-		free_exec(&data->exec, data->nb_pipe, data->nb_cmd, mode);
+		free_exec(&data->exec, data->nb_pipe, mode);
 	if (data->to_free && mode == DESTROY_ENV)
 		free_array(data->to_free);
 	if (mode == DONT_DESTROY_ENV)
