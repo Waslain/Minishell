@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:34:33 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/11/01 12:13:13 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/11/02 21:50:19 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char		*get_env_var(t_data *data, char *find);
 char		*expandlex(t_data *data, char *lex);
 char		*ft_strjoinn(char const *s1, char const *s2, int n);
 char		*ft_strndup(const char *src, int x);
-int			skip_to_dollars(char *lex);
+int			skip_to_dollars(char *lex, bool *inquote);
 void		free_for_expand(char *find, char *findval);
 void		free_for_expand_all(char *tmp, char *find, char *findval);
 int			check_quote(char *lex);
@@ -46,7 +46,8 @@ void		print_delimiter_error(char *delimiter);
 int			check_invalidchar(char *lex);
 void		go_next_simplequote(char *lex, int *i);
 void		go_next_doublequote(char *lex, int *i);
-int			check_if_is_inside_dblquote(char *lex, int i);
-int			check_nextquote(char *lex);
+void		set_inquote_to_false(int *i, bool *inquote);
+void		set_inquote_to_true(int *i, bool *inquote);
+char		*if_not_dollars_exec(char *new_lex, char *lex, int i, int x);
 
 #endif

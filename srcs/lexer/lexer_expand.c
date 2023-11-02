@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/11/01 12:29:38 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/11/02 21:49:19 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,12 @@ char	*expand_if_dollars_exec(t_data *data, char *lex, char *new_lex, int *i)
 char	*expandlex(t_data *data, char *lex)
 {
 	int		i;
-	char	*tmp;
+	int		x;
 	char	*new_lex;
+	bool	inquote;
 
-	i = skip_to_dollars(lex) - 1;
+	inquote = false;
+	i = skip_to_dollars(lex, &inquote) - 1;
 	new_lex = ft_strndup(lex, i++);
 	if (!new_lex)
 		return (malloc_error(data), NULL);
@@ -126,13 +128,11 @@ char	*expandlex(t_data *data, char *lex)
 			new_lex = expand_if_dollars_exec(data, lex, new_lex, &i);
 		else
 		{
-			tmp = new_lex;
-			new_lex = ft_strjoinn
-				(new_lex, &lex[i], skip_to_dollars(&lex[i]) - 1);
+			x = skip_to_dollars(&lex[i], &inquote);
+			new_lex = if_not_dollars_exec(new_lex, lex, i, x);
 			if (!new_lex)
-				return (free(tmp), malloc_error(data), NULL);
-			free(tmp);
-			i = i + skip_to_dollars(&lex[i]);
+				return (malloc_error(data), NULL);
+			i = i + x;
 		}
 	}
 	return (ft_free((void **)&lex), new_lex);

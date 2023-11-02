@@ -6,7 +6,7 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 13:06:03 by fduzant           #+#    #+#             */
-/*   Updated: 2023/11/01 12:12:56 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/11/02 21:49:37 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,40 +26,26 @@ void	go_next_doublequote(char *lex, int *i)
 	(*i)++;
 }
 
-int	check_if_is_inside_dblquote(char *lex, int i)
+void	set_inquote_to_false(int *i, bool *inquote)
 {
-	int	nb_quote;
-	int	x;
-
-	nb_quote = 0;
-	x = 0;
-	while (x < i)
-	{
-		if (lex[x] == '"')
-			nb_quote++;
-		x++;
-	}
-	if (nb_quote % 2 == 0)
-		return (0);
-	else
-		return (1);
+	*inquote = false;
+	(*i)++;
 }
 
-int	check_nextquote(char *lex)
+void	set_inquote_to_true(int *i, bool *inquote)
 {
-	int	nb_quote;
-	int	i;
+	*inquote = true;
+	(*i)++;
+}
 
-	nb_quote = 0;
-	i = 0;
-	while (lex[i] != '\0')
-	{
-		if (lex[i] == '\'')
-			nb_quote++;
-		i++;
-	}
-	if (nb_quote > 0)
-		return (0);
-	else
-		return (1);
+char	*if_not_dollars_exec(char *new_lex, char *lex, int i, int x)
+{
+	char	*tmp;
+
+	tmp = new_lex;
+	new_lex = ft_strjoinn(new_lex, &lex[i], x - 1);
+	if (!new_lex)
+		return (free(tmp), NULL);
+	free(tmp);
+	return (new_lex);
 }

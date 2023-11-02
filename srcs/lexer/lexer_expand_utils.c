@@ -6,24 +6,25 @@
 /*   By: fduzant <fduzant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/11/01 12:27:15 by fduzant          ###   ########.fr       */
+/*   Updated: 2023/11/02 21:37:04 by fduzant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	skip_to_dollars(char *lex)
+int	skip_to_dollars(char *lex, bool *inquote)
 {
 	int	i;
 
 	i = 0;
 	while (lex[i])
 	{
-		if (lex[i] == '\'' && check_if_is_inside_dblquote(lex, i) == 0 \
-		&& check_nextquote(&lex[i + 1]) == 0)
-		{
+		if (lex[i] == '"' && *inquote == false)
+			set_inquote_to_true(&i, inquote);
+		else if (lex[i] == '"' && *inquote == true)
+			set_inquote_to_false(&i, inquote);
+		if (lex[i] == '\'' && *inquote == false)
 			go_next_simplequote(lex, &i);
-		}
 		else if (lex[i] != '$')
 			i++;
 		else if (lex[i] == '$' && !ft_isalphanum(lex[i + 1]) \
