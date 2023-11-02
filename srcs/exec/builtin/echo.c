@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 11:26:16 by fduzant           #+#    #+#             */
-/*   Updated: 2023/10/26 13:09:03 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:49:56 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	insert_newline(bool endl, t_data *data)
 	{
 		ret = ft_putchar_fd('\n', STDOUT);
 		if (ret == -1)
-			return (error_child(data, "echo", ERROR_WRITE, 1));
+			return (error_child(data, "echo: ", ERROR_WRITE, 1));
 	}
 }
 
@@ -59,12 +59,12 @@ int	echo(t_data *data, const int id)
 	{
 		ret = ft_putstr_fd((char *)cmd[i], STDOUT);
 		if (ret == -1)
-			return (error_child(data, "echo", ERROR_WRITE, 1), EXIT_FAILURE);
+			return (error_child(data, "echo: ", ERROR_WRITE, 1), EXIT_FAILURE);
 		if (cmd[i + 1])
 		{
 			ret = ft_putstr_fd(" ", STDOUT);
 			if (ret == -1)
-				return (error_child(data, "echo", ERROR_WRITE, 1), 1);
+				return (error_child(data, "echo: ", ERROR_WRITE, 1), 1);
 		}
 		i++;
 	}
