@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:15:19 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/26 12:17:27 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/11/02 05:25:36 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,18 @@
 
 void	child_no_cmd_redir(t_data *data)
 {
-	int	fd_in;
-	int	fd_out;
-	int	i;
+	const int	id = data->exec.id_child;
+	int			fd_in;
+	int			fd_out;
 
-	i = 0;
-	while (i < data->parser.size_redir)
-	{
-		fd_in = open_infile(data->parser.redir[i].files, \
-					data->parser.redir[i].nb_files, data);
-		fd_out = open_outfile(data->parser.redir[i].files, \
-					data->parser.redir[i].nb_files, data);
-		if (fd_in != NO_FILE)
-			ft_close(&fd_in);
-		if (fd_out != NO_FILE)
-			ft_close(&fd_out);
-		i++;
-	}
+	fd_in = open_infile(data->parser.redir[id].files, \
+				data->parser.redir[id].nb_files, data);
+	fd_out = open_outfile(data->parser.redir[id].files, \
+				data->parser.redir[id].nb_files, data);
+	if (fd_in != NO_FILE)
+		ft_close(&fd_in);
+	if (fd_out != NO_FILE)
+		ft_close(&fd_out);
 	destroy_data(data, DESTROY_ENV);
 	exit(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:33:15 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 09:47:19 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/11/02 05:30:28 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	error_child(t_data *data, const char *arg, const char *msg, int val)
 {
+	char	*tmp;
+
 	if (arg && !msg)
 	{
-		ft_putstr_fd("minishell: ", STDERR);
-		perror(arg);
+		tmp = ft_strjoin("minishell: ", (char *)arg);
+		perror(tmp);
+		free(tmp);
 	}
 	else if (arg && msg)
 	{

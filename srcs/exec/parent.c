@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parent.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouhlel <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: obouhlel <obouhlel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 09:01:28 by obouhlel          #+#    #+#             */
-/*   Updated: 2023/10/29 09:40:59 by obouhlel         ###   ########.fr       */
+/*   Updated: 2023/11/02 05:27:34 by obouhlel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,23 @@
 
 int	parent_no_cmd_redir(t_data *data)
 {
-	data->exec.pid[0] = fork();
-	if (data->exec.pid[0] == -1)
-		return (error_fork(data), EXIT_FAILURE);
-	if (data->exec.pid[0] == 0)
+	int	i;	
+
+	while (data->exec.id_child < (data->nb_pipe + 1))
 	{
-		mode_signal(S_CHILD);
-		child_no_cmd_redir(data);
+		data->exec.pid[data->exec.id_child] = fork();
+		if (data->exec.pid[data->exec.id_child] == -1)
+			return (error_fork(data), EXIT_FAILURE);
+		if (data->exec.pid[data->exec.id_child] == 0)
+		{
+			mode_signal(S_CHILD);
+			child_no_cmd_redir(data);
+		}
+		data->exec.id_child++;
 	}
-	waitpid(data->exec.pid[0], &data->exec.status, 0);
+	i = -1;
+	while (++i < (data->nb_pipe + 1))
+		waitpid(data->exec.pid[i], &data->exec.status, WUNTRACED);
 	return (EXIT_SUCCESS);
 }
 
