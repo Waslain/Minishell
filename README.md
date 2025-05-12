@@ -1,5 +1,4 @@
 # Minishell
-aled
 Votre shell doit :
 • Afficher un prompt en l’attente d’une nouvelle commande.
 • Posséder un historique fonctionnel.
