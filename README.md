@@ -1,46 +1,57 @@
 # Minishell
-Votre shell doit :
-• Afficher un prompt en l’attente d’une nouvelle commande.
-• Posséder un historique fonctionnel.
-• Chercher et lancer le bon exécutable (en se basant sur la variable d’environnement
-PATH, ou sur un chemin relatif ou absolu).
-• Ne pas utiliser plus d’une variable globale pour indiquer un signal reçu. Pensez
-aux implications : Cette approche permet de s’assurer que la gestion du signal ne
-puisse accéder à votre structure de données principale.
-Faites attention. Cette variable globale ne peut communiquer aucune
-autre information ou permettre l’accès à votre structure de données
-principale autre que la valeur d’un signal reçu. Par conséquent il
-est interdit d’utiliser des structures en tant que globale.
 
-• Ne pas interpréter de quotes (guillemets) non fermés ou de caractères spéciaux non
-demandés dans le sujet, tels que \ (le backslash) ou ; (le point-virgule).
-• Gérer ’ (single quote) qui doit empêcher le shell d’interpréter les méta-caractères
-présents dans la séquence entre guillemets.
-• Gérer " (double quote) qui doit empêcher le shell d’interpréter les méta-caractères
-présents dans la séquence entre guillemets sauf le $ (signe dollar).
+## Project Overview
+Minishell is a simplified shell implementation that replicates the behavior of a Unix shell. It supports command execution, built-in commands, redirections, pipes, and signal handling.
 
-• Implémenter les redirections :
-◦ < doit rediriger l’entrée.
-◦ > doit rediriger la sortie.
-◦ << doit recevoir un délimiteur et lire l’input donné jusqu’à rencontrer une ligne
-contenant le délimiteur. Cependant, l’historique n’a pas à être mis à jour !
-◦ >> doit rediriger la sortie en mode append.
-• Implémenter les pipes (caractère |). La sortie de chaque commande de la pipeline
-est connectée à l’entrée de la commande suivante grâce à un pipe.
-• Gérer les variables d’environnement (un $ suivi d’une séquence de caractères)
-qui doivent être substituées par leur contenu.
-• Gérer $? qui doit être substitué par le statut de sortie de la dernière pipeline
-exécutée au premier plan.
-• Gérer ctrl-C, ctrl-D et ctrl-\ qui doivent fonctionner comme dans bash.
-• En mode interactif :
-◦ ctrl-C affiche un nouveau prompt sur une nouvelle ligne.
-◦ ctrl-D quitte le shell.
-◦ ctrl-\ ne fait rien.
-• Votre shell doit implémenter les builtins suivantes :
-◦ echo et l’option -n
-◦ cd uniquement avec un chemin relatif ou absolu
-◦ pwd sans aucune option
-◦ export sans aucune option
-◦ unset sans aucune option
-◦ env sans aucune option ni argument
-◦ exit sans aucune option
+## Features
+### General Requirements
+- **Prompt Display**: Displays a prompt while waiting for a new command.
+- **Command Execution**: Searches and executes the correct executable based on the `PATH` environment variable, or using a relative or absolute path.
+- **History**: Maintains a functional command history.
+
+### Signal Handling
+- **Global Variable Restriction**: Only one global variable is allowed to indicate a received signal. This ensures that signal handling does not access the main data structure.
+  - The global variable cannot communicate any other information or provide access to the main data structure.
+
+### Quoting Rules
+- **Single Quotes (`'`)**: Prevents the shell from interpreting meta-characters within the quoted sequence.
+- **Double Quotes (`"`)**: Prevents the shell from interpreting meta-characters within the quoted sequence, except for the `$` (dollar sign).
+- **Unclosed Quotes**: Does not interpret unclosed quotes or unsupported special characters like `\` (backslash) or `;` (semicolon).
+
+### Redirections
+- `<` : Redirects input.
+- `>` : Redirects output.
+- `<<` : Reads input until a specified delimiter is encountered (heredoc). The history is not updated during this process.
+- `>>` : Redirects output in append mode.
+
+### Pipes
+- Implements pipes (`|`) to connect the output of one command to the input of the next.
+
+### Environment Variables
+- Supports substitution of environment variables (e.g., `$VAR`).
+- Handles the special variable `$?`, which is replaced by the exit status of the last executed pipeline.
+
+### Signal Behavior
+- **Interactive Mode**:
+  - `Ctrl-C`: Displays a new prompt on a new line.
+  - `Ctrl-D`: Exits the shell.
+  - `Ctrl-\`: Does nothing.
+- Signal handling mimics the behavior of `bash`.
+
+### Built-in Commands
+The following built-in commands are implemented:
+- **`echo`**: Supports the `-n` option.
+- **`cd`**: Works with relative or absolute paths.
+- **`pwd`**: Prints the current working directory (no options supported).
+- **`export`**: Sets environment variables (no options supported).
+- **`unset`**: Unsets environment variables (no options supported).
+- **`env`**: Displays the environment variables (no options or arguments supported).
+- **`exit`**: Exits the shell (no options supported).
+
+## Usage
+To use Minishell, compile the project using the provided `Makefile` and execute the resulting binary. The shell will display a prompt where you can enter commands.
+
+## Compilation
+Run the following command to compile the project:
+```bash
+make
